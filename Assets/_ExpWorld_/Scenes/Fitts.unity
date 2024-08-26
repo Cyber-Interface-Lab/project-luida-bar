@@ -390,13 +390,15 @@ PrefabInstance:
         \"customDataUploaded\");\n}\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n   
         if (res == null) {\n        $.log(\"callExternal ERROR: \" + err);\n       
         return;\n    }\n\n    if (meta === \"customDataUploaded\") {\n        $.log(\"Custom
-        recorded data uploaded\");\n    }\n});\r\nfunction calculateData () {\n   
-        let fileName = \"spentTimeByTarget\";\n    \n    let x = $.getStateCompat(\"owner\",
-        \"x\", \"integer\");\n    let y = $.getStateCompat(\"owner\", \"y\", \"integer\");\n   
-        let z = parseInt(currentConditions[\"depth\"]);\n    let s = parseInt(currentConditions[\"size\"]);\n   
-        let t = $.getStateCompat(\"owner\", \"spentTime\", \"float\");\n    \n   
-        let recordedSpentTimes = $.state.customData[fileName] || [];\n    recordedSpentTimes.push({
-        x, y, z, s, t });\n    return { ...$.state.customData, [fileName]: recordedSpentTimes
+        recorded data uploaded\");\n    }\n});\r\nfunction calculateData () {\n 
+        let fileName = \"spentTime\";\n\n  if ($.state.customData[fileName].length
+        > 20) {\n    fileName = fileName + \"01\";\n    uploadData();\n    $.state.customData
+        = { ...$.state.customData, [fileName]: [] };\n  }\n\n  let x = $.getStateCompat(\"owner\",
+        \"x\", \"integer\");\n  let y = $.getStateCompat(\"owner\", \"y\", \"integer\");\n 
+        let z = parseInt($.state.currentCondition[\"d\"]);\n  let s = parseInt($.state.currentCondition[\"s\"]);\n 
+        let t = $.getStateCompat(\"owner\", \"spentTime\", \"float\").toFixed(4);\n 
+        \n  let recordedSpentTimes = $.state.customData[fileName] || [];\n  recordedSpentTimes.push({
+        x, y, z, s, t });\n  return { ...$.state.customData, [fileName]: recordedSpentTimes
         };\n}"
       objectReference: {fileID: 0}
     - target: {fileID: 5964733846762761527, guid: 964d6187f971a8f43b4ee67279f1ef90,
@@ -600,7 +602,7 @@ MonoBehaviour:
   globalGimmickKey:
     key:
       target: 0
-      key: state_entered
+      key: state_enter
     item: {fileID: 994100283}
   logic:
     statements:
@@ -1131,6 +1133,46 @@ MonoBehaviour:
         targetState:
           target: 2
           key: exp_recordCustomData
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 2
+          key: state_triggerTransition
           parameterType: 0
         expression:
           type: 0
@@ -2508,6 +2550,11 @@ PrefabInstance:
         recorded!\");\n        $.sendSignalCompat(\"this\", \"state_triggerTransition\");\n       
         reset();\n    }\n});"
       objectReference: {fileID: 0}
+    - target: {fileID: 616927346609269576, guid: 94dc2c46b2e66e340ba5848adad0ebab,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 616927346656920196, guid: 94dc2c46b2e66e340ba5848adad0ebab,
         type: 3}
       propertyPath: m_IsActive
@@ -2944,10 +2991,10 @@ PrefabInstance:
         type: 3}
       propertyPath: sourceCode
       value: "const trialsCountForEachUniqueCondition = 1;\nconst within_subjects_variables
-        = [\n    { name: \"xyDistIndex\", values: [\"1\", \"4\"], isRandom: true
-        },\n    { name: \"depth\", values: [\"-25\", \"25\"], isRandom: true },\n   
-        { name: \"size\", values: [\"2\", \"8\", \"16\", \"48\"], isRandom: true
-        },\n];\nconst between_subjects_variables = [\n];\n\r\nconst within_subjects_variables_dummy
+        = [\n    { name: \"xy\", values: [\"1\", \"2\", \"3\", \"4\"], isRandom:
+        true },\n    { name: \"d\", values: [\"-25\", \"0\", \"25\"], isRandom: true
+        },\n    { name: \"s\", values: [\"2\", \"8\", \"16\"], isRandom: true },\n];\nconst
+        between_subjects_variables = [\n];\n\r\nconst within_subjects_variables_dummy
         = [\n    { name: \"color\", values: [\"R\", \"G\", \"B\"], isRandom: false
         },\n    { name: \"size\", values: [5, 10, 15], isRandom: true },\n];\n\nconst
         between_subjects_variables_dummy = [\n    { name: \"method\", values: [\"old\",

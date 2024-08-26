@@ -1,3 +1,11 @@
+const xyCoordCandidates = [
+    [{ x: 10, y: 10 }, { x: -10, y: 10 }, { x: 10 , y: -10 }, { x: -10, y: -10 }],
+    [{ x: 30, y: 0  }, { x: 0  , y: 30 }, { x: -30, y: 0   }, { x: 0  , y: -30 }],
+    [{ x: 30, y: 30 }, { x: -30, y: 30 }, { x: 30 , y: -30 }, { x: -30, y: -30 }],
+    [{ x: 50, y: 0  }, { x: 0  , y: 50 }, { x: -50, y: 0   }, { x: 0  , y: -50 }],
+    [{ x: 50, y: 50 }, { x: -50, y: 50 }, { x: 50 , y: -50 }, { x: -50, y: -50 }]
+];
+
 $.onStart(() => {
     $.getItemsNear($.getPosition(), 0.1).forEach(item => {
         if (item.id === "5570182165721890090") { // ConditionManager
@@ -5,18 +13,12 @@ $.onStart(() => {
         }
     });
 
-    $.state.xyCoords = [
-        shuffleArray([{ x: 10, y: 10 }, { x: -10, y: 10 }, { x: 10 , y: -10 }, { x: -10, y: -10 }]),
-        shuffleArray([{ x: 30, y: 0  }, { x: 0  , y: 30 }, { x: -30, y: 0   }, { x: 0  , y: -30 }]),
-        shuffleArray([{ x: 30, y: 30 }, { x: -30, y: 30 }, { x: 30 , y: -30 }, { x: -30, y: -30 }]),
-        shuffleArray([{ x: 50, y: 0  }, { x: 0  , y: 50 }, { x: -50, y: 0   }, { x: 0  , y: -50 }]),
-        shuffleArray([{ x: 50, y: 50 }, { x: -50, y: 50 }, { x: 50 , y: -50 }, { x: -50, y: -50 }])
-    ];
     [2, 8, 16, 48].map(size => $.subNode("Target_" + size)).forEach(target => {
         target.setEnabled(false);
     });
     $.state.timer = 0;
     $.state.isTaskStarted = false;
+    $.state.size = "";
 })
 
 $.onUpdate((deltaTime) => {
@@ -38,19 +40,16 @@ $.onReceive((messageType, arg, sender) => {
 
 // Execution when condition changed
 function onConditionChanged () {
-    let xyCoords = $.state.xyCoords;
-    let xyCoord = xyCoords[parseInt(currentConditions["xyDistIndex"])].pop();
-    $.state.xyCoords = xyCoords;
+    let xyCoord = xyCoordCandidates[parseInt($.state.currentCondition["xy"])][Math.floor(Math.random() * 4)];
     $.setStateCompat("owner", "x", xyCoord.x);
     $.setStateCompat("owner", "y", xyCoord.y);
     let x = xyCoord.x / 300;
     let y = xyCoord.y / 300;
-    let z = parseInt(currentConditions["depth"]) / 300;
-    let size = currentConditions["size"];
+    let z = parseInt($.state.currentCondition["d"]) / 300;
+    $.state.targetName = "Target_" + $.state.currentCondition["s"];
 
     $.subNode("Reset").setEnabled(true);
-    $.state.currentTarget = $.subNode("Target_" + size);
-    $.state.currentTarget.setPosition($.subNode("Reset").getPosition().clone().add(new Vector3(x, y, z)));
+    $.subNode($.state.targetName).setPosition($.subNode("Reset").getPosition().clone().add(new Vector3(x, y, z)));
 }
 
 // Real-time execution depending on current condition
@@ -60,6 +59,7 @@ function tick (deltaTime) {
     }
 
     if ($.getStateCompat("this", "isBlockSelected", "boolean")) {
+        $.setStateCompat("this", "isBlockSelected", false);
         if ($.state.isTaskStarted) {
             onTargetSelected();
         } else {
@@ -70,16 +70,14 @@ function tick (deltaTime) {
 
 function Reset() {
     $.subNode("Reset").setEnabled(false);
-    $.log($.state.currentTarget.name);
-    $.log($.state.currentTarget.getPosition());
-    $.state.currentTarget.setEnabled(true);
+    $.subNode($.state.targetName).setEnabled(true);
     $.state.timer = 0;
     $.state.isTaskStarted = true;
 }
 
 function onTargetSelected() {
     $.state.isTaskStarted = false;
-    $.state.currentTarget.setEnabled(false);
+    $.subNode($.state.targetName).setEnabled(false);
     $.setStateCompat("owner", "spentTime", $.state.timer);
     $.sendSignalCompat("this", "recordSpentTime");
 }
@@ -90,4 +88,12 @@ function shuffleArray(array) {
         [array[i], array[j]] = [array[j], array[i]];
     }
     return array;
+}
+
+function extendArray(array, times) {
+    let extendedArray = [];
+    for (let i = 0; i < times; i++) {
+        extendedArray = extendedArray.concat(array);
+    }
+    return extendedArray;
 }
