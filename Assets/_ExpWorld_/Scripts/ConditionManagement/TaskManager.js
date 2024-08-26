@@ -48,6 +48,10 @@ function onConditionChanged () {
     let z = parseInt($.state.currentCondition["d"]) / 300;
     $.state.targetName = "Target_" + $.state.currentCondition["s"];
 
+    if (!$.state.player) {
+        $.state.player = $.getPlayersNear($.getPosition(), Infinity)[0];
+        $.subNode("Reset").setPosition($.state.player.getHumanoidBonePosition(HumanoidBone.Head).clone().add(new Vector3(0, 0, 0.5)));
+    }
     $.subNode("Reset").setEnabled(true);
     $.subNode($.state.targetName).setPosition($.subNode("Reset").getPosition().clone().add(new Vector3(x, y, z)));
 }
@@ -63,12 +67,12 @@ function tick (deltaTime) {
         if ($.state.isTaskStarted) {
             onTargetSelected();
         } else {
-            Reset();
+            reset();
         }
     }
 }
 
-function Reset() {
+function reset() {
     $.subNode("Reset").setEnabled(false);
     $.subNode($.state.targetName).setEnabled(true);
     $.state.timer = 0;

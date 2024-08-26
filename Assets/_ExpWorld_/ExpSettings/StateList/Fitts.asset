@@ -28,7 +28,7 @@ MonoBehaviour:
     RepeatDestStateName: Start
     RepeatCount: 1
   - StateName: Instruction
-    DestStateName: Preparation
+    DestStateName: Practice - Task
     HasExitTime: 0
     ExitTime: 0
     IsRepeated: 0
@@ -54,7 +54,7 @@ MonoBehaviour:
     ExitTime: 1
     IsRepeated: 1
     RepeatDestStateName: Practice - Task
-    RepeatCount: 10
+    RepeatCount: 3
   - StateName: Questionnaire (pre-exp)
     DestStateName: Preparation
     HasExitTime: 0
