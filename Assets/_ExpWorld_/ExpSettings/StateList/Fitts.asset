@@ -28,7 +28,7 @@ MonoBehaviour:
     RepeatDestStateName: Start
     RepeatCount: 1
   - StateName: Instruction
-    DestStateName: Practice - Task
+    DestStateName: Preparation
     HasExitTime: 0
     ExitTime: 0
     IsRepeated: 0
