@@ -58,8 +58,8 @@ function tick (deltaTime) {
         $.state.timer = $.state.timer + deltaTime;
     }
 
-    if ($.getStateCompat("this", "isBlockSelected", "boolean")) {
-        $.setStateCompat("this", "isBlockSelected", false);
+    if ($.getStateCompat("this", "isTargetSelected", "boolean")) {
+        $.setStateCompat("this", "isTargetSelected", false);
         if ($.state.isTaskStarted) {
             onTargetSelected();
         } else {

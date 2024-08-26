@@ -1,8 +1,7 @@
 function calculateData () {
   let fileName = "spentTime";
 
-  if ($.state.customData[fileName].length > 20) {
-    fileName = fileName + "01";
+  if ($.state.customData[fileName] && $.state.customData[fileName].length >= 10) {
     uploadData();
     $.state.customData = { ...$.state.customData, [fileName]: [] };
   }

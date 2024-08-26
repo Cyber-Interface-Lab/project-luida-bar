@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17412685, g: 0.21774654, b: 0.2999423, a: 1}
+  m_IndirectSpecularColor: {r: 0.17412737, g: 0.21774727, b: 0.29994345, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -367,39 +367,41 @@ PrefabInstance:
     - target: {fileID: 5964733846762761526, guid: 964d6187f971a8f43b4ee67279f1ef90,
         type: 3}
       propertyPath: sourceCode
-      value: "const expID = \"WgPr6bo2vE\";\n\r\n$.onStart(() => {\n    $.state.customData
-        = {};\n    $.getItemsNear($.getPosition(), 0.1).forEach(item => {\n       
-        if (item.id === \"5570182165721890090\") { // ConditionManager\n           
-        item.send(\"exp_conditionDependentObject\", true);\n        }\n    });\n})\n\n$.onUpdate(()
-        => {\n    if ($.getStateCompat(\"this\", \"exp_conditionChanged\", \"boolean\"))
-        {\n        $.setStateCompat(\"this\", \"exp_conditionChanged\", false);\n       
+      value: "const expID = \"WgPr6bo2vE\";\r\n\r\n$.onStart(() => {\r\n    $.state.customData
+        = {};\r\n    $.getItemsNear($.getPosition(), 0.1).forEach(item => {\r\n       
+        if (item.id === \"5570182165721890090\") { // ConditionManager\r\n           
+        item.send(\"exp_conditionDependentObject\", true);\r\n        }\r\n    });\r\n})\r\n\r\n$.onUpdate(()
+        => {\r\n    if ($.getStateCompat(\"this\", \"exp_conditionChanged\", \"boolean\"))
+        {\r\n        $.setStateCompat(\"this\", \"exp_conditionChanged\", false);\r\n       
         $.state.currentCondition = $.state.conditions[$.getStateCompat(\"global\",
-        \"exp_conditionID\", \"integer\")];\n    }\n\n    if ($.getStateCompat(\"this\",
-        \"exp_recordCustomData\", \"boolean\")) {\n        $.setStateCompat(\"this\",
-        \"exp_recordCustomData\", false);\n        recordData();\n    }\n    if ($.getStateCompat(\"this\",
-        \"exp_uploadCustomData\", \"boolean\")) {\n        $.setStateCompat(\"this\",
-        \"exp_uploadCustomData\", false);\n        uploadData();\n    }\n})\n\n$.onReceive((messageType,
-        arg, sender) => {\n    if (messageType === \"exp_updateConditions\") {\n       
-        $.state.conditions = arg;\n        $.setStateCompat(\"this\", \"exp_conditionChanged\",
-        true);\n    }\n})\n\nfunction recordData () {\n    $.state.customData = calculateData();\n}\n\nfunction
-        uploadData () {\n    $.log(\"Upload custom data: \" + JSON.stringify($.state.customData));\n   
-        let request = {\n        type: \"uploadCustomData\",\n        dataByFileName:
-        JSON.stringify($.state.customData),\n        eID: expID || \"0\",\n       
+        \"exp_conditionID\", \"integer\")];\r\n    }\r\n\r\n    if ($.getStateCompat(\"this\",
+        \"exp_recordCustomData\", \"boolean\")) {\r\n        $.setStateCompat(\"this\",
+        \"exp_recordCustomData\", false);\r\n        recordData();\r\n    }\r\n   
+        if ($.getStateCompat(\"this\", \"exp_uploadCustomData\", \"boolean\")) {\r\n       
+        $.setStateCompat(\"this\", \"exp_uploadCustomData\", false);\r\n        uploadData();\r\n   
+        }\r\n})\r\n\r\n$.onReceive((messageType, arg, sender) => {\r\n    if (messageType
+        === \"exp_updateConditions\") {\r\n        $.state.conditions = arg;\r\n       
+        $.setStateCompat(\"this\", \"exp_conditionChanged\", true);\r\n    }\r\n})\r\n\r\nfunction
+        recordData () {\r\n    $.state.customData = calculateData();\r\n}\r\n\r\nfunction
+        uploadData () {\r\n    $.log(\"Upload custom data: \" + JSON.stringify($.state.customData));\r\n   
+        let request = {\r\n        type: \"uploadCustomData\",\r\n        dataByFileName:
+        JSON.stringify($.state.customData),\r\n        eID: expID || \"0\",\r\n       
         pID: $.getPlayersNear($.getPosition().clone(), 100)[0].idfc || \"\" // TODO:
-        retrieve idfc through cluster Player Script\n    };\n    $.callExternal(JSON.stringify(request),
-        \"customDataUploaded\");\n}\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n   
-        if (res == null) {\n        $.log(\"callExternal ERROR: \" + err);\n       
-        return;\n    }\n\n    if (meta === \"customDataUploaded\") {\n        $.log(\"Custom
-        recorded data uploaded\");\n    }\n});\r\nfunction calculateData () {\n 
-        let fileName = \"spentTime\";\n\n  if ($.state.customData[fileName].length
-        > 20) {\n    fileName = fileName + \"01\";\n    uploadData();\n    $.state.customData
-        = { ...$.state.customData, [fileName]: [] };\n  }\n\n  let x = $.getStateCompat(\"owner\",
-        \"x\", \"integer\");\n  let y = $.getStateCompat(\"owner\", \"y\", \"integer\");\n 
-        let z = parseInt($.state.currentCondition[\"d\"]);\n  let s = parseInt($.state.currentCondition[\"s\"]);\n 
-        let t = $.getStateCompat(\"owner\", \"spentTime\", \"float\").toFixed(4);\n 
-        \n  let recordedSpentTimes = $.state.customData[fileName] || [];\n  recordedSpentTimes.push({
-        x, y, z, s, t });\n  return { ...$.state.customData, [fileName]: recordedSpentTimes
-        };\n}"
+        retrieve idfc through cluster Player Script\r\n    };\r\n    $.callExternal(JSON.stringify(request),
+        \"customDataUploaded\");\r\n}\r\n\r\n$.onExternalCallEnd((res, meta, err)
+        =>\r\n{\r\n    if (res == null) {\r\n        $.log(\"callExternal ERROR:
+        \" + err);\r\n        return;\r\n    }\r\n\r\n    if (meta === \"customDataUploaded\")
+        {\r\n        $.log(\"Custom recorded data uploaded\");\r\n    }\r\n});\r\nfunction
+        calculateData () {\r\n  let fileName = \"spentTime\";\r\n\r\n  if ($.state.customData[fileName]
+        && $.state.customData[fileName].length >= 10) {\r\n    uploadData();\r\n   
+        $.state.customData = { ...$.state.customData, [fileName]: [] };\r\n  }\r\n\r\n 
+        let x = $.getStateCompat(\"owner\", \"x\", \"integer\");\r\n  let y = $.getStateCompat(\"owner\",
+        \"y\", \"integer\");\r\n  let z = parseInt($.state.currentCondition[\"d\"]);\r\n 
+        let s = parseInt($.state.currentCondition[\"s\"]);\r\n  let t = $.getStateCompat(\"owner\",
+        \"spentTime\", \"float\").toFixed(4);\r\n  \r\n  let recordedSpentTimes =
+        $.state.customData[fileName] || [];\r\n  recordedSpentTimes.push({ x, y,
+        z, s, t });\r\n  return { ...$.state.customData, [fileName]: recordedSpentTimes
+        };\r\n}"
       objectReference: {fileID: 0}
     - target: {fileID: 5964733846762761527, guid: 964d6187f971a8f43b4ee67279f1ef90,
         type: 3}
@@ -1221,7 +1223,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
@@ -1243,10 +1245,134 @@ MonoBehaviour:
   triggers:
   - target: 0
     specifiedTargetItem: {fileID: 0}
-    key: isBlockSelected
+    key: isTargetHovered
     type: 1
     value:
       boolValue: 1
+      floatValue: 0
+      integerValue: 0
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+--- !u!114 &902663237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881643898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06d8dc2ce9e442ab2712de694945b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 902663231}
+  key:
+    target: 2
+    key: selectTarget
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 0
+          key: isTargetSelected
+          parameterType: 1
+        expression:
+          type: 0
+          value:
+            type: 1
+            constant:
+              type: 1
+              boolValue: 0
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: isTargetHovered
+              type: 1
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 0
+          key: isTargetHovered
+          parameterType: 1
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 0
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: isTargetHovered
+              type: 1
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &902663238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 881643898}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba507dbcf46b94a9895daa4d46e12805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 902663231}
+  collisionEventType: 1
+  collisionType: 1
+  triggers:
+  - target: 0
+    specifiedTargetItem: {fileID: 0}
+    key: isTargetHovered
+    type: 1
+    value:
+      boolValue: 0
       floatValue: 0
       integerValue: 0
       vector2Value: {x: 0, y: 0}
@@ -1556,6 +1682,49 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27111867d2b87e74fa02ff19ff600adb, type: 3}
+--- !u!1 &1323679172 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 608655434959019088, guid: 4a387c10af9411046bf6ba133c2552d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1262354573}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1323679177 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4595808648782314278, guid: 4a387c10af9411046bf6ba133c2552d2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1262354573}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323679172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3977a5e65e72f4db4b85ddba10d48dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1323679181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1323679172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e93fd219114b4443c8e2d4bf3914ff43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 1323679177}
+  downTriggers:
+  - target: 4
+    specifiedTargetItem: {fileID: 0}
+    key: selectTarget
+    type: 0
+    value:
+      boolValue: 0
+      floatValue: 0
+      integerValue: 0
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+  upTriggers: []
 --- !u!1001 &1413427212
 PrefabInstance:
   m_ObjectHideFlags: 0
