@@ -11,6 +11,12 @@ $.onStart(() => {
     $.state.paramId = 0;
     $.state.isTaskStarted = false;
     $.state.size = "";
+
+    $.state.player = $.getPlayersNear($.getPosition(), Infinity)[0];
+    $.subNode("Reset").setPosition($.state.player.getHumanoidBonePosition(HumanoidBone.Head).clone().add(new Vector3(0, 0, 0.5)));
+    [2, 8, 16, 48].map(size => $.subNode("Target_" + size)).forEach(target => {
+        target.setEnabled(false);
+    });
 })
 
 $.onUpdate(() => {
@@ -30,10 +36,6 @@ function startNextTrial () {
     let z = params[id].z / 300;
     $.state.targetName = "Target_" + params[id].s;
 
-    if (!$.state.player) {
-        $.state.player = $.getPlayersNear($.getPosition(), Infinity)[0];
-        $.subNode("Reset").setPosition($.state.player.getHumanoidBonePosition(HumanoidBone.Head).clone().add(new Vector3(0, 0, 0.5)));
-    }
     $.subNode("Reset").setEnabled(true);
     $.subNode($.state.targetName).setPosition($.subNode("Reset").getPosition().clone().add(new Vector3(x, y, z)));
 }

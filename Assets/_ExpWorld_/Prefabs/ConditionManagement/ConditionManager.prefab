@@ -68,81 +68,86 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceCodeAsset: {fileID: 0}
-  sourceCode: "const within_subjects_variables_dummy = [\n    { name: \"color\",
-    values: [\"R\", \"G\", \"B\"], isRandom: false },\n    { name: \"size\", values:
-    [5, 10, 15], isRandom: true },\n];\n\nconst between_subjects_variables_dummy
-    = [\n    { name: \"method\", values: [\"old\", \"new\"] }\n];\n\n$.onStart(()
-    => {\n    $.state.conditionDependentObjects = [];\n    // $.state.betweenSubjectsCondition
-    = {};\n});\n\n$.onUpdate(() => {\n    if ($.getStateCompat(\"this\", \"exp_initCondition\",
-    \"boolean\")) {\n        $.setStateCompat(\"this\", \"exp_initCondition\", false);\n       
-    InitConditions();\n    }\n    if ($.state.conditions && !$.state.isLast && $.getStateCompat(\"global\",
-    \"exp_conditionID\", \"integer\") >= $.state.conditions.length - 1) {\n       
-    $.state.isLast = true;\n        $.sendSignalCompat(\"this\", \"exp_readyToLeaveTrials\");\n   
-    }\n});\n\n$.onReceive((messageType, arg, sender) => {\n    switch (messageType)
-    {\n        case \"exp_conditionDependentObject\":\n            $.state.conditionDependentObjects
-    = [ ...$.state.conditionDependentObjects, sender ];\n            break;\n       
-    case \"exp_questionnaire_answer\":\n            // \u53C2\u52A0\u8005\u306B\u53C2\u52A0\u8005\u9593\u6761\u4EF6\u3092\u5272\u308A\u5F53\u3066\u308B\n           
-    InitBetweenSubjectCondition(arg);\n        default:\n            break;\n   
-    }\n});\n\nfunction InitConditions () {\n    $.state.isLast = false;\n\n    if
-    (!$.state.betweenSubjectsCondition) {\n        InitBetweenSubjectCondition(null);\n   
-    }\n    \n    try {\n        $.state.conditions = getConditions(within_subjects_variables,
-    trialsCountForEachUniqueCondition).map(cond => {\n            return { ...cond,
-    ...$.state.betweenSubjectsCondition };\n        });\n    } catch (e) {\n       
+  sourceCode: "const within_subjects_variables_dummy = [\r\n    { name: \"color\",
+    values: [\"R\", \"G\", \"B\"], isRandom: false },\r\n    { name: \"size\", values:
+    [5, 10, 15], isRandom: true },\r\n];\r\n\r\nconst between_subjects_variables_dummy
+    = [\r\n    { name: \"method\", values: [\"old\", \"new\"] }\r\n];\r\n\r\n$.onStart(()
+    => {\r\n    $.state.conditionDependentObjects = [];\r\n    // $.state.betweenSubjectsCondition
+    = {};\r\n});\r\n\r\n$.onUpdate(() => {\r\n    if ($.getStateCompat(\"this\",
+    \"exp_initCondition\", \"boolean\")) {\r\n        $.setStateCompat(\"this\",
+    \"exp_initCondition\", false);\r\n        InitConditions();\r\n    }\r\n    if
+    ($.state.conditions && !$.state.isLast && $.getStateCompat(\"global\", \"exp_conditionID\",
+    \"integer\") >= $.state.conditions.length - 1) {\r\n        $.state.isLast =
+    true;\r\n        $.sendSignalCompat(\"this\", \"exp_readyToLeaveTrials\");\r\n   
+    }\r\n});\r\n\r\n$.onReceive((messageType, arg, sender) => {\r\n    switch (messageType)
+    {\r\n        case \"exp_conditionDependentObject\":\r\n            $.state.conditionDependentObjects
+    = [ ...$.state.conditionDependentObjects, sender ];\r\n            break;\r\n       
+    case \"exp_questionnaire_answer\":\r\n            // \u53C2\u52A0\u8005\u306B\u53C2\u52A0\u8005\u9593\u6761\u4EF6\u3092\u5272\u308A\u5F53\u3066\u308B\r\n           
+    InitBetweenSubjectCondition(arg);\r\n        default:\r\n            break;\r\n   
+    }\r\n});\r\n\r\nfunction InitConditions () {\r\n    $.state.isLast = false;\r\n\r\n   
+    if (!$.state.betweenSubjectsCondition) {\r\n        InitBetweenSubjectCondition(null);\r\n   
+    }\r\n    \r\n    try {\r\n        $.state.conditions = getConditions(within_subjects_variables,
+    trialsCountForEachUniqueCondition).map(cond => {\r\n            return { ...cond,
+    ...$.state.betweenSubjectsCondition };\r\n        });\r\n    } catch (e) {\r\n       
     $.state.conditions = getConditions(within_subjects_variables_dummy).map(cond
-    => {\n            return { ...cond, ...$.state.betweenSubjectsCondition };\n       
-    });\n    }\n    \n    $.log(JSON.stringify($.state.conditions));\n    sendUpdates().catch(e
-    => $.log(e));\n}\n\nasync function sendUpdates() {\n    let sentObjectsCount
-    = 0;\n    const sendPromises = $.state.conditionDependentObjects.map(async (obj,
-    index) => {\n        if (sentObjectsCount > 10) {\n            await sleep(1000);\n           
-    sentObjectsCount = 0;\n        }\n        obj.send(\"exp_updateConditions\",
-    $.state.conditions);\n        sentObjectsCount++;\n    });\n    await Promise.all(sendPromises);\n}\n\nfunction
-    sleep(ms) {\n    return new Promise(resolve => setTimeout(resolve, ms));\n}\n\nfunction
-    InitBetweenSubjectCondition(questionnaireAnswers) {\n    try {\n        $.state.betweenSubjectsCondition
-    = GetBetweenSubjectsCondition(questionnaireAnswers);\n    }\n    catch (e) {\n       
-    $.log(\"Function GetBetweenSubjectsCondition is not defined. Randomly assign
-    between-subjects condition.\");\n        let betweenSubjectsCondition = {};\n       
-    try {\n            between_subjects_variables.forEach(v => {\n               
-    betweenSubjectsCondition[v.name] = v.values[Math.floor(Math.random() * v.values.length)];\n           
-    });\n        } catch (e) {\n            $.log(\"Between-subjects variables are
-    not defined. Use dummy variables.\");\n            between_subjects_variables_dummy.forEach(v
-    => {\n                betweenSubjectsCondition[v.name] = v.values[Math.floor(Math.random()
-    * v.values.length)];\n            });\n        }\n        $.state.betweenSubjectsCondition
-    = betweenSubjectsCondition;\n    }\n}\n\n// --------- Initialize conditions from
-    variables ----------\n\nfunction getConditions (variables, repeatPerCombination
-    = 1) {\n    const isRepetitionRandom = true;\n    \n    const allCombinations
-    = generateCombinations(variables);\n    \n    // Group by non-random variables\n   
-    const groupedCombinations = {};\n    \n    for (const combination of allCombinations)
-    {\n        const groupKey = variables\n            .filter(v => !v.isRandom)\n           
-    .map(v => combination[v.name])\n            .join('-');\n    \n        if (!groupedCombinations[groupKey])
-    {\n            groupedCombinations[groupKey] = [];\n        }\n        groupedCombinations[groupKey].push(combination);\n   
-    }\n    \n    // Shuffle each group\n    for (const key in groupedCombinations)
-    {\n        groupedCombinations[key] = shuffleArray(groupedCombinations[key]);\n   
-    }\n    \n    // Flatten the grouped combinations into a single array\n    let
-    finalCombinations = Object.values(groupedCombinations).flat();\n    \n    //
-    Repeat each combination repeatPerCombination times\n    let conditions = [];\n   
-    for (const combination of finalCombinations) {\n        for (let i = 0; i < repeatPerCombination;
-    i++) {\n            conditions.push({ ...combination });\n        }\n    }\n   
-    \n    // If repetition should be random, shuffle the repeated combinations\n   
-    if (isRepetitionRandom) {\n        // Group by non-random variables first\n       
-    const randomGroupedCombinations = {};\n        for (const combination of conditions)
-    {\n            const groupKey = variables\n                .filter(v => !v.isRandom)\n               
-    .map(v => combination[v.name])\n                .join('-');\n    \n           
-    if (!randomGroupedCombinations[groupKey]) {\n                randomGroupedCombinations[groupKey]
-    = [];\n            }\n            randomGroupedCombinations[groupKey].push(combination);\n       
-    }\n    \n        // Shuffle within each group\n        for (const key in randomGroupedCombinations)
-    {\n            randomGroupedCombinations[key] = shuffleArray(randomGroupedCombinations[key]);\n       
-    }\n    \n        // Flatten the grouped combinations into a single array\n       
-    conditions = Object.values(randomGroupedCombinations).flat();\n    }\n    \n   
-    return conditions;\n}\n\nfunction shuffleArray(array) {\n    for (let i = array.length
-    - 1; i > 0; i--) {\n        const j = Math.floor(Math.random() * (i + 1));\n       
-    [array[i], array[j]] = [array[j], array[i]];\n    }\n    return array;\n}\n\nfunction
-    generateCombinations(variables) {\n    const combinations = [];\n\n    function
-    createCombination(currentCombination, currentIndex) {\n        if (currentIndex
-    === variables.length) {\n            combinations.push({ ...currentCombination
-    });\n            return;\n        }\n\n        const variable = variables[currentIndex];\n       
-    for (const value of variable.values) {\n            currentCombination[variable.name]
-    = value;\n            createCombination(currentCombination, currentIndex + 1);\n       
-    }\n    }\n\n    createCombination({}, 0);\n\n    return combinations;\n}\n"
+    => {\r\n            return { ...cond, ...$.state.betweenSubjectsCondition };\r\n       
+    });\r\n    }\r\n    \r\n    $.log(JSON.stringify($.state.conditions));\r\n   
+    sendUpdates().catch(e => $.log(e));\r\n}\r\n\r\nasync function sendUpdates()
+    {\r\n    let sentObjectsCount = 0;\r\n    const sendPromises = $.state.conditionDependentObjects.map(async
+    (obj, index) => {\r\n        if (sentObjectsCount > 10) {\r\n            await
+    sleep(1000);\r\n            sentObjectsCount = 0;\r\n        }\r\n        obj.send(\"exp_updateConditions\",
+    $.state.conditions);\r\n        sentObjectsCount++;\r\n    });\r\n    await Promise.all(sendPromises);\r\n}\r\n\r\nfunction
+    sleep(ms) {\r\n    return new Promise(resolve => setTimeout(resolve, ms));\r\n}\r\n\r\nfunction
+    InitBetweenSubjectCondition(questionnaireAnswers) {\r\n    try {\r\n        $.state.betweenSubjectsCondition
+    = GetBetweenSubjectsCondition(questionnaireAnswers);\r\n    }\r\n    catch (e)
+    {\r\n        $.log(\"Function GetBetweenSubjectsCondition is not defined. Randomly
+    assign between-subjects condition.\");\r\n        let betweenSubjectsCondition
+    = {};\r\n        try {\r\n            between_subjects_variables.forEach(v =>
+    {\r\n                betweenSubjectsCondition[v.name] = v.values[Math.floor(Math.random()
+    * v.values.length)];\r\n            });\r\n        } catch (e) {\r\n           
+    $.log(\"Between-subjects variables are not defined. Use dummy variables.\");\r\n           
+    between_subjects_variables_dummy.forEach(v => {\r\n                betweenSubjectsCondition[v.name]
+    = v.values[Math.floor(Math.random() * v.values.length)];\r\n            });\r\n       
+    }\r\n        $.state.betweenSubjectsCondition = betweenSubjectsCondition;\r\n   
+    }\r\n}\r\n\r\n// --------- Initialize conditions from variables ----------\r\n\r\nfunction
+    getConditions (variables, repeatPerCombination = 1) {\r\n    const isRepetitionRandom
+    = true;\r\n    \r\n    const allCombinations = generateCombinations(variables);\r\n   
+    \r\n    // Group by non-random variables\r\n    const groupedCombinations = {};\r\n   
+    \r\n    for (const combination of allCombinations) {\r\n        const groupKey
+    = variables\r\n            .filter(v => !v.isRandom)\r\n            .map(v =>
+    combination[v.name])\r\n            .join('-');\r\n    \r\n        if (!groupedCombinations[groupKey])
+    {\r\n            groupedCombinations[groupKey] = [];\r\n        }\r\n       
+    groupedCombinations[groupKey].push(combination);\r\n    }\r\n    \r\n    // Shuffle
+    each group\r\n    for (const key in groupedCombinations) {\r\n        groupedCombinations[key]
+    = shuffleArray(groupedCombinations[key]);\r\n    }\r\n    \r\n    // Flatten
+    the grouped combinations into a single array\r\n    let finalCombinations = Object.values(groupedCombinations).flat();\r\n   
+    \r\n    // Repeat each combination repeatPerCombination times\r\n    let conditions
+    = [];\r\n    for (const combination of finalCombinations) {\r\n        for (let
+    i = 0; i < repeatPerCombination; i++) {\r\n            conditions.push({ ...combination
+    });\r\n        }\r\n    }\r\n    \r\n    // If repetition should be random, shuffle
+    the repeated combinations\r\n    if (isRepetitionRandom) {\r\n        // Group
+    by non-random variables first\r\n        const randomGroupedCombinations = {};\r\n       
+    for (const combination of conditions) {\r\n            const groupKey = variables\r\n               
+    .filter(v => !v.isRandom)\r\n                .map(v => combination[v.name])\r\n               
+    .join('-');\r\n    \r\n            if (!randomGroupedCombinations[groupKey])
+    {\r\n                randomGroupedCombinations[groupKey] = [];\r\n           
+    }\r\n            randomGroupedCombinations[groupKey].push(combination);\r\n       
+    }\r\n    \r\n        // Shuffle within each group\r\n        for (const key in
+    randomGroupedCombinations) {\r\n            randomGroupedCombinations[key] =
+    shuffleArray(randomGroupedCombinations[key]);\r\n        }\r\n    \r\n       
+    // Flatten the grouped combinations into a single array\r\n        conditions
+    = Object.values(randomGroupedCombinations).flat();\r\n    }\r\n    \r\n    return
+    conditions;\r\n}\r\n\r\nfunction shuffleArray(array) {\r\n    for (let i = array.length
+    - 1; i > 0; i--) {\r\n        const j = Math.floor(Math.random() * (i + 1));\r\n       
+    [array[i], array[j]] = [array[j], array[i]];\r\n    }\r\n    return array;\r\n}\r\n\r\nfunction
+    generateCombinations(variables) {\r\n    const combinations = [];\r\n\r\n   
+    function createCombination(currentCombination, currentIndex) {\r\n        if
+    (currentIndex === variables.length) {\r\n            combinations.push({ ...currentCombination
+    });\r\n            return;\r\n        }\r\n\r\n        const variable = variables[currentIndex];\r\n       
+    for (const value of variable.values) {\r\n            currentCombination[variable.name]
+    = value;\r\n            createCombination(currentCombination, currentIndex +
+    1);\r\n        }\r\n    }\r\n\r\n    createCombination({}, 0);\r\n\r\n    return
+    combinations;\r\n}\r\n"
 --- !u!114 &4731245737645068636
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -66,36 +66,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceCodeAsset: {fileID: 0}
-  sourceCode: "const expID = \"WgPr6bo2vE\";\n\r\n$.onStart(() => {\n    $.state.customData
-    = {};\n    $.getItemsNear($.getPosition(), 0.1).forEach(item => {\n        if
-    (item.id === \"5570182165721890090\") { // ConditionManager\n            item.send(\"exp_conditionDependentObject\",
-    true);\n        }\n    });\n})\n\n$.onUpdate(() => {\n    if ($.getStateCompat(\"this\",
-    \"exp_conditionChanged\", \"boolean\")) {\n        $.setStateCompat(\"this\",
-    \"exp_conditionChanged\", false);\n        $.state.currentCondition = $.state.conditions[$.getStateCompat(\"global\",
-    \"exp_conditionID\", \"integer\")];\n    }\n\n    if ($.getStateCompat(\"this\",
-    \"exp_recordCustomData\", \"boolean\")) {\n        $.setStateCompat(\"this\",
-    \"exp_recordCustomData\", false);\n        recordData();\n    }\n    if ($.getStateCompat(\"this\",
-    \"exp_uploadCustomData\", \"boolean\")) {\n        $.setStateCompat(\"this\",
-    \"exp_uploadCustomData\", false);\n        uploadData();\n    }\n})\n\n$.onReceive((messageType,
-    arg, sender) => {\n    if (messageType === \"exp_updateConditions\") {\n       
-    $.state.conditions = arg;\n        $.setStateCompat(\"this\", \"exp_conditionChanged\",
-    true);\n    }\n})\n\nfunction recordData () {\n    $.state.customData = calculateData();\n}\n\nfunction
-    uploadData () {\n    $.log(\"Upload custom data: \" + JSON.stringify($.state.customData));\n   
-    let request = {\n        type: \"uploadCustomData\",\n        dataByFileName:
-    JSON.stringify($.state.customData),\n        eID: expID || \"0\",\n        pID:
-    $.getPlayersNear($.getPosition().clone(), 100)[0].idfc || \"\" // TODO: retrieve
-    idfc through cluster Player Script\n    };\n    $.callExternal(JSON.stringify(request),
-    \"customDataUploaded\");\n}\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n   
-    if (res == null) {\n        $.log(\"callExternal ERROR: \" + err);\n        return;\n   
-    }\n\n    if (meta === \"customDataUploaded\") {\n        $.log(\"Custom recorded
-    data uploaded\");\n    }\n});\r\nfunction calculateData () {\n    let fileName
-    = \"sampleFileName\";\n    // Implement your calculation for custom data to record
-    & upload\n    // $.state.currentCondition is available if this script is combined
-    with CustomDataUploader.js\n    \n    // Return the data in the following format:\n   
-    return { ...$.state.customData, [fileName]: {} }; // $.state.customData is the
-    custom data recorded before\n    /*\n    e.g.\n    return { ...$.state.customData,
-    [fileName]: {\n      ...($.state.customData[fileName] || {}),\n      labelName:
-    calculationResult\n    } };\n    */\n}"
+  sourceCode: "const expID = \"WgPr6bo2vE\";\r\n\r\n$.onStart(() => {\r\n    $.state.customData
+    = {};\r\n    $.getItemsNear($.getPosition(), 0.1).forEach(item => {\r\n       
+    if (item.id === \"5570182165721890090\") { // ConditionManager\r\n           
+    item.send(\"exp_conditionDependentObject\", true);\r\n        }\r\n    });\r\n})\r\n\r\n$.onUpdate(()
+    => {\r\n    if ($.getStateCompat(\"this\", \"exp_conditionChanged\", \"boolean\"))
+    {\r\n        $.setStateCompat(\"this\", \"exp_conditionChanged\", false);\r\n       
+    $.state.currentCondition = $.state.conditions[$.getStateCompat(\"global\", \"exp_conditionID\",
+    \"integer\")];\r\n    }\r\n\r\n    if ($.getStateCompat(\"this\", \"exp_recordCustomData\",
+    \"boolean\")) {\r\n        $.setStateCompat(\"this\", \"exp_recordCustomData\",
+    false);\r\n        recordData();\r\n    }\r\n    if ($.getStateCompat(\"this\",
+    \"exp_uploadCustomData\", \"boolean\")) {\r\n        $.setStateCompat(\"this\",
+    \"exp_uploadCustomData\", false);\r\n        uploadData();\r\n    }\r\n})\r\n\r\n$.onReceive((messageType,
+    arg, sender) => {\r\n    if (messageType === \"exp_updateConditions\") {\r\n       
+    $.state.conditions = arg;\r\n        $.setStateCompat(\"this\", \"exp_conditionChanged\",
+    true);\r\n    }\r\n})\r\n\r\nfunction recordData () {\r\n    $.state.customData
+    = calculateData();\r\n}\r\n\r\nfunction uploadData () {\r\n    $.log(\"Upload
+    custom data: \" + JSON.stringify($.state.customData));\r\n    let request = {\r\n       
+    type: \"uploadCustomData\",\r\n        dataByFileName: JSON.stringify($.state.customData),\r\n       
+    eID: expID || \"0\",\r\n        pID: $.getPlayersNear($.getPosition().clone(),
+    100)[0].idfc || \"\" // TODO: retrieve idfc through cluster Player Script\r\n   
+    };\r\n    $.callExternal(JSON.stringify(request), \"customDataUploaded\");\r\n}\r\n\r\n$.onExternalCallEnd((res,
+    meta, err) =>\r\n{\r\n    if (res == null) {\r\n        $.log(\"callExternal
+    ERROR: \" + err);\r\n        return;\r\n    }\r\n\r\n    if (meta === \"customDataUploaded\")
+    {\r\n        $.log(\"Custom recorded data uploaded\");\r\n    }\r\n});\r\nfunction
+    calculateData () {\r\n    let fileName = \"sampleFileName\";\r\n    // Implement
+    your calculation for custom data to record & upload\r\n    // $.state.currentCondition
+    is available if this script is combined with CustomDataUploader.js\r\n    \r\n   
+    // Return the data in the following format:\r\n    return { ...$.state.customData,
+    [fileName]: {} }; // $.state.customData is the custom data recorded before\r\n   
+    /*\r\n    e.g.\r\n    return { ...$.state.customData, [fileName]: {\r\n     
+    ...($.state.customData[fileName] || {}),\r\n      labelName: calculationResult\r\n   
+    } };\r\n    */\r\n}"
 --- !u!114 &5964733846762761521
 MonoBehaviour:
   m_ObjectHideFlags: 0
