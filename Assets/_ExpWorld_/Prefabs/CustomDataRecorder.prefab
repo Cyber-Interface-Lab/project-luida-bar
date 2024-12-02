@@ -65,23 +65,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceCodeAsset: {fileID: 0}
-  sourceCode: "$.onStart(() => {\r\n    $.state.customData = {};\r\n})\r\n\r\n$.onUpdate(()
-    => {\r\n    if ($.getStateCompat(\"this\", \"exp_recordCustomData\", \"boolean\"))
-    {\r\n        $.setStateCompat(\"this\", \"exp_recordCustomData\", false);\r\n       
-    recordData();\r\n    }\r\n    if ($.getStateCompat(\"this\", \"exp_uploadCustomData\",
-    \"boolean\")) {\r\n        $.setStateCompat(\"this\", \"exp_uploadCustomData\",
-    false);\r\n        uploadData();\r\n    }\r\n})\r\n\r\nfunction recordData ()
-    {\r\n    $.state.customData = calculateData();\r\n}\r\n\r\nfunction uploadData
-    () {\r\n    $.log(\"Send final answers: \" + JSON.stringify($.state.customData));\r\n   
-    let request = { type: \"uploadCustomData\", dataByFileName: JSON.stringify($.state.customData)
-    };\r\n    $.callExternal(JSON.stringify(request), \"customDataUploaded\");\r\n}\r\n\r\n$.onExternalCallEnd((res,
-    meta, err) =>\r\n{\r\n    if (res == null) {\r\n        $.log(\"callExternal
-    ERROR: \" + err);\r\n        return;\r\n    }\r\n\r\n    if (meta === \"customDataUploaded\")
-    {\r\n        $.log(\"Custom recorded data uploaded\");\r\n    }\r\n});\r\nfunction
-    calculateData () {\r\n    let fileName = \"sampleFileName\";\r\n    // Implement
-    your calculation for custom data to record & upload\r\n    \r\n    // Return
-    the data in the following format:\r\n    return { ...$.state.customData, [fileName]:
-    {} }; // $.state.customData is the custom data recorded before \r\n}"
+  sourceCode: "$.onStart(() => {\n    $.state.customData = {};\n})\n\n$.onUpdate(()
+    => {\n    if ($.getStateCompat(\"this\", \"exp_recordCustomData\", \"boolean\"))
+    {\n        $.setStateCompat(\"this\", \"exp_recordCustomData\", false);\n       
+    recordData();\n    }\n    if ($.getStateCompat(\"this\", \"exp_uploadCustomData\",
+    \"boolean\")) {\n        $.setStateCompat(\"this\", \"exp_uploadCustomData\",
+    false);\n        uploadData();\n    }\n})\n\nfunction recordData () {\n    $.state.customData
+    = calculateData();\n}\n\nfunction uploadData () {\n    $.log(\"Send final answers:
+    \" + JSON.stringify($.state.customData));\n    let request = { type: \"uploadCustomData\",
+    dataByFileName: JSON.stringify($.state.customData) };\n    $.callExternal(JSON.stringify(request),
+    \"customDataUploaded\");\n}\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n   
+    if (res == null) {\n        $.log(\"callExternal ERROR: \" + err);\n        return;\n   
+    }\n\n    if (meta === \"customDataUploaded\") {\n        $.log(\"Custom recorded
+    data uploaded\");\n    }\n});\r\nfunction calculateData () {\n    let fileName
+    = \"sampleFileName\";\n    // Implement your calculation for custom data to record
+    & upload\n    \n    // Return the data in the following format:\n    return {
+    ...$.state.customData, [fileName]: {} }; // $.state.customData is the custom
+    data recorded before \n}"
 --- !u!114 &5964733846762761521
 MonoBehaviour:
   m_ObjectHideFlags: 0
