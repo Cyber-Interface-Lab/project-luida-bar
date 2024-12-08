@@ -68,6 +68,7 @@ function requestQuestList() {
     type: "questList",
     page: $.state.currentPage,
     number: numberPerPage,
+    isTest: false
   };
   $.callExternal(JSON.stringify(request), "getQuestList");
 }

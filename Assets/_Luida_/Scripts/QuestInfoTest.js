@@ -57,7 +57,7 @@ function sendQuestInfoRequest () {
     let request = {
         type: "questInfo",
         id: ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat("owner", "triggerQuest", "integer"),
-        isTest: false
+        isTest: true
     };
     $.callExternal(JSON.stringify(request), "getQuestInfo");
 }
