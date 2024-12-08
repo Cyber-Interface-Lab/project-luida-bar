@@ -1,0 +1,1028 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &1140111955660585394
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5660514857068071925, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_Name
+      value: StateTransition
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.targetState.key
+      value: state_enter
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.targetState.parameterType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.constant.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.sourceState.key
+      value: exp_state_id
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.sourceState.type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.sourceState.target
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operator
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[0].value.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[1].value.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[0].value.constant.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[1].value.constant.type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[0].value.sourceState.key
+      value: state_currentID
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[1].value.sourceState.key
+      value: state_id
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[0].value.sourceState.type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[1].value.sourceState.type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071927, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[0].value.sourceState.target
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.targetState.key
+      value: state_repeatCountMax
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.targetState.key
+      value: state_repeatTargetID
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.targetState.parameterType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.targetState.parameterType
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.expression.value.constant.type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.constant.type
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.expression.value.sourceState.type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.sourceState.type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.expression.value.constant.integerValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.value.constant.integerValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.expression.operatorExpression.operands.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.expression.operatorExpression.operands.Array.data[0].value.constant.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[0].value.constant.type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[1].singleStatement.expression.operatorExpression.operands.Array.data[0].value.sourceState.type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071929, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: logic.statements.Array.data[2].singleStatement.expression.operatorExpression.operands.Array.data[0].value.sourceState.type
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5660514857068071931, guid: bdd15b6f2ac024119a233600dcc875cc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: bdd15b6f2ac024119a233600dcc875cc, type: 3}
+--- !u!1 &4709724582268777031 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5660514857068071925, guid: bdd15b6f2ac024119a233600dcc875cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1140111955660585394}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &155382247776626203
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a9785e42671427a8761e148889f041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4709724582268777034}
+  key:
+    target: 0
+    key: state_enter(disabled)
+  delayTimeSeconds: 1
+  triggers:
+  - target: 0
+    specifiedTargetItem: {fileID: 0}
+    key: state_tryTryTriggerTransition
+    type: 0
+    value:
+      boolValue: 0
+      floatValue: 0
+      integerValue: 0
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+--- !u!114 &1585609274041690136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06d8dc2ce9e442ab2712de694945b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4709724582268777034}
+  key:
+    target: 0
+    key: state_tryTriggerTransition
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 0
+          key: state_repeatCount
+          parameterType: 3
+        expression:
+          type: 1
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 2
+            operands:
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 1
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: state_repeatCount
+                  type: 3
+              operatorExpression:
+                operator: 0
+                operands: []
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 3
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 1
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 0
+          key: state_triggerTransition
+          parameterType: 0
+        expression:
+          type: 1
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 10
+            operands:
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 1
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: state_repeatCount
+                  type: 3
+              operatorExpression:
+                operator: 0
+                operands: []
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 3
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 1
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: state_repeatCountMax
+                  type: 3
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 0
+          key: state_triggerTransitionToRepeat
+          parameterType: 0
+        expression:
+          type: 1
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 11
+            operands:
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 3
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: state_repeatCount
+                  type: 3
+              operatorExpression:
+                operator: 0
+                operands: []
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 3
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 1
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: state_repeatCountMax
+                  type: 3
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &2293430644369413572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67bdc2960f9462385a7fba1c0052836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalGimmickKey:
+    key:
+      target: 0
+      key: state_triggerTransition
+    item: {fileID: 4709724582268777034}
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 2
+          key: state_exited
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 2
+          key: state_currentID
+          parameterType: 3
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 3
+              boolValue: 1
+              floatValue: 0
+              integerValue: 1
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 2
+          key: state_entered
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &6151350006285620672
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67bdc2960f9462385a7fba1c0052836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalGimmickKey:
+    key:
+      target: 0
+      key: state_triggerTransitionToRepeat
+    item: {fileID: 4709724582268777034}
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 2
+          key: state_exited
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 2
+          key: state_currentID
+          parameterType: 3
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 3
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 2
+          key: state_entered
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &7589184379857515399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5a9785e42671427a8761e148889f041, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4709724582268777034}
+  key:
+    target: 0
+    key: state_tryTriggerTransitionFromGlobal
+  delayTimeSeconds: 0.1
+  triggers:
+  - target: 0
+    specifiedTargetItem: {fileID: 0}
+    key: state_tryTriggerTransition
+    type: 0
+    value:
+      boolValue: 0
+      floatValue: 0
+      integerValue: 0
+      vector2Value: {x: 0, y: 0}
+      vector3Value: {x: 0, y: 0, z: 0}
+--- !u!114 &8313726704663438159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06d8dc2ce9e442ab2712de694945b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4709724582268777034}
+  key:
+    target: 0
+    key: state_triggerTransition
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 0
+          key: state_repeatCount
+          parameterType: 3
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 3
+              boolValue: 0
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 0
+          key: state_isTransitionTriggered
+          parameterType: 1
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 0
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &8736509872512711892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06d8dc2ce9e442ab2712de694945b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4709724582268777034}
+  key:
+    target: 2
+    key: state_triggerTransition
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 0
+          key: state_tryTriggerTransitionFromGlobal
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 1
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: state_isActive
+              type: 1
+          operatorExpression:
+            operator: 2
+            operands:
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 1
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: state_isTransitionTriggered
+                  type: 1
+              operatorExpression:
+                operator: 0
+                operands: []
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 1
+                  boolValue: 1
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: state_isActive
+                  type: 1
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &2433543529064378537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06d8dc2ce9e442ab2712de694945b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4709724582268777034}
+  key:
+    target: 0
+    key: state_tryTryTriggerTransition
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 0
+          key: state_tryTriggerTransition
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 1
+            constant:
+              type: 1
+              boolValue: 0
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: state_isActive
+              type: 1
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &4709724582268777034 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5660514857068071928, guid: bdd15b6f2ac024119a233600dcc875cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 1140111955660585394}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4709724582268777031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3977a5e65e72f4db4b85ddba10d48dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

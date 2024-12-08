@@ -164,7 +164,6 @@ GameObject:
   - component: {fileID: 4650722409924811484}
   - component: {fileID: 5984383762482578056}
   - component: {fileID: 5024564256316445865}
-  - component: {fileID: 6458962051117475951}
   m_Layer: 0
   m_Name: NextBoardButton
   m_TagString: Untagged
@@ -282,21 +281,6 @@ MonoBehaviour:
   sourceCodeAsset: {fileID: 5022602860645237092, guid: 09ac986a330334bf19f58d50397a24bb,
     type: 3}
   sourceCode: 
---- !u!114 &6458962051117475951
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5109097139515282314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49554f6eafb04d538a589436719e8fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldItemReferences:
-  - id: QuestBoard
-    item: {fileID: 8059115896813044330}
 --- !u!1 &6648792015302137171
 GameObject:
   m_ObjectHideFlags: 0
@@ -361,7 +345,6 @@ GameObject:
   - component: {fileID: 3930720613645424297}
   - component: {fileID: 2134512085715925750}
   - component: {fileID: 8576132730988556998}
-  - component: {fileID: 7521754418312279225}
   m_Layer: 0
   m_Name: PrevBoardButton
   m_TagString: Untagged
@@ -479,21 +462,6 @@ MonoBehaviour:
   sourceCodeAsset: {fileID: 5022602860645237092, guid: 76090b749059c461f93e80322effa9a7,
     type: 3}
   sourceCode: 
---- !u!114 &7521754418312279225
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6792551311587589411}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49554f6eafb04d538a589436719e8fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldItemReferences:
-  - id: QuestBoard
-    item: {fileID: 8059115896813044330}
 --- !u!1 &7259483971688635987
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +527,7 @@ GameObject:
   - component: {fileID: 8059115896813044330}
   - component: {fileID: 8059115896813044329}
   - component: {fileID: 2585813924826455287}
+  - component: {fileID: 4775589690351097812}
   m_Layer: 0
   m_Name: QuestBoard
   m_TagString: Untagged
@@ -718,6 +687,64 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc728c1810dc48a582fb23e0a13a7466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4775589690351097812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059115896813044327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06d8dc2ce9e442ab2712de694945b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 8059115896813044330}
+  key:
+    target: 0
+    key: 
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 0
+          key: 
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 0
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
 --- !u!1 &8059115897452877494
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,7 +797,6 @@ GameObject:
   - component: {fileID: 8059115897817104460}
   - component: {fileID: 105555369175121586}
   - component: {fileID: 394609218617469578}
-  - component: {fileID: 5249636886084134076}
   m_Layer: 0
   m_Name: UpdateBoardButton
   m_TagString: Untagged
@@ -888,21 +914,6 @@ MonoBehaviour:
   sourceCodeAsset: {fileID: 5022602860645237092, guid: f502dc3ca5498417dbeafab99d00f19f,
     type: 3}
   sourceCode: 
---- !u!114 &5249636886084134076
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8059115897817104458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 49554f6eafb04d538a589436719e8fa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldItemReferences:
-  - id: QuestBoard
-    item: {fileID: 8059115896813044330}
 --- !u!1 &8059115897985223890
 GameObject:
   m_ObjectHideFlags: 0

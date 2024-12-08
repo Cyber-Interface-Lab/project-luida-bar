@@ -67,6 +67,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 2790192763856115432, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2790192763856115439, guid: b151df267432c4703a655bb3d47fa340,
         type: 3}
       propertyPath: m_Pivot.x
@@ -111,6 +116,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192763856115439, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192763856115439, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192763856115439, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2790192763856115439, guid: b151df267432c4703a655bb3d47fa340,
         type: 3}
@@ -171,6 +191,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192763856115439, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192763936943436, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: textMesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192764182662267, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: textMesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192764382393214, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: textMesh
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2790192764476001238, guid: b151df267432c4703a655bb3d47fa340,
+        type: 3}
+      propertyPath: textMesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b151df267432c4703a655bb3d47fa340, type: 3}

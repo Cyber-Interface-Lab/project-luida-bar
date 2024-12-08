@@ -1,0 +1,40 @@
+$.onStart(() => {
+    $.state.isOn = $.getStateCompat("this", "form_toggle_on", "boolean");
+    $.state.answerValue = null;
+    $.state.destroyable = false;
+    $.getItemsNear($.getPosition(), 0.1).forEach(item => {
+        item.send("form_on_answer_option_spawned", true);
+    });
+})
+
+$.onUpdate(() => {
+    if ($.getStateCompat("this", "form_try_answer", "boolean")) {
+        $.setStateCompat("this", "form_try_answer", false);
+        answer();
+    }
+    if ($.state.destroyable && $.getStateCompat("owner", "form_destroy_answer_option", "boolean")) {
+        $.sendSignalCompat("this", "form_destroy_answer_option");
+    }
+})
+
+$.onReceive((messageType, arg, sender) => {
+    switch (messageType) {
+        case "form_init_answer_option":
+            $.setStateCompat("owner", "form_destroy_answer_option", false);
+            $.state.formController = sender;
+            if (arg["value"]) $.state.answerValue = arg["value"]
+            if (arg["label"] && $.subNode("Text")) $.subNode("Text").setText(arg["label"]);
+            $.state.destroyable = true;
+            break;
+        // case "form_destroy_answer_option":
+        //     $.setStateCompat("this", "form_destroy_answer_option", true);
+        //     break;
+        default:
+            break;
+    }
+})
+
+function answer() {
+    $.state.isOn = $.getStateCompat("this", "form_toggle_on", "boolean");
+    $.state.formController.send("form_answer", { value: $.state.answerValue, isOn: $.state.isOn } );
+}

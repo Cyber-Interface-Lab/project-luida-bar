@@ -1,0 +1,425 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4731245737645068637
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4731245737645068705}
+  - component: {fileID: 4731245737645068706}
+  - component: {fileID: 4731245737645068704}
+  - component: {fileID: 4731245737645068636}
+  - component: {fileID: 4731245737645068707}
+  - component: {fileID: 1802886244830669606}
+  - component: {fileID: 166775567391568992}
+  - component: {fileID: 6115281390238937048}
+  - component: {fileID: 4638770987403183712}
+  m_Layer: 0
+  m_Name: ConditionManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4731245737645068705
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4731245737645068706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3977a5e65e72f4db4b85ddba10d48dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  id:
+    value: 5570182165721890090
+  itemName: 
+  size: {x: 0, y: 0, z: 0}
+--- !u!114 &4731245737645068704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61061896c654489a41575fc291bf4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceCodeAsset: {fileID: 0}
+  sourceCode: "const within_subjects_variables_dummy = [\r\n    { name: \"color\",
+    values: [\"R\", \"G\", \"B\"], isRandom: false },\r\n    { name: \"size\", values:
+    [5, 10, 15], isRandom: true },\r\n];\r\n\r\nconst between_subjects_variables_dummy
+    = [\r\n    { name: \"method\", values: [\"old\", \"new\"] }\r\n];\r\n\r\n$.onStart(()
+    => {\r\n    $.state.conditionDependentObjects = [];\r\n    // $.state.betweenSubjectsCondition
+    = {};\r\n});\r\n\r\n$.onUpdate(() => {\r\n    if ($.getStateCompat(\"this\",
+    \"exp_initCondition\", \"boolean\")) {\r\n        $.setStateCompat(\"this\",
+    \"exp_initCondition\", false);\r\n        InitConditions();\r\n    }\r\n    if
+    ($.state.conditions && !$.state.isLast && $.getStateCompat(\"global\", \"exp_conditionID\",
+    \"integer\") >= $.state.conditions.length - 1) {\r\n        $.state.isLast =
+    true;\r\n        $.sendSignalCompat(\"this\", \"exp_readyToLeaveTrials\");\r\n   
+    }\r\n});\r\n\r\n$.onReceive((messageType, arg, sender) => {\r\n    switch (messageType)
+    {\r\n        case \"exp_conditionDependentObject\":\r\n            $.state.conditionDependentObjects
+    = [ ...$.state.conditionDependentObjects, sender ];\r\n            break;\r\n       
+    case \"exp_questionnaire_answer\":\r\n            // \u53C2\u52A0\u8005\u306B\u53C2\u52A0\u8005\u9593\u6761\u4EF6\u3092\u5272\u308A\u5F53\u3066\u308B\r\n           
+    InitBetweenSubjectCondition(arg);\r\n        default:\r\n            break;\r\n   
+    }\r\n});\r\n\r\nfunction InitConditions () {\r\n    $.state.isLast = false;\r\n\r\n   
+    if (!$.state.betweenSubjectsCondition) {\r\n        InitBetweenSubjectCondition(null);\r\n   
+    }\r\n    \r\n    try {\r\n        $.state.conditions = getConditions(within_subjects_variables,
+    trialsCountForEachUniqueCondition).map(cond => {\r\n            return { ...cond,
+    ...$.state.betweenSubjectsCondition };\r\n        });\r\n    } catch (e) {\r\n       
+    $.state.conditions = getConditions(within_subjects_variables_dummy).map(cond
+    => {\r\n            return { ...cond, ...$.state.betweenSubjectsCondition };\r\n       
+    });\r\n    }\r\n    \r\n    $.log(JSON.stringify($.state.conditions));\r\n   
+    sendUpdates().catch(e => $.log(e));\r\n}\r\n\r\nasync function sendUpdates()
+    {\r\n    let sentObjectsCount = 0;\r\n    const sendPromises = $.state.conditionDependentObjects.map(async
+    (obj, index) => {\r\n        if (sentObjectsCount > 10) {\r\n            await
+    sleep(1000);\r\n            sentObjectsCount = 0;\r\n        }\r\n        obj.send(\"exp_updateConditions\",
+    $.state.conditions);\r\n        sentObjectsCount++;\r\n    });\r\n    await Promise.all(sendPromises);\r\n}\r\n\r\nfunction
+    sleep(ms) {\r\n    return new Promise(resolve => setTimeout(resolve, ms));\r\n}\r\n\r\nfunction
+    InitBetweenSubjectCondition(questionnaireAnswers) {\r\n    try {\r\n        $.state.betweenSubjectsCondition
+    = GetBetweenSubjectsCondition(questionnaireAnswers);\r\n    }\r\n    catch (e)
+    {\r\n        $.log(\"Function GetBetweenSubjectsCondition is not defined. Randomly
+    assign between-subjects condition.\");\r\n        let betweenSubjectsCondition
+    = {};\r\n        try {\r\n            between_subjects_variables.forEach(v =>
+    {\r\n                betweenSubjectsCondition[v.name] = v.values[Math.floor(Math.random()
+    * v.values.length)];\r\n            });\r\n        } catch (e) {\r\n           
+    $.log(\"Between-subjects variables are not defined. Use dummy variables.\");\r\n           
+    between_subjects_variables_dummy.forEach(v => {\r\n                betweenSubjectsCondition[v.name]
+    = v.values[Math.floor(Math.random() * v.values.length)];\r\n            });\r\n       
+    }\r\n        $.state.betweenSubjectsCondition = betweenSubjectsCondition;\r\n   
+    }\r\n}\r\n\r\n// --------- Initialize conditions from variables ----------\r\n\r\nfunction
+    getConditions (variables, repeatPerCombination = 1) {\r\n    const isRepetitionRandom
+    = true;\r\n    \r\n    const allCombinations = generateCombinations(variables);\r\n   
+    \r\n    // Group by non-random variables\r\n    const groupedCombinations = {};\r\n   
+    \r\n    for (const combination of allCombinations) {\r\n        const groupKey
+    = variables\r\n            .filter(v => !v.isRandom)\r\n            .map(v =>
+    combination[v.name])\r\n            .join('-');\r\n    \r\n        if (!groupedCombinations[groupKey])
+    {\r\n            groupedCombinations[groupKey] = [];\r\n        }\r\n       
+    groupedCombinations[groupKey].push(combination);\r\n    }\r\n    \r\n    // Shuffle
+    each group\r\n    for (const key in groupedCombinations) {\r\n        groupedCombinations[key]
+    = shuffleArray(groupedCombinations[key]);\r\n    }\r\n    \r\n    // Flatten
+    the grouped combinations into a single array\r\n    let finalCombinations = Object.values(groupedCombinations).flat();\r\n   
+    \r\n    // Repeat each combination repeatPerCombination times\r\n    let conditions
+    = [];\r\n    for (const combination of finalCombinations) {\r\n        for (let
+    i = 0; i < repeatPerCombination; i++) {\r\n            conditions.push({ ...combination
+    });\r\n        }\r\n    }\r\n    \r\n    // If repetition should be random, shuffle
+    the repeated combinations\r\n    if (isRepetitionRandom) {\r\n        // Group
+    by non-random variables first\r\n        const randomGroupedCombinations = {};\r\n       
+    for (const combination of conditions) {\r\n            const groupKey = variables\r\n               
+    .filter(v => !v.isRandom)\r\n                .map(v => combination[v.name])\r\n               
+    .join('-');\r\n    \r\n            if (!randomGroupedCombinations[groupKey])
+    {\r\n                randomGroupedCombinations[groupKey] = [];\r\n           
+    }\r\n            randomGroupedCombinations[groupKey].push(combination);\r\n       
+    }\r\n    \r\n        // Shuffle within each group\r\n        for (const key in
+    randomGroupedCombinations) {\r\n            randomGroupedCombinations[key] =
+    shuffleArray(randomGroupedCombinations[key]);\r\n        }\r\n    \r\n       
+    // Flatten the grouped combinations into a single array\r\n        conditions
+    = Object.values(randomGroupedCombinations).flat();\r\n    }\r\n    \r\n    return
+    conditions;\r\n}\r\n\r\nfunction shuffleArray(array) {\r\n    for (let i = array.length
+    - 1; i > 0; i--) {\r\n        const j = Math.floor(Math.random() * (i + 1));\r\n       
+    [array[i], array[j]] = [array[j], array[i]];\r\n    }\r\n    return array;\r\n}\r\n\r\nfunction
+    generateCombinations(variables) {\r\n    const combinations = [];\r\n\r\n   
+    function createCombination(currentCombination, currentIndex) {\r\n        if
+    (currentIndex === variables.length) {\r\n            combinations.push({ ...currentCombination
+    });\r\n            return;\r\n        }\r\n\r\n        const variable = variables[currentIndex];\r\n       
+    for (const value of variable.values) {\r\n            currentCombination[variable.name]
+    = value;\r\n            createCombination(currentCombination, currentIndex +
+    1);\r\n        }\r\n    }\r\n\r\n    createCombination({}, 0);\r\n\r\n    return
+    combinations;\r\n}\r\n"
+--- !u!114 &4731245737645068636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67bdc2960f9462385a7fba1c0052836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalGimmickKey:
+    key:
+      target: 2
+      key: exp_toNextCondition
+    item: {fileID: 0}
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 2
+          key: exp_conditionID
+          parameterType: 3
+        expression:
+          type: 1
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 0
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 2
+            operands:
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: exp_conditionID
+                  type: 3
+              operatorExpression:
+                operator: 0
+                operands: []
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 3
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 1
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+    - singleStatement:
+        targetState:
+          target: 2
+          key: exp_conditionChanged
+          parameterType: 0
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: exp_conditionID
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 1
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: exp_conditionID
+                  type: 3
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &4731245737645068707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e67bdc2960f9462385a7fba1c0052836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  globalGimmickKey:
+    key:
+      target: 0
+      key: exp_readyToLeaveTrials
+    item: {fileID: 4731245737645068706}
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 2
+          key: exp_readyToLeaveTrials
+          parameterType: 1
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 2
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 2
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!114 &1802886244830669606
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d06d8dc2ce9e442ab2712de694945b2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  item: {fileID: 4731245737645068706}
+  key:
+    target: 2
+    key: exp_initCondition
+  logic:
+    statements:
+    - singleStatement:
+        targetState:
+          target: 0
+          key: exp_initCondition
+          parameterType: 1
+        expression:
+          type: 0
+          value:
+            type: 0
+            constant:
+              type: 1
+              boolValue: 1
+              floatValue: 0
+              integerValue: 0
+              vector2Value: {x: 0, y: 0}
+              vector3Value: {x: 0, y: 0, z: 0}
+            sourceState:
+              target: 0
+              key: 
+              type: 6
+          operatorExpression:
+            operator: 0
+            operands:
+            - type: 0
+              value:
+                type: 0
+                constant:
+                  type: 1
+                  boolValue: 0
+                  floatValue: 0
+                  integerValue: 0
+                  vector2Value: {x: 0, y: 0}
+                  vector3Value: {x: 0, y: 0, z: 0}
+                sourceState:
+                  target: 0
+                  key: 
+                  type: 6
+              operatorExpression:
+                operator: 0
+                operands: []
+--- !u!65 &166775567391568992
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6115281390238937048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc728c1810dc48a582fb23e0a13a7466, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4638770987403183712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4731245737645068637}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 466c56cb3cb32ec48b21ffb81ad21213, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clusterScripts:
+  - {fileID: 5022602860645237092, guid: 8821fb654779949b38c61e01b3dae4b5, type: 3}
+  playerScripts: []
+  clusterScriptMD5s: []
+  playerScriptMD5s: []

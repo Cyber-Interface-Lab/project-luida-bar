@@ -1,3 +1,5 @@
 $.onInteract(() => {
-    $.worldItemReference("QuestBoard").send("quest_board_to_next", true);
+    $.getItemsNear($.getPosition(), 0.1).forEach(item => {
+        item.send("quest_board_to_next", true);
+    });
 })
