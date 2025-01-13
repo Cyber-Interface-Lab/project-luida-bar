@@ -712,8 +712,8 @@ MonoBehaviour:
     meta, err) => {\n  if (res == null) {\n    $.log(\"callExternal ERROR: \" + err);\n   
     return;\n  }\n\n  if (meta === \"getQuestList\") {\n    let parsedRes = JSON.parse(res);\n   
     const filteredQuests = parsedRes.quests.filter(\n      (quest) => quest.isTest
-    === IS_TEST\n    );\n    $.groupState.quests = filteredQuests;\n\n    $.state.allQuestsCount
-    = filteredQuests.length;\n\n    // \u5168\u30DA\u30FC\u30B8\u6570\u3092\u8A08\u7B97\u3057\u3066UI\u306B\u53CD\u6620\n   
+    === IS_TEST\n    );\n    $.groupState.quests = [ ...filteredQuests ];\n\n   
+    $.state.allQuestsCount = filteredQuests.length;\n\n    // \u5168\u30DA\u30FC\u30B8\u6570\u3092\u8A08\u7B97\u3057\u3066UI\u306B\u53CD\u6620\n   
     $.subNode(\"AllPagesNumber\").setText(\n      Math.ceil($.state.allQuestsCount
     / numberPerPage)\n    );\n\n    for (let i = 0; i < Math.min($.state.allQuestsCount,
     numberPerPage); i++) {\n      const questTitle = $.subNode(\"Quest_\" + i);\n     

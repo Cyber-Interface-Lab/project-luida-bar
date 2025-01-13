@@ -151,7 +151,9 @@ MonoBehaviour:
     => {\n    switch (messageType) {\n        case \"quest_board_current_page\":\n           
     $.state.currentQuestBoardPage = arg;\n            sendQuestInfoRequest();\n           
     break;\n        default:\n            break;\n    }\n});\n\nfunction sendQuestInfoRequest
-    () {\n    let request = {\n        type: \"questInfo\",\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
+    () {\n    if (!$.groupState.quests) {\n        $.setStateCompat(\"owner\", \"triggerQuest\",
+    -1);\n        $.state.isLoading = false;\n        return;\n    }\n    let request
+    = {\n        type: \"questInfo\",\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
     \"triggerQuest\", \"integer\")].eID, // ($.state.currentQuestBoardPage - 1) *
     numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"),\n       
     token: TOKEN,\n        isTest: IS_TEST\n    };\n    $.callExternal(JSON.stringify(request),

@@ -18,7 +18,7 @@ $.onExternalCallEnd((res, meta, err) => {
     const filteredQuests = parsedRes.quests.filter(
       (quest) => quest.isTest === IS_TEST
     );
-    $.groupState.quests = filteredQuests;
+    $.groupState.quests = [ ...filteredQuests ];
 
     $.state.allQuestsCount = filteredQuests.length;
 

@@ -54,6 +54,11 @@ $.onReceive((messageType, arg, sender) => {
 });
 
 function sendQuestInfoRequest () {
+    if (!$.groupState.quests) {
+        $.setStateCompat("owner", "triggerQuest", -1);
+        $.state.isLoading = false;
+        return;
+    }
     let request = {
         type: "questInfo",
         id: $.groupState.quests[$.getStateCompat("owner", "triggerQuest", "integer")].eID, // ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat("owner", "triggerQuest", "integer"),

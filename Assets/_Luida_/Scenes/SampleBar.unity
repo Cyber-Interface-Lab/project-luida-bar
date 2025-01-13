@@ -18210,7 +18210,9 @@ PrefabInstance:
         arg, sender) => {\n    switch (messageType) {\n        case \"quest_board_current_page\":\n           
         $.state.currentQuestBoardPage = arg;\n            sendQuestInfoRequest();\n           
         break;\n        default:\n            break;\n    }\n});\n\nfunction sendQuestInfoRequest
-        () {\n    let request = {\n        type: \"questInfo\",\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
+        () {\n    if (!$.groupState.quests) {\n        $.setStateCompat(\"owner\",
+        \"triggerQuest\", -1);\n        $.state.isLoading = false;\n        return;\n   
+        }\n    let request = {\n        type: \"questInfo\",\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
         \"triggerQuest\", \"integer\")].eID, // ($.state.currentQuestBoardPage -
         1) * numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"),\n       
         token: TOKEN,\n        isTest: IS_TEST\n    };\n    $.callExternal(JSON.stringify(request),
@@ -18289,17 +18291,17 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.004953803
+      value: 0.005135289
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.004953803
+      value: 0.005135289
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.004953803
+      value: 0.005135289
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -18314,7 +18316,7 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6677676
+      value: 1.7288674
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -18339,12 +18341,12 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -545.60486
+      value: -526.32275
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -357.8262
+      value: -370.93542
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -18744,8 +18746,9 @@ PrefabInstance:
         meta, err) => {\n  if (res == null) {\n    $.log(\"callExternal ERROR: \"
         + err);\n    return;\n  }\n\n  if (meta === \"getQuestList\") {\n    let
         parsedRes = JSON.parse(res);\n    const filteredQuests = parsedRes.quests.filter(\n     
-        (quest) => quest.isTest === IS_TEST\n    );\n    $.groupState.quests = filteredQuests;\n\n   
-        $.state.allQuestsCount = filteredQuests.length;\n\n    // \u5168\u30DA\u30FC\u30B8\u6570\u3092\u8A08\u7B97\u3057\u3066UI\u306B\u53CD\u6620\n   
+        (quest) => quest.isTest === IS_TEST\n    );\n    $.groupState.quests = [
+        ...filteredQuests ];\n\n    $.state.allQuestsCount = filteredQuests.length;\n\n   
+        // \u5168\u30DA\u30FC\u30B8\u6570\u3092\u8A08\u7B97\u3057\u3066UI\u306B\u53CD\u6620\n   
         $.subNode(\"AllPagesNumber\").setText(\n      Math.ceil($.state.allQuestsCount
         / numberPerPage)\n    );\n\n    for (let i = 0; i < Math.min($.state.allQuestsCount,
         numberPerPage); i++) {\n      const questTitle = $.subNode(\"Quest_\" + i);\n     
