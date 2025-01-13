@@ -56,8 +56,9 @@ $.onReceive((messageType, arg, sender) => {
 function sendQuestInfoRequest () {
     let request = {
         type: "questInfo",
-        id: ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat("owner", "triggerQuest", "integer"),
-        isTest: false
+        id: $.groupState.quests[$.getStateCompat("owner", "triggerQuest", "integer")].eID, // ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat("owner", "triggerQuest", "integer"),
+        token: TOKEN,
+        isTest: IS_TEST
     };
     $.callExternal(JSON.stringify(request), "getQuestInfo");
 }

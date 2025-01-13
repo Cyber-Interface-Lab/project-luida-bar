@@ -559,6 +559,8 @@ GameObject:
   - component: {fileID: 8059115896813044330}
   - component: {fileID: 8059115896813044329}
   - component: {fileID: 2585813924826455287}
+  - component: {fileID: 2364101145396233334}
+  - component: {fileID: 1766669231745160131}
   m_Layer: 0
   m_Name: QuestBoard
   m_TagString: Untagged
@@ -703,9 +705,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61061896c654489a41575fc291bf4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceCodeAsset: {fileID: 5022602860645237092, guid: bb4d78c2262ea46ebb607adf90575ae1,
-    type: 3}
-  sourceCode: 
+  sourceCodeAsset: {fileID: 0}
+  sourceCode: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\nconst numberPerPage
+    = 30;\n\n$.onStart(() => {\n  $.state.allQuestsCount = 0;\n  setCurrentPage(1);\n 
+    $.state.quests = [];\n  requestQuestList();\n});\n\n$.onExternalCallEnd((res,
+    meta, err) => {\n  if (res == null) {\n    $.log(\"callExternal ERROR: \" + err);\n   
+    return;\n  }\n\n  if (meta === \"getQuestList\") {\n    let parsedRes = JSON.parse(res);\n   
+    const filteredQuests = parsedRes.quests.filter(\n      (quest) => quest.isTest
+    === IS_TEST\n    );\n    $.groupState.quests = filteredQuests;\n\n    $.state.allQuestsCount
+    = filteredQuests.length;\n\n    // \u5168\u30DA\u30FC\u30B8\u6570\u3092\u8A08\u7B97\u3057\u3066UI\u306B\u53CD\u6620\n   
+    $.subNode(\"AllPagesNumber\").setText(\n      Math.ceil($.state.allQuestsCount
+    / numberPerPage)\n    );\n\n    for (let i = 0; i < Math.min($.state.allQuestsCount,
+    numberPerPage); i++) {\n      const questTitle = $.subNode(\"Quest_\" + i);\n     
+    if (questTitle) {\n        var titleStr = filteredQuests[i].title;\n        if
+    (titleStr.length > 16) {\n          titleStr =\n            titleStr.substring(0,
+    16) +\n            \"\\n\" +\n            titleStr.substring(16, titleStr.length);\n       
+    }\n        questTitle.setText(titleStr);\n      }\n    }\n  }\n});\n\n$.onReceive((messageType,
+    arg, sender) => {\n  switch (messageType) {\n    case \"quest_board_update\":\n     
+    requestQuestList();\n      break;\n    case \"quest_board_to_next\":\n      toNext();\n     
+    break;\n    case \"quest_board_to_prev\":\n      toPrev();\n      break;\n   
+    case \"quest_board_get_current_page\":\n      sender.send(\"quest_board_current_page\",
+    $.state.currentPage);\n      break;\n    default:\n      break;\n  }\n});\n\nfunction
+    requestQuestList() {\n  let request = {\n    type: \"questList\",\n    page:
+    $.state.currentPage,\n    number: numberPerPage,\n    token: TOKEN,\n    isTest:
+    IS_TEST\n  };\n  $.callExternal(JSON.stringify(request), \"getQuestList\");\n}\n\nfunction
+    toPrev() {\n  if ($.state.currentPage <= 1) return;\n  setCurrentPage($.state.currentPage
+    - 1);\n  requestQuestList();\n}\n\nfunction toNext() {\n  if ($.state.currentPage
+    >= Math.ceil($.state.allQuestsCount / numberPerPage))\n    return;\n  setCurrentPage($.state.currentPage
+    + 1);\n  requestQuestList();\n}\n\nfunction setCurrentPage(page) {\n  $.state.currentPage
+    = page;\n  $.subNode(\"CurrentPageNumber\").setText($.state.currentPage);\n}\n"
 --- !u!114 &2585813924826455287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,6 +746,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc728c1810dc48a582fb23e0a13a7466, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2364101145396233334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059115896813044327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6487efbf7339493cb3e1fa581f53b763, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1766669231745160131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8059115896813044327}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77cbf20d08afa0146b1af698e23ed3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clusterScripts:
+  - {fileID: 5022602860645237092, guid: e54d47cb7d5df4a4f839e9120f4e5f57, type: 3}
+  - {fileID: 5022602860645237092, guid: bb4d78c2262ea46ebb607adf90575ae1, type: 3}
+  playerScripts: []
+  clusterScriptMD5s: []
+  playerScriptMD5s: []
 --- !u!1 &8059115897452877494
 GameObject:
   m_ObjectHideFlags: 0

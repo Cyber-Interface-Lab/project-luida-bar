@@ -67,6 +67,8 @@ GameObject:
   - component: {fileID: 2790192763856115436}
   - component: {fileID: 2790192763856115437}
   - component: {fileID: 115977843313538731}
+  - component: {fileID: 6604543040300964671}
+  - component: {fileID: 6138942158870622730}
   m_Layer: 0
   m_Name: QuestInfo
   m_TagString: Untagged
@@ -127,9 +129,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61061896c654489a41575fc291bf4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceCodeAsset: {fileID: 5022602860645237092, guid: 2d596c53318874c93b30998333879960,
-    type: 3}
-  sourceCode: 
+  sourceCodeAsset: {fileID: 0}
+  sourceCode: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\nconst numberPerPage
+    = 30;\n\n$.onStart(() => {\n    $.state.questBoard = $.worldItemReference(\"QuestBoard\");\n   
+    $.state.currentQuestBoardPage = 1;\n    $.state.isLoading = false;\n    $.setStateCompat(\"owner\",
+    \"AllowJoinExp\", true);\n})\n\n$.onUpdate(() => {\n    if ($.state.isLoading)
+    return;\n\n    if ($.state.questBoard && $.getStateCompat(\"owner\", \"triggerQuest\",
+    \"integer\") >= 0) {\n        $.state.isLoading = true;\n        $.state.questBoard.send(\"quest_board_get_current_page\",
+    true);\n    }\n});\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n    if (res
+    == null) {\n        $.log(\"callExternal ERROR: \" + err);\n        $.setStateCompat(\"owner\",
+    \"triggerQuest\", -1);\n        return;\n    }\n\n    if (meta === \"getQuestInfo\")
+    {\n        let parsedRes = JSON.parse(res);\n        $.state.quests = parsedRes.quests;\n       
+    const quest = parsedRes.quest;\n\n        $.subNode(\"Title\").setText(quest.title);\n       
+    $.subNode(\"Description\").setText(quest.description);\n        $.subNode(\"Prerequisite\").setText(\"\u53C2\u52A0\u6761\u4EF6\uFF1A\"
+    + quest.prerequisite);\n        $.subNode(\"Reward\").setText(\"\u5831\u916C\uFF1A\"
+    + quest.reward);\n        $.setStateCompat(\"owner\", \"currentQuestID\", ($.state.currentQuestBoardPage
+    - 1) * numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"))
+    + 1;\n\n        $.setStateCompat(\"this\", \"AllowJoinExp\", +quest.playersCount
+    === 0);\n        $.setStateCompat(\"owner\", \"triggerQuest\", -1);\n\n       
+    $.state.isLoading = false;\n    }\n});\n\n$.onReceive((messageType, arg, sender)
+    => {\n    switch (messageType) {\n        case \"quest_board_current_page\":\n           
+    $.state.currentQuestBoardPage = arg;\n            sendQuestInfoRequest();\n           
+    break;\n        default:\n            break;\n    }\n});\n\nfunction sendQuestInfoRequest
+    () {\n    let request = {\n        type: \"questInfo\",\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
+    \"triggerQuest\", \"integer\")].eID, // ($.state.currentQuestBoardPage - 1) *
+    numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"),\n       
+    token: TOKEN,\n        isTest: IS_TEST\n    };\n    $.callExternal(JSON.stringify(request),
+    \"getQuestInfo\");\n}"
 --- !u!114 &115977843313538731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,6 +171,37 @@ MonoBehaviour:
   worldItemReferences:
   - id: QuestBoard
     item: {fileID: 0}
+--- !u!114 &6604543040300964671
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790192763856115432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77cbf20d08afa0146b1af698e23ed3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clusterScripts:
+  - {fileID: 5022602860645237092, guid: e54d47cb7d5df4a4f839e9120f4e5f57, type: 3}
+  - {fileID: 5022602860645237092, guid: 2d596c53318874c93b30998333879960, type: 3}
+  playerScripts: []
+  clusterScriptMD5s: []
+  playerScriptMD5s: []
+--- !u!114 &6138942158870622730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2790192763856115432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b331e57100a4127901fa699e619e234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  host: {fileID: 0}
 --- !u!1 &2790192763936943438
 GameObject:
   m_ObjectHideFlags: 0

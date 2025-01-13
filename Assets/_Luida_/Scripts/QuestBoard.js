@@ -15,11 +15,10 @@ $.onExternalCallEnd((res, meta, err) => {
 
   if (meta === "getQuestList") {
     let parsedRes = JSON.parse(res);
-    // isTest = true のクエストのみフィルタリング
     const filteredQuests = parsedRes.quests.filter(
-      (quest) => quest.isTest === false
+      (quest) => quest.isTest === IS_TEST
     );
-    $.state.quests = filteredQuests;
+    $.groupState.quests = filteredQuests;
 
     $.state.allQuestsCount = filteredQuests.length;
 
@@ -68,7 +67,8 @@ function requestQuestList() {
     type: "questList",
     page: $.state.currentPage,
     number: numberPerPage,
-    isTest: false
+    token: TOKEN,
+    isTest: IS_TEST
   };
   $.callExternal(JSON.stringify(request), "getQuestList");
 }
