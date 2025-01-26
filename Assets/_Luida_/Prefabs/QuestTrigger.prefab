@@ -13,7 +13,11 @@ GameObject:
   - component: {fileID: 3643936778385026700}
   - component: {fileID: 3643936778385026703}
   - component: {fileID: 3643936778385026699}
-  - component: {fileID: 3643936778385026698}
+  - component: {fileID: 3504245960510513693}
+  - component: {fileID: 1500171154761029595}
+  - component: {fileID: 1496863851192089993}
+  - component: {fileID: 6087326909218266891}
+  - component: {fileID: 8313667038657778159}
   m_Layer: 14
   m_Name: QuestTrigger
   m_TagString: Untagged
@@ -115,7 +119,7 @@ MonoBehaviour:
     value: 6954978398031805932
   itemName: 
   size: {x: 0, y: 0, z: 0}
---- !u!114 &3643936778385026698
+--- !u!114 &3504245960510513693
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,22 +128,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 3643936778385026705}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2872ae1873cd4546a4cf7dae626612b5, type: 3}
+  m_Script: {fileID: 11500000, guid: f90a8458122ef47c3b840e286a75994a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 3643936778385026699}
   triggers:
-  - target: 2
-    specifiedTargetItem: {fileID: 0}
-    key: DisplayQuestInfo
-    type: 1
-    value:
-      boolValue: 1
-      floatValue: 0
-      integerValue: 0
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
-  - target: 2
+  - target: 0
     specifiedTargetItem: {fileID: 0}
     key: triggerQuest
     type: 3
@@ -149,3 +143,76 @@ MonoBehaviour:
       integerValue: 0
       vector2Value: {x: 0, y: 0}
       vector3Value: {x: 0, y: 0, z: 0}
+--- !u!114 &1500171154761029595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3643936778385026705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61061896c654489a41575fc291bf4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceCodeAsset: {fileID: 0}
+  sourceCode: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+    => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+    \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+    if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+    true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+    const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+    1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+    { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+    = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id] =
+    ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+    = questIdByPlayerID;\n})\n"
+--- !u!114 &1496863851192089993
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3643936778385026705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 77cbf20d08afa0146b1af698e23ed3ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clusterScripts:
+  - {fileID: 5022602860645237092, guid: e54d47cb7d5df4a4f839e9120f4e5f57, type: 3}
+  - {fileID: 5022602860645237092, guid: 1db241f9ece9f4fb7b17766282df9de2, type: 3}
+  playerScripts: []
+  clusterScriptMD5s: []
+  playerScriptMD5s: []
+--- !u!114 &6087326909218266891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3643936778385026705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b331e57100a4127901fa699e619e234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  host: {fileID: 0}
+--- !u!114 &8313667038657778159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3643936778385026705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02f60bfc9a2c4b04bcd3524b54a1e838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldItemTemplates:
+  - id: questInfoText
+    worldItemTemplate: {fileID: 8186367894344807135, guid: 371be3a8884724f44b25bb93e58477a1,
+      type: 3}
+    itemTemplateId:
+      value: 0

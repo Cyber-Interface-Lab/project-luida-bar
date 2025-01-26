@@ -11,6 +11,7 @@ $.onUpdate(() => {
     if ($.state.isLoading) return;
 
     if ($.state.questBoard && $.getStateCompat("owner", "triggerQuest", "integer") >= 0) {
+        $.log("load new quest info: " + $.getStateCompat("owner", "triggerQuest", "integer"));
         $.state.isLoading = true;
         $.state.questBoard.send("quest_board_get_current_page", true);
         $.subNode("Title").setText("Loading...");

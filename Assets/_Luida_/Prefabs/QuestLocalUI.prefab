@@ -142289,7 +142289,8 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3997025893625151358, guid: 57dee60d52ee2406abbb2a6520e05931, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 57dee60d52ee2406abbb2a6520e05931, type: 3}
 --- !u!4 &7940021942531770768 stripped
 Transform:
@@ -142315,7 +142316,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e61061896c654489a41575fc291bf4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sourceCodeAsset: {fileID: 0}
+  sourceCodeAsset: {fileID: 5022602860645237092, guid: 30389957990894bb09afbd1bf27e9e41,
+    type: 3}
   sourceCode: "$.onStart(() => {\n    $.state.displayQuestInfo = false;\n})\n\n$.onUpdate(()
     => {\n    if ($.state.displayQuestInfo !== $.getStateCompat(\"owner\", \"DisplayQuestInfo\",
     \"boolean\")) {\n        if ($.state.displayQuestInfo) {\n            const currentQuestID
@@ -142324,6 +142326,19 @@ MonoBehaviour:
     \"DropWorldGate\" + currentQuestID, false);\n            }\n        }\n       
     $.state.displayQuestInfo = $.getStateCompat(\"owner\", \"DisplayQuestInfo\",
     \"boolean\");\n    }\n});"
+--- !u!114 &6602867425488795571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940021942531770769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b331e57100a4127901fa699e619e234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  host: {fileID: 0}
 --- !u!1001 &6433627621941344346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142628,6 +142643,19 @@ MonoBehaviour:
   sourceCodeAsset: {fileID: 5022602860645237092, guid: f30abb365dcdbad4c8157a427f0ec383,
     type: 3}
   sourceCode: 
+--- !u!114 &5577133658156635036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6433627621437403290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b331e57100a4127901fa699e619e234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  host: {fileID: 0}
 --- !u!4 &6433627621437403291 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3997025893625151345, guid: 57dee60d52ee2406abbb2a6520e05931,

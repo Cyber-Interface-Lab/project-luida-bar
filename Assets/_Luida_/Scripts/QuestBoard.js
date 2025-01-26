@@ -3,7 +3,8 @@ const numberPerPage = 30;
 $.onStart(() => {
   $.state.allQuestsCount = 0;
   setCurrentPage(1);
-  $.state.quests = [];
+  $.groupState.quests = [];
+  $.groupState.questIdByPlayerID = {};
   requestQuestList();
 });
 
@@ -55,7 +56,7 @@ $.onReceive((messageType, arg, sender) => {
       toPrev();
       break;
     case "quest_board_get_current_page":
-      sender.send("quest_board_current_page", $.state.currentPage);
+      sender.send("quest_board_current_page", $.groupState.currentPage);
       break;
     default:
       break;
@@ -65,7 +66,7 @@ $.onReceive((messageType, arg, sender) => {
 function requestQuestList() {
   let request = {
     type: "questList",
-    page: $.state.currentPage,
+    page: $.groupState.currentPage,
     number: numberPerPage,
     token: TOKEN,
     isTest: IS_TEST
@@ -74,19 +75,19 @@ function requestQuestList() {
 }
 
 function toPrev() {
-  if ($.state.currentPage <= 1) return;
-  setCurrentPage($.state.currentPage - 1);
+  if ($.groupState.currentPage <= 1) return;
+  setCurrentPage($.groupState.currentPage - 1);
   requestQuestList();
 }
 
 function toNext() {
-  if ($.state.currentPage >= Math.ceil($.state.allQuestsCount / numberPerPage))
+  if ($.groupState.currentPage >= Math.ceil($.state.allQuestsCount / numberPerPage))
     return;
-  setCurrentPage($.state.currentPage + 1);
+  setCurrentPage($.groupState.currentPage + 1);
   requestQuestList();
 }
 
 function setCurrentPage(page) {
-  $.state.currentPage = page;
-  $.subNode("CurrentPageNumber").setText($.state.currentPage);
+  $.groupState.currentPage = page;
+  $.subNode("CurrentPageNumber").setText($.groupState.currentPage);
 }

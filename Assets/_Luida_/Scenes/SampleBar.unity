@@ -18851,6 +18851,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1082249932897364317, guid: 349b9c7e15fff4194b750cdc27860122,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1162642358551528959, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -20221,6 +20226,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3027387318003364765, guid: 349b9c7e15fff4194b750cdc27860122,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3041245988304827617, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -20831,6 +20841,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3859622791012593069, guid: 349b9c7e15fff4194b750cdc27860122,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3864207215670228979, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -21090,6 +21105,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4233743732478085448, guid: 349b9c7e15fff4194b750cdc27860122,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4244795844263189273, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -21891,6 +21911,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5577133658156635036, guid: 349b9c7e15fff4194b750cdc27860122,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 5581063247831954610, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -22390,6 +22415,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_ConstrainProportionsScale
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6307084156962661313, guid: 349b9c7e15fff4194b750cdc27860122,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6315863550253280866, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -22539,8 +22569,10 @@ PrefabInstance:
         $.state.currentQuestBoardPage = 1;\n    $.state.isLoading = false;\n    $.setStateCompat(\"owner\",
         \"AllowJoinExp\", true);\n})\n\n$.onUpdate(() => {\n    if ($.state.isLoading)
         return;\n\n    if ($.state.questBoard && $.getStateCompat(\"owner\", \"triggerQuest\",
-        \"integer\") >= 0) {\n        $.state.isLoading = true;\n        $.state.questBoard.send(\"quest_board_get_current_page\",
-        true);\n        $.subNode(\"Title\").setText(\"Loading...\");\n        $.subNode(\"Description\").setText(\"\");\n       
+        \"integer\") >= 0) {\n        $.log(\"load new quest info: \" + $.getStateCompat(\"owner\",
+        \"triggerQuest\", \"integer\"));\n        $.state.isLoading = true;\n       
+        $.state.questBoard.send(\"quest_board_get_current_page\", true);\n       
+        $.subNode(\"Title\").setText(\"Loading...\");\n        $.subNode(\"Description\").setText(\"\");\n       
         $.subNode(\"Prerequisite\").setText(\"\");\n        $.subNode(\"Reward\").setText(\"\");\n   
         }\n});\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n    if (res == null)
         {\n        $.log(\"callExternal ERROR: \" + err);\n        $.setStateCompat(\"owner\",
@@ -22651,17 +22683,17 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0036462068
+      value: 0.0035333948
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0036462068
+      value: 0.0035333948
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0036462068
+      value: 0.0035333948
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -22676,7 +22708,7 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.5184736
+      value: 1.4714928
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -22701,12 +22733,12 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -613.39923
+      value: -601.40955
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -318.6551
+      value: -325.1028
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -22843,6 +22875,11 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6602867425488795571, guid: 349b9c7e15fff4194b750cdc27860122,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 6617478758037653926, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -24432,10 +24469,40 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 51451650618254299, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 65736962931315195, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 105555369175121586, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 9516214309338170562
+      objectReference: {fileID: 0}
+    - target: {fileID: 204300048618307517, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 243260095971942488, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
       objectReference: {fileID: 0}
     - target: {fileID: 269487292080028549, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24447,6 +24514,31 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 383222681343050742, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 27
+      objectReference: {fileID: 0}
+    - target: {fileID: 424194499845815237, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 430395771049669341, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 437641117968186515, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 461975103060127346, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 521990308799129117, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
@@ -24462,20 +24554,120 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 531762222433439591, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531762222433439591, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531762222433439591, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531762222433439591, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 531762222433439591, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 555435750440000878, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 563867725197653843, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 12075702123835813456
+      objectReference: {fileID: 0}
+    - target: {fileID: 563867725197653844, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 563867725197653844, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 563867725197653844, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 563867725197653844, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 563867725197653844, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 563867725197653846, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 588115234541247043, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 28
+      objectReference: {fileID: 0}
+    - target: {fileID: 665654881106222133, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 727665194399880912, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 727665194399880914, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727665194399880914, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727665194399880914, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727665194399880914, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 727665194399880914, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 727665194399880917, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24537,10 +24729,60 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 980376765388391120, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 1020501262906021017, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 1131949650296888176, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1201240303069254440, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340913408431497145, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340913408431497145, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340913408431497145, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340913408431497145, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340913408431497145, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1340913408431497147, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24552,25 +24794,110 @@ PrefabInstance:
       propertyPath: id.value
       value: 715200176845962192
       objectReference: {fileID: 0}
+    - target: {fileID: 1421544047215725819, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1479093975843996157, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 1487318438362071540, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 1573246693025334109, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1593413825202111557, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 1649447313990494755, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 1742171456871362314, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 7774652929448501339
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742171456871362317, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742171456871362317, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742171456871362317, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742171456871362317, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1742171456871362317, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1742171456871362319, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 1782821211941494616, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 1822632289339302440, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 1847081200588014175, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1881703815961977756, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 29
       objectReference: {fileID: 0}
     - target: {fileID: 1934620952693485466, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24582,6 +24909,46 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 1975745475778479746, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2043056658719769947, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069315149526791791, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069315149537816446, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069315150065450891, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2069315150216466819, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 2069408522275267162, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
@@ -24592,10 +24959,80 @@ PrefabInstance:
       propertyPath: id.value
       value: 12995988458286199558
       objectReference: {fileID: 0}
+    - target: {fileID: 2152925068033823824, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 2323097929185262987, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2380226942024200823, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2387262302720194096, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2410499358912585878, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 2419332621113347587, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446929426328855609, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446929426328855609, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446929426328855609, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446929426328855609, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2446929426328855609, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2446929426328855611, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24607,15 +25044,40 @@ PrefabInstance:
       propertyPath: id.value
       value: 11747648136045396223
       objectReference: {fileID: 0}
+    - target: {fileID: 2513994998916938809, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 2532161714500698670, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2577595323577100456, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 2628598365685608124, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 2650073255825069597, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2671655399432764754, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2724469150999032153, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
       objectReference: {fileID: 0}
     - target: {fileID: 2736896958920004617, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24632,6 +25094,31 @@ PrefabInstance:
       propertyPath: id.value
       value: 9485203764382040489
       objectReference: {fileID: 0}
+    - target: {fileID: 2807637605812411020, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807637605812411020, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807637605812411020, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807637605812411020, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807637605812411020, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2807637605812411022, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
@@ -24647,6 +25134,11 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2878671966155431711, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 2912136792831864265, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
@@ -24657,31 +25149,206 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 2912136792831864270, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912136792831864270, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912136792831864270, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912136792831864270, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2912136792831864270, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3051669134943969631, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3062567544334715956, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 3134226780221520609, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3195690025628053381, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3325470838117159633, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
       objectReference: {fileID: 0}
     - target: {fileID: 3484803047275707664, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 3484803047275707666, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484803047275707666, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484803047275707666, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484803047275707666, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3484803047275707666, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3484803047275707669, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 11975741699277038294
+      objectReference: {fileID: 0}
+    - target: {fileID: 3602475193581413575, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 3633501081593213315, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3718952600480616217, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728584325990862608, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 3808797502238451438, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
       objectReference: {fileID: 0}
     - target: {fileID: 3889463290825422251, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 4295805295389247893
       objectReference: {fileID: 0}
+    - target: {fileID: 3889463290825422252, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3889463290825422252, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3889463290825422252, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3889463290825422252, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3889463290825422252, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3889463290825422254, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 4020146917775210813, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 4249755912849529524, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 4269683721265646527, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 4300159909368897383, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 4300159909654147439, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 4300159911112384922, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 4300159911265007755, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 4381891764420606801, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
@@ -24691,6 +25358,31 @@ PrefabInstance:
         type: 3}
       propertyPath: id.value
       value: 7528930598159493551
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407672240747053013, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407672240747053013, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407672240747053013, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407672240747053013, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4407672240747053013, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4407672240747053015, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24702,10 +25394,75 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4490609880122158284, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 4498285909651428954, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 4539830590790198270, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4547363075809784644, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4586716107489825212, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 4620096341853694731, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 4657209070530253738, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690571877430505112, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690571877430505112, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690571877430505112, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690571877430505112, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4690571877430505112, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4690571877430505114, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24717,10 +25474,50 @@ PrefabInstance:
       propertyPath: id.value
       value: 457716044832955671
       objectReference: {fileID: 0}
+    - target: {fileID: 4791544037000427373, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 4796882167376617273, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796882167376617275, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796882167376617275, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796882167376617275, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796882167376617275, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4796882167376617275, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4796882167376617276, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24737,6 +25534,26 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4839129165601169929, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4995117100122962445, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 5024501236436071617, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
@@ -24747,25 +25564,135 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5053755231095638071, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 5072350649203495767, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5084840792939491332, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 5096379755480560707, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5098754059247625890, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5124647752167806398, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 5259133879935581048, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5302931058078471397, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5450913831413491319, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5469875243458898353, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 5562461608668924416, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 5657266979055721545, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 5984383762482578056, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 1226139230766129531
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985702692350936107, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 6010661242217357530, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065757193056684333, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6074795932483185737, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24782,10 +25709,85 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6149046349443186327, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149046349443186327, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149046349443186327, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149046349443186327, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6149046349443186327, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6219235455444984563, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6248704125000633493, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 6297585890868097542, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6393566962604383561, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393566962604383563, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393566962604383563, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393566962604383563, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393566962604383563, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6393566962604383563, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6393566962604383564, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24797,30 +25799,215 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6434539255548158011, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434539255548158011, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434539255548158011, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434539255548158011, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6434539255548158011, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6434539255548158012, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 7168677798900520296
+      objectReference: {fileID: 0}
+    - target: {fileID: 6475233551572308078, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 6524250572642079194, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 6592244351404633258, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6611398804995083858, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 6721171661380767773, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661380767773, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661380767773, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661380767773, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661380767773, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721171661380767775, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6721171661672679692, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661672679692, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661672679692, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661672679692, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171661672679692, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6721171661672679694, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663132585696, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663132585696, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663132585696, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663132585696, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663132585696, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6721171663132585698, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6721171663283601640, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663283601640, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663283601640, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663283601640, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6721171663283601640, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6721171663283601642, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 6722629410714852480, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749677698130508344, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749677698130508344, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749677698130508344, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749677698130508344, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6749677698130508344, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6749677698130508346, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24832,10 +26019,65 @@ PrefabInstance:
       propertyPath: id.value
       value: 3450963443010654423
       objectReference: {fileID: 0}
+    - target: {fileID: 6878736157396999308, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878736157478307229, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878736158872642161, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6878736159090773113, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6889350786111551145, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6918923721520765786, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
     - target: {fileID: 6954148586485866482, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 6115284224749481382
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954148586485866485, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954148586485866485, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954148586485866485, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954148586485866485, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6954148586485866485, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6954148586485866487, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24847,11 +26089,51 @@ PrefabInstance:
       propertyPath: id.value
       value: 3772387361867094656
       objectReference: {fileID: 0}
+    - target: {fileID: 6987769011981667604, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987769011981667604, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987769011981667604, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987769011981667604, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6987769011981667604, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6987769011981667606, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 6999156893298773963, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 23
+      objectReference: {fileID: 0}
+    - target: {fileID: 7005375705433884371, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 7028544858740588256, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 7067144966830658656, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: text
@@ -24867,10 +26149,45 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7111836202093450084, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 7118435055536112005, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 7138847590912721752, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138847590912721754, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138847590912721754, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138847590912721754, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138847590912721754, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7138847590912721754, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7138847590912721757, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24882,6 +26199,31 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 7223364149349338682, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223364149349338682, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223364149349338682, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223364149349338682, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7223364149349338682, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7223364149349338685, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
@@ -24892,10 +26234,60 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7264731076603209324, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 7354030192694592171, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 7424028580381124079, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 7446757798397990863, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
     - target: {fileID: 7547968032709142438, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7584604697856032710, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 7608890762970419885, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
       objectReference: {fileID: 0}
     - target: {fileID: 7742151592886596432, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24907,17 +26299,72 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 7742151592886596439, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7742151592886596439, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7742151592886596439, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7742151592886596439, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7742151592886596439, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7850465745461946197, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
     - target: {fileID: 8059115896782204336, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8059115896782204338, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8059115896782204338, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8059115896782204338, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8059115896782204338, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8059115896782204338, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8059115896813044329, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
       value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\nconst numberPerPage
         = 30;\n\n$.onStart(() => {\n  $.state.allQuestsCount = 0;\n  setCurrentPage(1);\n 
-        $.state.quests = [];\n  requestQuestList();\n});\n\n$.onExternalCallEnd((res,
+        $.groupState.quests = [];\n  $.groupState.questIdByPlayerID = {};\n  requestQuestList();\n});\n\n$.onExternalCallEnd((res,
         meta, err) => {\n  if (res == null) {\n    $.log(\"callExternal ERROR: \"
         + err);\n    return;\n  }\n\n  if (meta === \"getQuestList\") {\n    let
         parsedRes = JSON.parse(res);\n    const filteredQuests = parsedRes.quests.filter(\n     
@@ -24935,15 +26382,15 @@ PrefabInstance:
         requestQuestList();\n      break;\n    case \"quest_board_to_next\":\n     
         toNext();\n      break;\n    case \"quest_board_to_prev\":\n      toPrev();\n     
         break;\n    case \"quest_board_get_current_page\":\n      sender.send(\"quest_board_current_page\",
-        $.state.currentPage);\n      break;\n    default:\n      break;\n  }\n});\n\nfunction
+        $.groupState.currentPage);\n      break;\n    default:\n      break;\n  }\n});\n\nfunction
         requestQuestList() {\n  let request = {\n    type: \"questList\",\n    page:
-        $.state.currentPage,\n    number: numberPerPage,\n    token: TOKEN,\n   
+        $.groupState.currentPage,\n    number: numberPerPage,\n    token: TOKEN,\n   
         isTest: IS_TEST\n  };\n  $.callExternal(JSON.stringify(request), \"getQuestList\");\n}\n\nfunction
-        toPrev() {\n  if ($.state.currentPage <= 1) return;\n  setCurrentPage($.state.currentPage
-        - 1);\n  requestQuestList();\n}\n\nfunction toNext() {\n  if ($.state.currentPage
-        >= Math.ceil($.state.allQuestsCount / numberPerPage))\n    return;\n  setCurrentPage($.state.currentPage
-        + 1);\n  requestQuestList();\n}\n\nfunction setCurrentPage(page) {\n  $.state.currentPage
-        = page;\n  $.subNode(\"CurrentPageNumber\").setText($.state.currentPage);\n}\n"
+        toPrev() {\n  if ($.groupState.currentPage <= 1) return;\n  setCurrentPage($.groupState.currentPage
+        - 1);\n  requestQuestList();\n}\n\nfunction toNext() {\n  if ($.groupState.currentPage
+        >= Math.ceil($.state.allQuestsCount / numberPerPage))\n    return;\n  setCurrentPage($.groupState.currentPage
+        + 1);\n  requestQuestList();\n}\n\nfunction setCurrentPage(page) {\n  $.groupState.currentPage
+        = page;\n  $.subNode(\"CurrentPageNumber\").setText($.groupState.currentPage);\n}\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8059115897452877494, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25045,20 +26492,175 @@ PrefabInstance:
       propertyPath: id.value
       value: 6136054156862993983
       objectReference: {fileID: 0}
+    - target: {fileID: 8074770737411349412, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074770737411349412, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074770737411349412, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074770737411349412, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8074770737411349412, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8074770737411349414, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8096872426109418731, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 8191283315561316977, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8232317503801530165, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 8245411975855960184, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
       objectReference: {fileID: 0}
+    - target: {fileID: 8245411975855960186, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245411975855960186, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245411975855960186, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245411975855960186, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245411975855960186, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8245411975855960189, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: id.value
       value: 14472876190067091975
+      objectReference: {fileID: 0}
+    - target: {fileID: 8292742738193303488, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8362040394491284175, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
+      objectReference: {fileID: 0}
+    - target: {fileID: 8390411714803363390, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 8735764200867146054, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: triggers.Array.data[0].value.integerValue
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864797664148629834, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864797664632598619, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864797665892702135, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8864797666245065151, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8866430235823826384, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25069,6 +26671,51 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalScale.z
       value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866430235823826391, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866430235823826391, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866430235823826391, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866430235823826391, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866430235823826391, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929473252779000687, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 8996779882648109238, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: worldItemTemplates.Array.data[0].itemTemplateId.value
+      value: 6903755414743747524
       objectReference: {fileID: 0}
     - target: {fileID: 9038648856751440368, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25084,6 +26731,41 @@ PrefabInstance:
         type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9135047263924199050, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: host
+      value: 
+      objectReference: {fileID: 8059115898300059010}
+    - target: {fileID: 9149893603814433820, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
+      objectReference: {fileID: 0}
+    - target: {fileID: 9154801932539156844, guid: 742595b3cc014499ca2fc97ad804a44c,
+        type: 3}
+      propertyPath: sourceCode
+      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
+        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
+        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
+        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
+        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
+        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
+        1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
+        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\n})\n"
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4775589690351097812, guid: 742595b3cc014499ca2fc97ad804a44c, type: 3}
