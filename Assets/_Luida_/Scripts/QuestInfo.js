@@ -21,6 +21,7 @@ $.onExternalCallEnd((res, meta, err) =>
     if (res == null) {
         $.log("callExternal ERROR: " + err);
         $.setStateCompat("owner", "triggerQuest", -1);
+        if (meta === "getQuestInfo") $.setStateCompat("this", "AllowJoinExp", false);
         return;
     }
 
@@ -35,7 +36,8 @@ $.onExternalCallEnd((res, meta, err) =>
         $.subNode("Reward").setText("報酬：" + quest.reward);
         $.setStateCompat("owner", "currentQuestID", ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat("owner", "triggerQuest", "integer")) + 1;
 
-        $.setStateCompat("this", "AllowJoinExp", +quest.playersCount === 0);
+        // $.setStateCompat("this", "AllowJoinExp", +quest.playersCount === 0);
+        $.setStateCompat("this", "AllowJoinExp", true);
         $.setStateCompat("owner", "triggerQuest", -1);
 
         $.state.isLoading = false;

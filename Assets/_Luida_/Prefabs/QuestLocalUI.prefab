@@ -141927,6 +141927,11 @@ PrefabInstance:
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 945555090511383105, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 945555090574564228, guid: 65af2524c8b9a40849428009313c8504,
         type: 3}
       propertyPath: m_Pivot.x
@@ -142037,6 +142042,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: QuestInfoDisplay
       objectReference: {fileID: 0}
+    - target: {fileID: 945555090574564229, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65af2524c8b9a40849428009313c8504, type: 3}
 --- !u!224 &6433627621605721549 stripped
@@ -142097,7 +142107,7 @@ PrefabInstance:
     - target: {fileID: 3997025893625151345, guid: 57dee60d52ee2406abbb2a6520e05931,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -350
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 3997025893625151345, guid: 57dee60d52ee2406abbb2a6520e05931,
         type: 3}
@@ -142177,6 +142187,29 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6433627620935038689}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7940021942531770769 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3997025893625151344, guid: 57dee60d52ee2406abbb2a6520e05931,
+    type: 3}
+  m_PrefabInstance: {fileID: 6433627620935038689}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1221385263051031072
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7940021942531770769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e61061896c654489a41575fc291bf4a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sourceCodeAsset: {fileID: 0}
+  sourceCode: "$.onInteract(() => {\n    const currentQuestID = $.getStateCompat(\"owner\",
+    \"currentQuestID\", \"integer\") + 1;\n    if (currentQuestID && currentQuestID
+    > 0) {\n        $.setStateCompat(\"owner\", \"DropWorldGate\" + currentQuestID,
+    false);\n    }\n})"
 --- !u!1001 &6433627621941344346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142380,7 +142413,7 @@ PrefabInstance:
     - target: {fileID: 3997025893625151345, guid: 57dee60d52ee2406abbb2a6520e05931,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -349.9959
+      value: -250
       objectReference: {fileID: 0}
     - target: {fileID: 3997025893625151345, guid: 57dee60d52ee2406abbb2a6520e05931,
         type: 3}

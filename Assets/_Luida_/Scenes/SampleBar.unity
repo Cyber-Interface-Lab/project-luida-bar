@@ -18196,17 +18196,19 @@ PrefabInstance:
         \"integer\") >= 0) {\n        $.state.isLoading = true;\n        $.state.questBoard.send(\"quest_board_get_current_page\",
         true);\n    }\n});\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n    if
         (res == null) {\n        $.log(\"callExternal ERROR: \" + err);\n       
-        $.setStateCompat(\"owner\", \"triggerQuest\", -1);\n        return;\n   
-        }\n\n    if (meta === \"getQuestInfo\") {\n        let parsedRes = JSON.parse(res);\n       
-        $.state.quests = parsedRes.quests;\n        const quest = parsedRes.quest;\n\n       
-        $.subNode(\"Title\").setText(quest.title);\n        $.subNode(\"Description\").setText(quest.description);\n       
-        $.subNode(\"Prerequisite\").setText(\"\u53C2\u52A0\u6761\u4EF6\uFF1A\" +
-        quest.prerequisite);\n        $.subNode(\"Reward\").setText(\"\u5831\u916C\uFF1A\"
+        $.setStateCompat(\"owner\", \"triggerQuest\", -1);\n        if (meta ===
+        \"getQuestInfo\") $.setStateCompat(\"this\", \"AllowJoinExp\", false);\n       
+        return;\n    }\n\n    if (meta === \"getQuestInfo\") {\n        let parsedRes
+        = JSON.parse(res);\n        $.state.quests = parsedRes.quests;\n        const
+        quest = parsedRes.quest;\n\n        $.subNode(\"Title\").setText(quest.title);\n       
+        $.subNode(\"Description\").setText(quest.description);\n        $.subNode(\"Prerequisite\").setText(\"\u53C2\u52A0\u6761\u4EF6\uFF1A\"
+        + quest.prerequisite);\n        $.subNode(\"Reward\").setText(\"\u5831\u916C\uFF1A\"
         + quest.reward);\n        $.setStateCompat(\"owner\", \"currentQuestID\",
         ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat(\"owner\",
-        \"triggerQuest\", \"integer\")) + 1;\n\n        $.setStateCompat(\"this\",
-        \"AllowJoinExp\", +quest.playersCount === 0);\n        $.setStateCompat(\"owner\",
-        \"triggerQuest\", -1);\n\n        $.state.isLoading = false;\n    }\n});\n\n$.onReceive((messageType,
+        \"triggerQuest\", \"integer\")) + 1;\n\n        // $.setStateCompat(\"this\",
+        \"AllowJoinExp\", +quest.playersCount === 0);\n        $.setStateCompat(\"this\",
+        \"AllowJoinExp\", true);\n        $.setStateCompat(\"owner\", \"triggerQuest\",
+        -1);\n\n        $.state.isLoading = false;\n    }\n});\n\n$.onReceive((messageType,
         arg, sender) => {\n    switch (messageType) {\n        case \"quest_board_current_page\":\n           
         $.state.currentQuestBoardPage = arg;\n            sendQuestInfoRequest();\n           
         break;\n        default:\n            break;\n    }\n});\n\nfunction sendQuestInfoRequest
@@ -18291,17 +18293,17 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.005135289
+      value: 0.004605686
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.005135289
+      value: 0.004605686
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.005135289
+      value: 0.004605686
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -18316,7 +18318,7 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.7288674
+      value: 1.5505692
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -18341,12 +18343,12 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -526.32275
+      value: -841.43066
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -370.93542
+      value: -231.31396
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
