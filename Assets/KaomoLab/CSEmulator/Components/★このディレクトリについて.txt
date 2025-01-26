@@ -1,0 +1,7 @@
+﻿GameObjectに追加しEmulateClassesで必要な機能を提供するComponentを配置する。
+CSEmulator.Editor以外を参照してはいけない。
+すべてのComponentはこのディレクトリに配置すること。
+
+editor scriptなComponent(例えばEditor以下に配置されたComponent)はAddComponentすることはできない。
+Can't add script behaviour XxxComponent because it is an editor script. To attach a script it needs to be outside the 'Editor' folder.
+となる。

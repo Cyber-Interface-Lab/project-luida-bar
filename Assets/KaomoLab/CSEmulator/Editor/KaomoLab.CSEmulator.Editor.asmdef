@@ -1,0 +1,18 @@
+{
+    "name": "KaomoLab.CSEmulator.Editor",
+    "rootNamespace": "",
+    "references": [
+        "KaomoLab.CSEmulator"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

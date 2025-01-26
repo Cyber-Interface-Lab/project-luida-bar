@@ -1,0 +1,25 @@
+{
+    "name": "KaomoLab.CSEmulator.Components",
+    "rootNamespace": "",
+    "references": [
+        "ClusterVR.CreatorKit.Constants",
+        "ClusterVR.CreatorKit.Item",
+        "ClusterVR.CreatorKit.Item.Implements",
+        "ClusterVR.CreatorKit.Trigger.Implements",
+        "ClusterVR.CreatorKit.Preview",
+        "ClusterVR.CreatorKit.World",
+        "ClusterVR.CreatorKit.World.Implements",
+        "KaomoLab.CSEmulator.Editor",
+        "KaomoLab.CSEmulator",
+        "VRM"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

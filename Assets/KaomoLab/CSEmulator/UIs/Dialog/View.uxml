@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="transform-origin: left top; left: 20%; top: 30%; right: 20%; bottom: 30%; position: absolute;">
+        <ui:Label text="Label&#10;asdf" display-tooltip-when-elided="true" name="caption" style="position: absolute; left: 0; top: 0; right: 0; bottom: 20%; font-size: 15px; background-color: rgb(53, 53, 53); color: rgb(255, 255, 255); padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px; white-space: normal;" />
+        <ui:VisualElement name="ButtonArea" style="position: absolute; top: 80%; bottom: 0; left: 0; right: 0;" />
+    </ui:VisualElement>
+</ui:UXML>

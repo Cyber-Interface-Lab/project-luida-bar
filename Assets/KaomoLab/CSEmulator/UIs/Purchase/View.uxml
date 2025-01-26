@@ -1,0 +1,11 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="transform-origin: left top; left: 20%; top: 30%; right: 20%; bottom: 30%; position: absolute;">
+        <ui:Label text="Label&#10;asdf" display-tooltip-when-elided="true" name="caption" style="position: absolute; left: 0; top: 0; right: 0; bottom: 60%; font-size: 15px; background-color: rgb(53, 53, 53); color: rgb(255, 255, 255); padding-left: 5px; padding-right: 5px; padding-top: 5px; padding-bottom: 5px;" />
+        <ui:Button text="キャンセル" display-tooltip-when-elided="true" name="UserCanceled" style="position: absolute; left: 0; top: 40%; right: 50%; bottom: 30%; font-size: 15px; margin-left: 3px;" />
+        <ui:Button text="購入" display-tooltip-when-elided="true" name="Purchased" style="position: absolute; left: 50%; top: 40%; right: 0; bottom: 30%; font-size: 15px; margin-right: 3px; margin-top: 1px;" />
+        <ui:Button text="Busy&#10;(test)" display-tooltip-when-elided="true" name="Busy" style="position: absolute; left: 0; top: 70%; right: 75%; bottom: 0; font-size: 12px; margin-right: 3px;" />
+        <ui:Button text="Unknown&#10;(test)" display-tooltip-when-elided="true" name="Unknown" style="position: absolute; left: 75%; top: 70%; right: 0; bottom: 0; font-size: 12px; margin-right: 3px;" />
+        <ui:Button text="NotAvailable&#10;(test)" display-tooltip-when-elided="true" name="NotAvailable" style="position: absolute; left: 25%; top: 70%; right: 50%; bottom: 0; font-size: 12px; margin-right: 3px;" />
+        <ui:Button text="Failed&#10;(test)" display-tooltip-when-elided="true" name="Failed" style="position: absolute; left: 50%; top: 70%; right: 25%; bottom: 0; font-size: 12px; margin-right: 3px;" />
+    </ui:VisualElement>
+</ui:UXML>

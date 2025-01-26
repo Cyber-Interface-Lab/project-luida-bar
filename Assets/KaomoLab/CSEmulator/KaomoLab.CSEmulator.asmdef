@@ -1,0 +1,22 @@
+{
+    "name": "KaomoLab.CSEmulator",
+    "rootNamespace": "",
+    "references": [
+        "ClusterVR.CreatorKit",
+        "ClusterVR.CreatorKit.Common",
+        "ClusterVR.CreatorKit.Editor",
+        "ClusterVR.CreatorKit.Item",
+        "ClusterVR.CreatorKit.Item.Implements",
+        "ClusterVR.CreatorKit.World.Implements",
+        "Unity.Postprocessing.Runtime"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

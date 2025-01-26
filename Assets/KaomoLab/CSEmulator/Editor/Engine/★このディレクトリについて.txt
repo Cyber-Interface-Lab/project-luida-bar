@@ -1,0 +1,2 @@
+﻿GameObject個別でスクリプトの実行処理を行う機能を配置する。
+ただし、ClusterScriptの手前まで。

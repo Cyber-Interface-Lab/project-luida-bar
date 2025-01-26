@@ -1,0 +1,40 @@
+{
+    "name": "KaomoLab.CSEmulator.Editor.EmulateClasses",
+    "rootNamespace": "",
+    "references": [
+        "ClusterVR.CreatorKit",
+        "ClusterVR.CreatorKit.Editor",
+        "ClusterVR.CreatorKit.Common",
+        "ClusterVR.CreatorKit.Trigger",
+        "ClusterVR.CreatorKit.Gimmick",
+        "ClusterVR.CreatorKit.Operation",
+        "ClusterVR.CreatorKit.Item",
+        "ClusterVR.CreatorKit.Item.Implements",
+        "ClusterVR.CreatorKit.Trigger.Implements",
+        "ClusterVR.CreatorKit.Preview",
+        "ClusterVR.CreatorKit.Editor.Preview",
+        "ClusterVR.CreatorKit.Editor.Preview.RoomState",
+        "ClusterVR.CreatorKit.Editor.Preview.Operation",
+        "ClusterVR.CreatorKit.Editor.Preview.Trigger",
+        "ClusterVR.CreatorKit.Editor.Preview.Gimmick",
+        "ClusterVR.CreatorKit.Editor.Preview.Item",
+        "ClusterVR.CreatorKit.Editor.Preview.World",
+        "ClusterVR.CreatorKit.World",
+        "ClusterVR.CreatorKit.World.Implements",
+        "KaomoLab.CSEmulator.Editor",
+        "KaomoLab.CSEmulator.Components",
+        "KaomoLab.CSEmulator",
+        "Unity.Postprocessing.Runtime"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
