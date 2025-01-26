@@ -141914,13 +141914,83 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 945555089881035496, guid: 65af2524c8b9a40849428009313c8504,
         type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555089881035496, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555089881035496, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555089881035496, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
       propertyPath: textMesh
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 945555089972063450, guid: 65af2524c8b9a40849428009313c8504,
         type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555089972063450, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555089972063450, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555089972063450, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
       propertyPath: textMesh
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090360371167, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090360371167, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090360371167, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090360371167, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090360371167, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090511383104, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090511383104, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 945555090511383104, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.r
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 945555090511383104, guid: 65af2524c8b9a40849428009313c8504,
         type: 3}
@@ -141930,7 +142000,7 @@ PrefabInstance:
     - target: {fileID: 945555090511383105, guid: 65af2524c8b9a40849428009313c8504,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -100
       objectReference: {fileID: 0}
     - target: {fileID: 945555090574564228, guid: 65af2524c8b9a40849428009313c8504,
         type: 3}
@@ -142047,6 +142117,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7369328977359673133, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369328977359673133, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7369328977359673133, guid: 65af2524c8b9a40849428009313c8504,
+        type: 3}
+      propertyPath: color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65af2524c8b9a40849428009313c8504, type: 3}
 --- !u!224 &6433627621605721549 stripped
@@ -142151,6 +142236,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
         type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 87bee8fd0d1ab0e42b6a2614f3b60dc0, type: 2}
@@ -142206,10 +142316,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceCodeAsset: {fileID: 0}
-  sourceCode: "$.onInteract(() => {\n    const currentQuestID = $.getStateCompat(\"owner\",
-    \"currentQuestID\", \"integer\") + 1;\n    if (currentQuestID && currentQuestID
-    > 0) {\n        $.setStateCompat(\"owner\", \"DropWorldGate\" + currentQuestID,
-    false);\n    }\n})"
+  sourceCode: "$.onStart(() => {\n    $.state.displayQuestInfo = false;\n})\n\n$.onUpdate(()
+    => {\n    if ($.state.displayQuestInfo !== $.getStateCompat(\"owner\", \"DisplayQuestInfo\",
+    \"boolean\")) {\n        if ($.state.displayQuestInfo) {\n            const currentQuestID
+    = $.getStateCompat(\"owner\", \"currentQuestID\", \"integer\") + 1;\n           
+    if (currentQuestID && currentQuestID > 0) {\n                $.setStateCompat(\"owner\",
+    \"DropWorldGate\" + currentQuestID, false);\n            }\n        }\n       
+    $.state.displayQuestInfo = $.getStateCompat(\"owner\", \"DisplayQuestInfo\",
+    \"boolean\");\n    }\n});"
 --- !u!1001 &6433627621941344346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -142453,6 +142567,31 @@ PrefabInstance:
     - target: {fileID: 3997025893625151345, guid: 57dee60d52ee2406abbb2a6520e05931,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_CastShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_ReceiveShadows
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_DynamicOccludee
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_LightProbeUsage
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3997025893625151354, guid: 57dee60d52ee2406abbb2a6520e05931,
+        type: 3}
+      propertyPath: m_ReflectionProbeUsage
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3997025893625151358, guid: 57dee60d52ee2406abbb2a6520e05931,
