@@ -6,7 +6,7 @@ $.onInteract((player) => {
 
     $.setStateCompat("owner", "DisplayQuestInfo", true);
     const worldItemTemplateId = new WorldItemTemplateId("questInfoText");
-    const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.895), new Quaternion());
+    const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());
     const eID = quest.eID;
     questInfoText.send("onCreate", { player, eID, token: TOKEN, isTest: IS_TEST });
 

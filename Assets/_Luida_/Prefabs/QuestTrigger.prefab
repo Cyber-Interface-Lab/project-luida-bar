@@ -162,7 +162,7 @@ MonoBehaviour:
     if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
     true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
     const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-    1.895), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
+    1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
     { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
     = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id] =
     ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
