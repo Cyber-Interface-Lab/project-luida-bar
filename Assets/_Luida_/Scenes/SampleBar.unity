@@ -22564,51 +22564,53 @@ PrefabInstance:
     - target: {fileID: 6433627622012881202, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\nconst numberPerPage
-        = 30;\n\n$.onStart(() => {\n    $.state.questBoard = $.worldItemReference(\"QuestBoard\");\n   
-        $.state.currentQuestBoardPage = 1;\n    $.state.isLoading = false;\n    $.setStateCompat(\"owner\",
-        \"AllowJoinExp\", true);\n})\n\n$.onUpdate(() => {\n    if ($.state.isLoading)
-        return;\n\n    if ($.state.questBoard && $.getStateCompat(\"owner\", \"triggerQuest\",
-        \"integer\") >= 0) {\n        $.log(\"load new quest info: \" + $.getStateCompat(\"owner\",
-        \"triggerQuest\", \"integer\"));\n        $.state.isLoading = true;\n       
-        $.state.questBoard.send(\"quest_board_get_current_page\", true);\n       
-        $.subNode(\"Title\").setText(\"Loading...\");\n        $.subNode(\"Description\").setText(\"\");\n       
-        $.subNode(\"Prerequisite\").setText(\"\");\n        $.subNode(\"Reward\").setText(\"\");\n   
-        }\n});\n\n$.onExternalCallEnd((res, meta, err) =>\n{\n    if (res == null)
-        {\n        $.log(\"callExternal ERROR: \" + err);\n        $.setStateCompat(\"owner\",
-        \"triggerQuest\", -1);\n        if (meta === \"getQuestInfo\") $.setStateCompat(\"this\",
-        \"AllowJoinExp\", false);\n        return;\n    }\n\n    if (meta === \"getQuestInfo\")
-        {\n        let parsedRes = JSON.parse(res);\n        $.state.quests = parsedRes.quests;\n       
-        const quest = parsedRes.quest;\n\n        const title = insertLineBreaks(quest.title,
-        50);\n        $.subNode(\"Title\").setText(title);\n        const description
-        = insertLineBreaks(quest.description, 70);\n        $.subNode(\"Description\").setText(description);\n       
-        const prerequisite = insertLineBreaks(quest.prerequisite, 70);\n        $.subNode(\"Prerequisite\").setText(\"\u53C2\u52A0\u6761\u4EF6\uFF1A\"
-        + prerequisite);\n\n        $.subNode(\"Reward\").setText(\"\u5831\u916C\uFF1A\"
-        + quest.reward);\n        $.setStateCompat(\"owner\", \"currentQuestID\",
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\nconst numberPerPage
+        = 30;\r\n\r\n$.onStart(() => {\r\n    $.state.questBoard = $.worldItemReference(\"QuestBoard\");\r\n   
+        $.state.currentQuestBoardPage = 1;\r\n    $.state.isLoading = false;\r\n   
+        $.setStateCompat(\"owner\", \"AllowJoinExp\", true);\r\n})\r\n\r\n$.onUpdate(()
+        => {\r\n    if ($.state.isLoading) return;\r\n\r\n    if ($.state.questBoard
+        && $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\") >= 0) {\r\n       
+        $.log(\"load new quest info: \" + $.getStateCompat(\"owner\", \"triggerQuest\",
+        \"integer\"));\r\n        $.state.isLoading = true;\r\n        $.state.questBoard.send(\"quest_board_get_current_page\",
+        true);\r\n        $.subNode(\"Title\").setText(\"Loading...\");\r\n       
+        $.subNode(\"Description\").setText(\"\");\r\n        $.subNode(\"Prerequisite\").setText(\"\");\r\n       
+        $.subNode(\"Reward\").setText(\"\");\r\n    }\r\n});\r\n\r\n$.onExternalCallEnd((res,
+        meta, err) =>\r\n{\r\n    if (res == null) {\r\n        $.log(\"callExternal
+        ERROR: \" + err);\r\n        $.setStateCompat(\"owner\", \"triggerQuest\",
+        -1);\r\n        if (meta === \"getQuestInfo\") $.setStateCompat(\"this\",
+        \"AllowJoinExp\", false);\r\n        return;\r\n    }\r\n\r\n    if (meta
+        === \"getQuestInfo\") {\r\n        let parsedRes = JSON.parse(res);\r\n       
+        $.state.quests = parsedRes.quests;\r\n        const quest = parsedRes.quest;\r\n\r\n       
+        const title = insertLineBreaks(quest.title, 50);\r\n        $.subNode(\"Title\").setText(title);\r\n       
+        const description = insertLineBreaks(quest.description, 70);\r\n        $.subNode(\"Description\").setText(description);\r\n       
+        const prerequisite = insertLineBreaks(quest.prerequisite, 70);\r\n       
+        $.subNode(\"Prerequisite\").setText(\"\u53C2\u52A0\u6761\u4EF6\uFF1A\" +
+        prerequisite);\r\n\r\n        $.subNode(\"Reward\").setText(\"\u5831\u916C\uFF1A\"
+        + quest.reward);\r\n        $.setStateCompat(\"owner\", \"currentQuestID\",
         ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat(\"owner\",
-        \"triggerQuest\", \"integer\")) + 1;\n\n        // $.setStateCompat(\"this\",
-        \"AllowJoinExp\", +quest.playersCount === 0);\n        $.setStateCompat(\"this\",
-        \"AllowJoinExp\", true);\n        $.setStateCompat(\"owner\", \"triggerQuest\",
-        -1);\n\n        $.state.isLoading = false;\n    }\n});\n\n$.onReceive((messageType,
-        arg, sender) => {\n    switch (messageType) {\n        case \"quest_board_current_page\":\n           
-        $.state.currentQuestBoardPage = arg;\n            sendQuestInfoRequest();\n           
-        break;\n        default:\n            break;\n    }\n});\n\nfunction sendQuestInfoRequest
-        () {\n    if (!$.groupState.quests || !$.groupState.quests[$.getStateCompat(\"owner\",
-        \"triggerQuest\", \"integer\")]) {\n        $.setStateCompat(\"owner\", \"triggerQuest\",
-        -1);\n        $.state.isLoading = false;\n        $.setStateCompat(\"owner\",
-        \"DisplayQuestInfo\", false);\n        return;\n    }\n    let request =
-        {\n        type: \"questInfo\",\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
+        \"triggerQuest\", \"integer\")) + 1;\r\n\r\n        // $.setStateCompat(\"this\",
+        \"AllowJoinExp\", +quest.playersCount === 0);\r\n        $.setStateCompat(\"this\",
+        \"AllowJoinExp\", true);\r\n        $.setStateCompat(\"owner\", \"triggerQuest\",
+        -1);\r\n\r\n        $.state.isLoading = false;\r\n    }\r\n});\r\n\r\n$.onReceive((messageType,
+        arg, sender) => {\r\n    switch (messageType) {\r\n        case \"quest_board_current_page\":\r\n           
+        $.state.currentQuestBoardPage = arg;\r\n            sendQuestInfoRequest();\r\n           
+        break;\r\n        default:\r\n            break;\r\n    }\r\n});\r\n\r\nfunction
+        sendQuestInfoRequest () {\r\n    if (!$.groupState.quests || !$.groupState.quests[$.getStateCompat(\"owner\",
+        \"triggerQuest\", \"integer\")]) {\r\n        $.setStateCompat(\"owner\",
+        \"triggerQuest\", -1);\r\n        $.state.isLoading = false;\r\n        $.setStateCompat(\"owner\",
+        \"DisplayQuestInfo\", false);\r\n        return;\r\n    }\r\n    let request
+        = {\r\n        type: \"questInfo\",\r\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
         \"triggerQuest\", \"integer\")].eID, // ($.state.currentQuestBoardPage -
-        1) * numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"),\n       
-        token: TOKEN,\n        isTest: IS_TEST\n    };\n    $.callExternal(JSON.stringify(request),
-        \"getQuestInfo\");\n}\n\nfunction insertLineBreaks(str, maxLength = 70) {\n   
-        let currentLength = 0;\n    let result = '';\n    \n    for (let char of
-        str) {\n      // Check if the character is full-width or half-width\n     
-        currentLength += char.match(/[^\\x00-\\x7F]/) ? 2 : 1;\n      \n      //
-        If the accumulated length exceeds maxLength, insert a line break\n      if
-        (currentLength > maxLength) {\n        result += '\\n';\n        currentLength
-        = char.match(/[^\\x00-\\x7F]/) ? 2 : 1;\n      }\n      \n      result +=
-        char;\n    }\n    \n    return result;\n}\n"
+        1) * numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"),\r\n       
+        token: TOKEN,\r\n        isTest: IS_TEST\r\n    };\r\n    $.callExternal(JSON.stringify(request),
+        \"getQuestInfo\");\r\n}\r\n\r\nfunction insertLineBreaks(str, maxLength =
+        70) {\r\n    let currentLength = 0;\r\n    let result = '';\r\n    \r\n   
+        for (let char of str) {\r\n      // Check if the character is full-width
+        or half-width\r\n      currentLength += char.match(/[^\\x00-\\x7F]/) ? 2
+        : 1;\r\n      \r\n      // If the accumulated length exceeds maxLength, insert
+        a line break\r\n      if (currentLength > maxLength) {\r\n        result
+        += '\\n';\r\n        currentLength = char.match(/[^\\x00-\\x7F]/) ? 2 : 1;\r\n     
+        }\r\n      \r\n      result += char;\r\n    }\r\n    \r\n    return result;\r\n}\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622074872467, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -22683,17 +22685,17 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.0035333948
+      value: 0.006862546
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.0035333948
+      value: 0.006862546
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.0035333948
+      value: 0.006862546
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -22708,7 +22710,7 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.3821936
+      value: 2.6844912
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -22733,12 +22735,12 @@ PrefabInstance:
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -601.40955
+      value: -508.24356
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -325.1028
+      value: -383.32425
       objectReference: {fileID: 0}
     - target: {fileID: 6433627622780004791, guid: 349b9c7e15fff4194b750cdc27860122,
         type: 3}
@@ -24472,17 +24474,18 @@ PrefabInstance:
     - target: {fileID: 51451650618254299, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 65736962931315195, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24582,17 +24585,18 @@ PrefabInstance:
     - target: {fileID: 555435750440000878, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 563867725197653843, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24737,17 +24741,18 @@ PrefabInstance:
     - target: {fileID: 1020501262906021017, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1131949650296888176, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24797,17 +24802,18 @@ PrefabInstance:
     - target: {fileID: 1421544047215725819, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1479093975843996157, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24827,17 +24833,18 @@ PrefabInstance:
     - target: {fileID: 1593413825202111557, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 1649447313990494755, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24912,17 +24919,18 @@ PrefabInstance:
     - target: {fileID: 1975745475778479746, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 2043056658719769947, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24977,17 +24985,18 @@ PrefabInstance:
     - target: {fileID: 2387262302720194096, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 2410499358912585878, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -24997,17 +25006,18 @@ PrefabInstance:
     - target: {fileID: 2419332621113347587, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 2446929426328855609, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25192,17 +25202,18 @@ PrefabInstance:
     - target: {fileID: 3195690025628053381, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 3325470838117159633, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25267,17 +25278,18 @@ PrefabInstance:
     - target: {fileID: 3808797502238451438, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 3889463290825422251, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25402,17 +25414,18 @@ PrefabInstance:
     - target: {fileID: 4498285909651428954, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 4539830590790198270, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25477,17 +25490,18 @@ PrefabInstance:
     - target: {fileID: 4791544037000427373, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 4796882167376617273, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25542,17 +25556,18 @@ PrefabInstance:
     - target: {fileID: 4995117100122962445, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5024501236436071617, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25582,32 +25597,34 @@ PrefabInstance:
     - target: {fileID: 5096379755480560707, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5098754059247625890, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5124647752167806398, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25622,17 +25639,18 @@ PrefabInstance:
     - target: {fileID: 5302931058078471397, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5450913831413491319, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25647,17 +25665,18 @@ PrefabInstance:
     - target: {fileID: 5562461608668924416, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 5657266979055721545, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25682,17 +25701,18 @@ PrefabInstance:
     - target: {fileID: 6065757193056684333, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6074795932483185737, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25737,17 +25757,18 @@ PrefabInstance:
     - target: {fileID: 6219235455444984563, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6248704125000633493, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -25972,17 +25993,18 @@ PrefabInstance:
     - target: {fileID: 6722629410714852480, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 6749677698130508344, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -26237,17 +26259,18 @@ PrefabInstance:
     - target: {fileID: 7264731076603209324, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 7354030192694592171, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -26262,17 +26285,18 @@ PrefabInstance:
     - target: {fileID: 7446757798397990863, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 7547968032709142438, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -26362,35 +26386,37 @@ PrefabInstance:
     - target: {fileID: 8059115896813044329, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\nconst numberPerPage
-        = 30;\n\n$.onStart(() => {\n  $.state.allQuestsCount = 0;\n  setCurrentPage(1);\n 
-        $.groupState.quests = [];\n  $.groupState.questIdByPlayerID = {};\n  requestQuestList();\n});\n\n$.onExternalCallEnd((res,
-        meta, err) => {\n  if (res == null) {\n    $.log(\"callExternal ERROR: \"
-        + err);\n    return;\n  }\n\n  if (meta === \"getQuestList\") {\n    let
-        parsedRes = JSON.parse(res);\n    const filteredQuests = parsedRes.quests.filter(\n     
-        (quest) => quest.isTest === IS_TEST\n    );\n    $.groupState.quests = [
-        ...filteredQuests ];\n\n    $.state.allQuestsCount = filteredQuests.length;\n\n   
-        // \u5168\u30DA\u30FC\u30B8\u6570\u3092\u8A08\u7B97\u3057\u3066UI\u306B\u53CD\u6620\n   
-        $.subNode(\"AllPagesNumber\").setText(\n      Math.ceil($.state.allQuestsCount
-        / numberPerPage)\n    );\n\n    for (let i = 0; i < Math.min($.state.allQuestsCount,
-        numberPerPage); i++) {\n      const questTitle = $.subNode(\"Quest_\" + i);\n     
-        if (questTitle) {\n        var titleStr = filteredQuests[i].title;\n       
-        if (titleStr.length > 16) {\n          titleStr =\n            titleStr.substring(0,
-        16) +\n            \"\\n\" +\n            titleStr.substring(16, titleStr.length);\n       
-        }\n        questTitle.setText(titleStr);\n      }\n    }\n  }\n});\n\n$.onReceive((messageType,
-        arg, sender) => {\n  switch (messageType) {\n    case \"quest_board_update\":\n     
-        requestQuestList();\n      break;\n    case \"quest_board_to_next\":\n     
-        toNext();\n      break;\n    case \"quest_board_to_prev\":\n      toPrev();\n     
-        break;\n    case \"quest_board_get_current_page\":\n      sender.send(\"quest_board_current_page\",
-        $.groupState.currentPage);\n      break;\n    default:\n      break;\n  }\n});\n\nfunction
-        requestQuestList() {\n  let request = {\n    type: \"questList\",\n    page:
-        $.groupState.currentPage,\n    number: numberPerPage,\n    token: TOKEN,\n   
-        isTest: IS_TEST\n  };\n  $.callExternal(JSON.stringify(request), \"getQuestList\");\n}\n\nfunction
-        toPrev() {\n  if ($.groupState.currentPage <= 1) return;\n  setCurrentPage($.groupState.currentPage
-        - 1);\n  requestQuestList();\n}\n\nfunction toNext() {\n  if ($.groupState.currentPage
-        >= Math.ceil($.state.allQuestsCount / numberPerPage))\n    return;\n  setCurrentPage($.groupState.currentPage
-        + 1);\n  requestQuestList();\n}\n\nfunction setCurrentPage(page) {\n  $.groupState.currentPage
-        = page;\n  $.subNode(\"CurrentPageNumber\").setText($.groupState.currentPage);\n}\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\nconst numberPerPage
+        = 30;\r\n\r\n$.onStart(() => {\r\n  $.state.allQuestsCount = 0;\r\n  setCurrentPage(1);\r\n 
+        $.groupState.quests = [];\r\n  $.groupState.questIdByPlayerID = {};\r\n 
+        requestQuestList();\r\n});\r\n\r\n$.onExternalCallEnd((res, meta, err) =>
+        {\r\n  if (res == null) {\r\n    $.log(\"callExternal ERROR: \" + err);\r\n   
+        return;\r\n  }\r\n\r\n  if (meta === \"getQuestList\") {\r\n    let parsedRes
+        = JSON.parse(res);\r\n    const filteredQuests = parsedRes.quests.filter(\r\n     
+        (quest) => quest.isTest === IS_TEST\r\n    );\r\n    $.groupState.quests
+        = [ ...filteredQuests ];\r\n\r\n    $.state.allQuestsCount = filteredQuests.length;\r\n\r\n   
+        // \u5168\u30DA\u30FC\u30B8\u6570\u3092\u8A08\u7B97\u3057\u3066UI\u306B\u53CD\u6620\r\n   
+        $.subNode(\"AllPagesNumber\").setText(\r\n      Math.ceil($.state.allQuestsCount
+        / numberPerPage)\r\n    );\r\n\r\n    for (let i = 0; i < Math.min($.state.allQuestsCount,
+        numberPerPage); i++) {\r\n      const questTitle = $.subNode(\"Quest_\" +
+        i);\r\n      if (questTitle) {\r\n        var titleStr = filteredQuests[i].title;\r\n       
+        if (titleStr.length > 16) {\r\n          titleStr =\r\n            titleStr.substring(0,
+        16) +\r\n            \"\\n\" +\r\n            titleStr.substring(16, titleStr.length);\r\n       
+        }\r\n        questTitle.setText(titleStr);\r\n      }\r\n    }\r\n  }\r\n});\r\n\r\n$.onReceive((messageType,
+        arg, sender) => {\r\n  switch (messageType) {\r\n    case \"quest_board_update\":\r\n     
+        requestQuestList();\r\n      break;\r\n    case \"quest_board_to_next\":\r\n     
+        toNext();\r\n      break;\r\n    case \"quest_board_to_prev\":\r\n      toPrev();\r\n     
+        break;\r\n    case \"quest_board_get_current_page\":\r\n      sender.send(\"quest_board_current_page\",
+        $.groupState.currentPage);\r\n      break;\r\n    default:\r\n      break;\r\n 
+        }\r\n});\r\n\r\nfunction requestQuestList() {\r\n  let request = {\r\n   
+        type: \"questList\",\r\n    page: $.groupState.currentPage,\r\n    number:
+        numberPerPage,\r\n    token: TOKEN,\r\n    isTest: IS_TEST\r\n  };\r\n  $.callExternal(JSON.stringify(request),
+        \"getQuestList\");\r\n}\r\n\r\nfunction toPrev() {\r\n  if ($.groupState.currentPage
+        <= 1) return;\r\n  setCurrentPage($.groupState.currentPage - 1);\r\n  requestQuestList();\r\n}\r\n\r\nfunction
+        toNext() {\r\n  if ($.groupState.currentPage >= Math.ceil($.state.allQuestsCount
+        / numberPerPage))\r\n    return;\r\n  setCurrentPage($.groupState.currentPage
+        + 1);\r\n  requestQuestList();\r\n}\r\n\r\nfunction setCurrentPage(page)
+        {\r\n  $.groupState.currentPage = page;\r\n  $.subNode(\"CurrentPageNumber\").setText($.groupState.currentPage);\r\n}\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8059115897452877494, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -26580,17 +26606,18 @@ PrefabInstance:
     - target: {fileID: 8292742738193303488, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8362040394491284175, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -26610,62 +26637,66 @@ PrefabInstance:
     - target: {fileID: 8864797664148629834, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8864797664632598619, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8864797665892702135, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8864797666245065151, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8866430235823826384, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -26705,17 +26736,18 @@ PrefabInstance:
     - target: {fileID: 8929473252779000687, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 8996779882648109238, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
@@ -26745,32 +26777,34 @@ PrefabInstance:
     - target: {fileID: 9149893603814433820, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 9154801932539156844, guid: 742595b3cc014499ca2fc97ad804a44c,
         type: 3}
       propertyPath: sourceCode
-      value: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\n$.onInteract((player)
-        => {\n    if (!$.groupState.quests) return;\n    const triggerQuestID = $.getStateCompat(\"this\",
-        \"triggerQuest\", \"integer\");\n    const quest = $.groupState.quests[triggerQuestID];\n   
-        if (!quest) return;\n\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-        true);\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\n   
-        const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-        1.7), new Quaternion());\n    const eID = quest.eID;\n    questInfoText.send(\"onCreate\",
-        { player, eID, token: TOKEN, isTest: IS_TEST });\n\n    let questIdByPlayerID
-        = { ...$.groupState.questIdByPlayerID };\n    questIdByPlayerID[player.id]
-        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\n    $.groupState.questIdByPlayerID
-        = questIdByPlayerID;\n})\n"
+      value: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
+        => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID
+        = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n    const
+        quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+        = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText
+        = $.createItem(worldItemTemplateId, new Vector3(0, 1.65, 1.7), new Quaternion());\r\n   
+        const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\", { player,
+        eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID =
+        { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
+        = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
+        = questIdByPlayerID;\r\n})\r\n"
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4775589690351097812, guid: 742595b3cc014499ca2fc97ad804a44c, type: 3}
