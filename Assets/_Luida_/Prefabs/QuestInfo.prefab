@@ -131,51 +131,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceCodeAsset: {fileID: 0}
-  sourceCode: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\nconst numberPerPage
-    = 30;\r\n\r\n$.onStart(() => {\r\n    $.state.questBoard = $.worldItemReference(\"QuestBoard\");\r\n   
-    $.state.currentQuestBoardPage = 1;\r\n    $.state.isLoading = false;\r\n    $.setStateCompat(\"owner\",
-    \"AllowJoinExp\", true);\r\n})\r\n\r\n$.onUpdate(() => {\r\n    if ($.state.isLoading)
-    return;\r\n\r\n    if ($.state.questBoard && $.getStateCompat(\"owner\", \"triggerQuest\",
-    \"integer\") >= 0) {\r\n        $.log(\"load new quest info: \" + $.getStateCompat(\"owner\",
-    \"triggerQuest\", \"integer\"));\r\n        $.state.isLoading = true;\r\n       
-    $.state.questBoard.send(\"quest_board_get_current_page\", true);\r\n        $.subNode(\"Title\").setText(\"Loading...\");\r\n       
-    $.subNode(\"Description\").setText(\"\");\r\n        $.subNode(\"Prerequisite\").setText(\"\");\r\n       
-    $.subNode(\"Reward\").setText(\"\");\r\n    }\r\n});\r\n\r\n$.onExternalCallEnd((res,
-    meta, err) =>\r\n{\r\n    if (res == null) {\r\n        $.log(\"callExternal
-    ERROR: \" + err);\r\n        $.setStateCompat(\"owner\", \"triggerQuest\", -1);\r\n       
-    if (meta === \"getQuestInfo\") $.setStateCompat(\"this\", \"AllowJoinExp\", false);\r\n       
-    return;\r\n    }\r\n\r\n    if (meta === \"getQuestInfo\") {\r\n        let parsedRes
-    = JSON.parse(res);\r\n        $.state.quests = parsedRes.quests;\r\n        const
-    quest = parsedRes.quest;\r\n\r\n        const title = insertLineBreaks(quest.title,
-    50);\r\n        $.subNode(\"Title\").setText(title);\r\n        const description
-    = insertLineBreaks(quest.description, 70);\r\n        $.subNode(\"Description\").setText(description);\r\n       
-    const prerequisite = insertLineBreaks(quest.prerequisite, 70);\r\n        $.subNode(\"Prerequisite\").setText(\"\u53C2\u52A0\u6761\u4EF6\uFF1A\"
-    + prerequisite);\r\n\r\n        $.subNode(\"Reward\").setText(\"\u5831\u916C\uFF1A\"
-    + quest.reward);\r\n        $.setStateCompat(\"owner\", \"currentQuestID\", ($.state.currentQuestBoardPage
+  sourceCode: "const TOKEN = \"\";\nconst IS_TEST = false;\n\r\nconst numberPerPage
+    = 30;\n\n$.onStart(() => {\n    $.state.questBoard = $.worldItemReference(\"QuestBoard\");\n   
+    $.state.currentQuestBoardPage = 1;\n    $.state.isLoading = false;\n    $.setStateCompat(\"owner\",
+    \"AllowJoinExp\", true);\n})\n\n$.onUpdate(() => {\n    if ($.state.isLoading)
+    return;\n\n    if ($.state.questBoard && $.getStateCompat(\"owner\", \"triggerQuest\",
+    \"integer\") >= 0) {\n        $.log(\"load new quest info: \" + $.getStateCompat(\"owner\",
+    \"triggerQuest\", \"integer\"));\n        $.state.isLoading = true;\n       
+    $.state.questBoard.send(\"quest_board_get_current_page\", true);\n        $.subNode(\"Title\").setText(\"Loading...\");\n       
+    $.subNode(\"Description\").setText(\"\");\n        $.subNode(\"Prerequisite\").setText(\"\");\n       
+    $.subNode(\"Reward\").setText(\"\");\n    }\n});\n\n$.onExternalCallEnd((res,
+    meta, err) =>\n{\n    if (res == null) {\n        $.log(\"callExternal ERROR:
+    \" + err);\n        $.setStateCompat(\"owner\", \"triggerQuest\", -1);\n       
+    if (meta === \"getQuestInfo\") $.setStateCompat(\"this\", \"AllowJoinExp\", false);\n       
+    return;\n    }\n\n    if (meta === \"getQuestInfo\") {\n        let parsedRes
+    = JSON.parse(res);\n        $.state.quests = parsedRes.quests;\n        const
+    quest = parsedRes.quest;\n\n        const title = insertLineBreaks(quest.title,
+    50);\n        $.subNode(\"Title\").setText(title);\n        const description
+    = insertLineBreaks(quest.description, 70);\n        $.subNode(\"Description\").setText(description);\n       
+    const prerequisite = insertLineBreaks(quest.prerequisite, 70);\n        $.subNode(\"Prerequisite\").setText(\"\u53C2\u52A0\u6761\u4EF6\uFF1A\"
+    + prerequisite);\n\n        $.subNode(\"Reward\").setText(\"\u5831\u916C\uFF1A\"
+    + quest.reward);\n        $.setStateCompat(\"owner\", \"currentQuestID\", ($.state.currentQuestBoardPage
     - 1) * numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"))
-    + 1;\r\n\r\n        // $.setStateCompat(\"this\", \"AllowJoinExp\", +quest.playersCount
-    === 0);\r\n        $.setStateCompat(\"this\", \"AllowJoinExp\", true);\r\n       
-    $.setStateCompat(\"owner\", \"triggerQuest\", -1);\r\n\r\n        $.state.isLoading
-    = false;\r\n    }\r\n});\r\n\r\n$.onReceive((messageType, arg, sender) => {\r\n   
-    switch (messageType) {\r\n        case \"quest_board_current_page\":\r\n           
-    $.state.currentQuestBoardPage = arg;\r\n            sendQuestInfoRequest();\r\n           
-    break;\r\n        default:\r\n            break;\r\n    }\r\n});\r\n\r\nfunction
-    sendQuestInfoRequest () {\r\n    if (!$.groupState.quests || !$.groupState.quests[$.getStateCompat(\"owner\",
-    \"triggerQuest\", \"integer\")]) {\r\n        $.setStateCompat(\"owner\", \"triggerQuest\",
-    -1);\r\n        $.state.isLoading = false;\r\n        $.setStateCompat(\"owner\",
-    \"DisplayQuestInfo\", false);\r\n        return;\r\n    }\r\n    let request
-    = {\r\n        type: \"questInfo\",\r\n        id: $.groupState.quests[$.getStateCompat(\"owner\",
-    \"triggerQuest\", \"integer\")].eID, // ($.state.currentQuestBoardPage - 1) *
-    numberPerPage + $.getStateCompat(\"owner\", \"triggerQuest\", \"integer\"),\r\n       
-    token: TOKEN,\r\n        isTest: IS_TEST\r\n    };\r\n    $.callExternal(JSON.stringify(request),
-    \"getQuestInfo\");\r\n}\r\n\r\nfunction insertLineBreaks(str, maxLength = 70)
-    {\r\n    let currentLength = 0;\r\n    let result = '';\r\n    \r\n    for (let
-    char of str) {\r\n      // Check if the character is full-width or half-width\r\n     
-    currentLength += char.match(/[^\\x00-\\x7F]/) ? 2 : 1;\r\n      \r\n      //
-    If the accumulated length exceeds maxLength, insert a line break\r\n      if
-    (currentLength > maxLength) {\r\n        result += '\\n';\r\n        currentLength
-    = char.match(/[^\\x00-\\x7F]/) ? 2 : 1;\r\n      }\r\n      \r\n      result
-    += char;\r\n    }\r\n    \r\n    return result;\r\n}\r\n"
+    + 1;\n\n        // $.setStateCompat(\"this\", \"AllowJoinExp\", +quest.playersCount
+    === 0);\n        $.setStateCompat(\"this\", \"AllowJoinExp\", true);\n       
+    $.setStateCompat(\"owner\", \"triggerQuest\", -1);\n\n        $.state.isLoading
+    = false;\n    }\n});\n\n$.onReceive((messageType, arg, sender) => {\n    switch
+    (messageType) {\n        case \"quest_board_current_page\":\n            $.state.currentQuestBoardPage
+    = arg;\n            sendQuestInfoRequest();\n            break;\n        default:\n           
+    break;\n    }\n});\n\nfunction sendQuestInfoRequest () {\n    if (!$.groupState.quests
+    || !$.groupState.quests[$.getStateCompat(\"owner\", \"triggerQuest\", \"integer\")])
+    {\n        $.setStateCompat(\"owner\", \"triggerQuest\", -1);\n        $.state.isLoading
+    = false;\n        $.setStateCompat(\"owner\", \"DisplayQuestInfo\", false);\n       
+    return;\n    }\n    let request = {\n        type: \"questInfo\",\n        id:
+    $.groupState.quests[$.getStateCompat(\"owner\", \"triggerQuest\", \"integer\")].eID,
+    // ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat(\"owner\",
+    \"triggerQuest\", \"integer\"),\n        token: TOKEN,\n        isTest: IS_TEST\n   
+    };\n    $.callExternal(JSON.stringify(request), \"getQuestInfo\");\n}\n\nfunction
+    insertLineBreaks(str, maxLength = 70) {\n    let currentLength = 0;\n    let
+    result = '';\n    \n    for (let char of str) {\n      // Check if the character
+    is full-width or half-width\n      currentLength += char.match(/[^\\x00-\\x7F]/)
+    ? 2 : 1;\n      \n      // If the accumulated length exceeds maxLength, insert
+    a line break\n      if (currentLength > maxLength) {\n        result += '\\n';\n       
+    currentLength = char.match(/[^\\x00-\\x7F]/) ? 2 : 1;\n      }\n      \n     
+    result += char;\n    }\n    \n    return result;\n}\n"
 --- !u!114 &115977843313538731
 MonoBehaviour:
   m_ObjectHideFlags: 0

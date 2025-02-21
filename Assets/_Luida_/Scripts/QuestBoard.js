@@ -5,6 +5,7 @@ $.onStart(() => {
   setCurrentPage(1);
   $.groupState.quests = [];
   $.groupState.questIdByPlayerID = {};
+  $.state.sentRequestsCount = 0;
   requestQuestList();
 });
 
@@ -16,20 +17,30 @@ $.onExternalCallEnd((res, meta, err) => {
 
   if (meta === "getQuestList") {
     let parsedRes = JSON.parse(res);
+
+    const lastQuestsCount = $.groupState.quests.length || 0;
     const filteredQuests = parsedRes.quests.filter(
       (quest) => quest.isTest === IS_TEST
     );
-    $.groupState.quests = [ ...filteredQuests ];
+    const quests = [ ...$.groupState.quests ];
+    $.groupState.quests = [ ...quests, ...filteredQuests ];
 
-    $.state.allQuestsCount = filteredQuests.length;
+    if (filteredQuests.length >= 5 && $.groupState.quests.length < numberPerPage) {
+      $.state.sentRequestsCount += 1;
+      requestQuestList($.state.sentRequestsCount);
+    } else {
+      $.state.sentRequestsCount = 0;;
+    }
+
+    $.state.allQuestsCount = $.groupState.quests.length;
 
     // 全ページ数を計算してUIに反映
     $.subNode("AllPagesNumber").setText(
       Math.ceil($.state.allQuestsCount / numberPerPage)
     );
 
-    for (let i = 0; i < Math.min($.state.allQuestsCount, numberPerPage); i++) {
-      const questTitle = $.subNode("Quest_" + i);
+    for (let i = 0; i < Math.min(filteredQuests.length, numberPerPage); i++) {
+      const questTitle = $.subNode("Quest_" + (i + lastQuestsCount));
       if (questTitle) {
         var titleStr = filteredQuests[i].title;
         if (titleStr.length > 16) {
@@ -63,11 +74,12 @@ $.onReceive((messageType, arg, sender) => {
   }
 });
 
-function requestQuestList() {
+function requestQuestList(i = 0) {
+  if (i === 0) $.groupState.quests = [];
   let request = {
     type: "questList",
-    page: $.groupState.currentPage,
-    number: numberPerPage,
+    page: ($.groupState.currentPage - 1) * 3 + i + 1,
+    number: 5,
     token: TOKEN,
     isTest: IS_TEST
   };
