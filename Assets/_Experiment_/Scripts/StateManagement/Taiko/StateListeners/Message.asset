@@ -1,0 +1,155 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb8c4c8a0a4dc6418e2f4d59454f5e3, type: 3}
+  m_Name: Message
+  m_EditorClassIdentifier: 
+  stateListeners:
+  - stateID: 1
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Show item
+        codeSnippet: $.setStateCompat('this', 'exp_showItem', true);
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Set text
+        codeSnippet: $.subNode('Text').setText(`{_text_}`);
+        variables:
+        - text
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys:
+      - text
+      _variableValuesList:
+      - This experiment...
+    duringStateActions: []
+    onStateExitedActions: []
+  - stateID: 2
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Set text
+        codeSnippet: $.subNode('Text').setText(`{_text_}`);
+        variables:
+        - text
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys:
+      - text
+      _variableValuesList:
+      - Try striking the Taiko freely for 15 seconds
+    duringStateActions: []
+    onStateExitedActions: []
+  - stateID: 3
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Set text
+        codeSnippet: $.subNode('Text').setText(`{_text_}`);
+        variables:
+        - text
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys:
+      - text
+      _variableValuesList:
+      - Play the Taiko freely for 1 minute.
+    duringStateActions: []
+    onStateExitedActions: []
+  - stateID: 4
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Set text
+        codeSnippet: $.subNode('Text').setText(`{_text_}`);
+        variables:
+        - text
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys:
+      - text
+      _variableValuesList:
+      - Take a break for 30 seconds.
+    duringStateActions: []
+    onStateExitedActions: []
+  - stateID: 5
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Hide item
+        codeSnippet: $.setStateCompat('this', 'exp_showItem', false);
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    duringStateActions: []
+    onStateExitedActions: []
+  - stateID: 6
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Show item
+        codeSnippet: $.setStateCompat('this', 'exp_showItem', true);
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Set text
+        codeSnippet: $.subNode('Text').setText(`{_text_}`);
+        variables:
+        - text
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys:
+      - text
+      _variableValuesList:
+      - Thank you for the participation!
+    duringStateActions: []
+    onStateExitedActions: []
+  otherImplementation: '// function Start() { }
+
+    // function Update(deltaTime)
+    { }
+
+    // $.onCollide((collision) => { });
+
+    // $.onGrab((isGrab, isLeftHand,
+    player) => { });
+
+    // $.onInteract((player) => { });
+
+    // $.onUse((isDown,
+    player) => { });
+
+    // $.onPhysicsUpdate((deltaTime) => { });
+
+    // $.onReceive((messageType,
+    arg, sender) => { });
+
+'
