@@ -13,8 +13,8 @@ TagManager:
   - UI
   - 
   - CameraOnly
-  - Drum
-  - DrumStick
+  - 
+  - 
   - 
   - 
   - 
@@ -35,8 +35,8 @@ TagManager:
   - 
   - 
   - VenueLayer2
-  - 
-  - 
+  - Drum
+  - DrumStick
   m_SortingLayers:
   - name: Default
     uniqueID: 0
