@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb8c4c8a0a4dc6418e2f4d59454f5e3, type: 3}
+  m_Name: TaikoSideCollider
+  m_EditorClassIdentifier: 
+  stateListeners:
+  - stateID: 2
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Show item
+        codeSnippet: $.setStateCompat('this', 'exp_showItem', true);
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Customized Action
+        codeSnippet: 
+        variables: []
+      customAction: '$.state.isInTask = true;
+
+        $.state.hits = 0;'
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    duringStateActions: []
+    onStateExitedActions:
+    - predefinedActionTemplate:
+        actionType: Customized Action
+        codeSnippet: 
+        variables: []
+      customAction: '$.state.isInTask = false;
+
+        SendDataToCollector("sideHits",
+        $.state.hits);'
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+  - stateID: 4
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Hide item
+        codeSnippet: $.setStateCompat('this', 'exp_showItem', false);
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    duringStateActions: []
+    onStateExitedActions: []
+  otherImplementation: "function Start() {\n  $.state.hits = 0;\n  $.state.isInTask
+    = false;\n}\n$.onCollide((collision) => {\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
+    if ($.state.isInTask) $.state.hits += 1;\n});"

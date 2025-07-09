@@ -1,0 +1,82 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acb8c4c8a0a4dc6418e2f4d59454f5e3, type: 3}
+  m_Name: Portal
+  m_EditorClassIdentifier: 
+  stateListeners:
+  - stateID: 5
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Sleep
+        codeSnippet: '{_seconds_}'
+        variables:
+        - seconds
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys:
+      - seconds
+      _variableValuesList:
+      - 10
+    - predefinedActionTemplate:
+        actionType: Set position
+        codeSnippet: $.setPosition(new Vector3({_x_}, {_y_}, {_z_}))
+        variables:
+        - x
+        - y
+        - z
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys:
+      - x
+      - y
+      - z
+      _variableValuesList:
+      - 0
+      - 0
+      - -2
+    - predefinedActionTemplate:
+        actionType: Show item
+        codeSnippet: $.setStateCompat('this', 'exp_showItem', true);
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    duringStateActions: []
+    onStateExitedActions: []
+  otherImplementation: '// function Start() { }
+
+    // function Update(deltaTime)
+    { }
+
+    // $.onCollide((collision) => { });
+
+    // $.onGrab((isGrab, isLeftHand,
+    player) => { });
+
+    // $.onInteract((player) => { });
+
+    // $.onUse((isDown,
+    player) => { });
+
+    // $.onPhysicsUpdate((deltaTime) => { });
+
+    // $.onReceive((messageType,
+    arg, sender) => { });
+
+'

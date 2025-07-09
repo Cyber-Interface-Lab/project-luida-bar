@@ -446,11 +446,12 @@ PrefabInstance:
         targetUI = _.playerLocalObject(\"luida_questionnaire_ui\").findObject(\"AnsText\");\r\n           
         targetUI.setEnabled(false);\r\n            for (let i = 0; i < 20; i++) {\r\n               
         targetUI = _.playerLocalObject(\"luida_questionnaire_ui\").findObject(\"AnsOptLabel_\"
-        + i);\n                if (targetUI) {\n                    targetUI.setEnabled(false);\n               
-        } else {\n                    break;\n                }\n            }\n           
-        break;\n        default:\n            break;\n    }\n});\n\nfunction setQuestionnaireUI(targetName,
-        isEnabled, position, rotation, text) {\n    let targetUI = _.playerLocalObject(\"luida_questionnaire_ui\").findObject(targetName);\n   
-        if (!targetUI) return;\n    if (isEnabled !== null) targetUI.setEnabled(isEnabled);\n   
+        + i);\r\n                if (targetUI) {\r\n                    targetUI.setEnabled(false);\r\n               
+        } else {\r\n                    break;\r\n                }\r\n           
+        }\r\n            break;\r\n        default:\r\n            break;\r\n   
+        }\r\n});\r\n\r\nfunction setQuestionnaireUI(targetName, isEnabled, position,
+        rotation, text) {\r\n    let targetUI = _.playerLocalObject(\"luida_questionnaire_ui\").findObject(targetName);\r\n   
+        if (!targetUI) return;\r\n    if (isEnabled !== null) targetUI.setEnabled(isEnabled);\r\n   
         if (position) targetUI.getUnityComponent(\"Transform\").unityProp.localPosition
         = position;\r\n    if (rotation) targetUI.getUnityComponent(\"Transform\").unityProp.localRotation
         = rotation;\r\n    if (text !== null) targetUI.findObject(\"Text\").getUnityComponent(\"Text\").unityProp.text
@@ -476,63 +477,64 @@ PrefabInstance:
       propertyPath: sourceCode
       value: "expID = \"686b51b2436d1dcdefcea116\";\ntoken = \"d98822e9-add2-4e0b-bb40-c6e7c5bb9d82\";\ncallExternalEndpointID
         = \"ea278de3-2d03-4beb-b160-a97181d39ef6\";\npNum = 1;\n\r\n$.onStart(()
-        => {\n  $.groupState.isParticipantsEnough = false;\n  $.groupState.sessionID
-        = Date.now() + \"_\" +  (Math.random() + 1).toString(36).substring(7);\n 
+        => {\r\n  $.groupState.isParticipantsEnough = false;\r\n  $.groupState.sessionID
+        = Date.now() + \"_\" +  (Math.random() + 1).toString(36).substring(7);\r\n 
         $.groupState.participants = []; // array of PlayerHandle who are currently
-        in the experiment\n  $.state.participantsEnvInfo = [];\n  $.state.timer =
-        0;\n  \n  // TODO: load exp info so that we can check later what environments
-        this experiment requires\n})\n\n$.onUpdate((deltaTime) => {\n    if (!$.groupState.isParticipantsEnough)
-        {\n        $.state.timer += deltaTime;\n        if ($.state.timer >= 1){\n           
-        $.state.timer = 0;\n            let pIdfcs = $.groupState.participants.map(p
-        => p.idfc);\n            const newPlayers = $.getPlayersNear($.getPosition(),
-        Infinity)\n                .filter(p => !pIdfcs.includes(p.idfc));\n           
-        if (newPlayers.length > 0) {\n                for (const newPlayer of newPlayers)
-        {\n                    // TODO: Check if the player is eligible to join the
-        experiment before adding them to $.groupState.participants.\n                   
-        $.groupState.participants = [ ...$.groupState.participants, newPlayer ];\n                   
-        $.setPlayerScript(newPlayer);\n                    newPlayer.send(\"initializeParticipant\",
-        true);\n                }\n            }\n            if (!$.groupState.isParticipantsEnough
-        && $.groupState.participants.length >= pNum) {\n                HandleParticipantsEnough();\n           
-        }\n        }\n    }\n/*\n  if ($.getStateCompat(\"this\", \"exp_checkJoinEligibility\",
-        \"boolean\")) {\n    $.setStateCompat(\"this\", \"exp_checkJoinEligibility\",
-        false);\n\n    let pIdfcs = $.groupState.participants.map(p => p.idfc);\n   
-        const newPlayers = $.getPlayersNear($.getPosition(), 1)\n      .filter(p
-        => !pIDFCs.includes(p.idfc));\n    \n    if (newPlayers.length > 0) {\n     
-        $.state.newPlayers = newPlayers;\n      $.log(newPlayers[0].idfc);\n\n     
-        const request = {\n        type: \"checkJoinEligibility\",\n        token:
-        token || \"\",\n        eID: expID || \"\",\n        idfcs: newPlayers.map(p
-        => p.idfc).join(\"|\")\n      };\n      $.callExternal(new ExternalEndpointId(callExternalEndpointID),
-        JSON.stringify(request), \"joinEligibilityChecked\");\n    }\n  }\n*/\n})\n\n$.onReceive((messageType,
-        arg, sender) => {\n    switch (messageType) {\n        case \"envInfoResponse\":\n           
-        $.state.participantsEnvInfo = [\n              ...$.state.participantsEnvInfo,\n             
-        {\n                idfc: sender.idfc,\n                envInfo: arg\n             
-        }\n            ]\n            if ($.state.participantsEnvInfo.length >= pNum)
-        {\n              let request = {\n                  type: \"uploadCustomData\",\n                 
-        data: { envInfo: $.state.participantsEnvInfo },\n                  token:
-        token || \"\",\n                  eID: expID || \"\",\n                 
-        pID: $.groupState.sessionID, // TODO: change 'pID' to 'sessionID' \n             
-        };\n              $.callExternal(new ExternalEndpointId(callExternalEndpointID),
-        JSON.stringify(request), \"customDataUploaded\");\n            }\n           
-        break;\n        default:\n            break;\n    }\n}, { item: true, player:
-        true });\n\nfunction HandleParticipantsEnough() {\n  $.log(\"Participants
-        are enough to start the experiment.\");\n  $.groupState.isParticipantsEnough
-        = true;\n    $.sendSignalCompat(\"this\", \"exp_playersAreEnough\");\n   
-        $.sendSignalCompat(\"this\", \"exp_StartStateTransition\");\n\n  const conditionManager
-        = $.worldItemReference(\"ConditionManager\");\n  if (conditionManager) {\n   
-        conditionManager.send(\"luida_participants_info\", {\n      participants:
-        $.groupState.participants,\n      sessionID: $.groupState.sessionID\n   
-        });\n  }\n}\n\n/*\n$.onExternalCallEnd((res, meta, err) =>\n{\n  if (res
-        == null) {\n    $.log(\"callExternal ERROR: \" + err);\n    return;\n  }\n\n 
-        if (meta === \"joinEligibilityChecked\") {\n    const parsedRes = JSON.parse(res);\n   
-        $.state.newPlayers.forEach(newPlayer => {\n      if (parsedRes.ineligibleIdfcs.includes(newPlayer.idfc))
-        {\n        // TODO: Show message about that this player is not eligible to
-        join this experiment, and teleport the player back to LUIDA bar world.\n     
-        } else {\n        newPlayer.setMoveSpeedRate(1);\n        $.groupState.participants
-        = [ ...$.groupState.participants, newPlayer ];\n        // TODO: Instead
-        of enabling move, teleport the player from the checking area to the task
-        area.\n      }\n    });\n    \n    $.state.newPlayers = [];\n    $.log(\"Only
-        users who have not joined this experiment before are allowed to proceed to
-        the experiment.\");\n  }\n});\n*/\n"
+        in the experiment\r\n  $.state.participantsEnvInfo = [];\r\n  $.state.timer
+        = 0;\r\n  \r\n  // TODO: load exp info so that we can check later what environments
+        this experiment requires\r\n})\r\n\r\n$.onUpdate((deltaTime) => {\r\n   
+        if (!$.groupState.isParticipantsEnough) {\r\n        $.state.timer += deltaTime;\r\n       
+        if ($.state.timer >= 1){\r\n            $.state.timer = 0;\r\n           
+        let pIdfcs = $.groupState.participants.map(p => p.idfc);\r\n            const
+        newPlayers = $.getPlayersNear($.getPosition(), Infinity)\r\n               
+        .filter(p => !pIdfcs.includes(p.idfc));\r\n            if (newPlayers.length
+        > 0) {\r\n                for (const newPlayer of newPlayers) {\r\n                   
+        // TODO: Check if the player is eligible to join the experiment before adding
+        them to $.groupState.participants.\r\n                    $.groupState.participants
+        = [ ...$.groupState.participants, newPlayer ];\r\n                    $.setPlayerScript(newPlayer);\r\n                   
+        newPlayer.send(\"initializeParticipant\", true);\r\n                }\r\n           
+        }\r\n            if (!$.groupState.isParticipantsEnough && $.groupState.participants.length
+        >= pNum) {\r\n                HandleParticipantsEnough();\r\n           
+        }\r\n        }\r\n    }\r\n/*\r\n  if ($.getStateCompat(\"this\", \"exp_checkJoinEligibility\",
+        \"boolean\")) {\r\n    $.setStateCompat(\"this\", \"exp_checkJoinEligibility\",
+        false);\r\n\r\n    let pIdfcs = $.groupState.participants.map(p => p.idfc);\r\n   
+        const newPlayers = $.getPlayersNear($.getPosition(), 1)\r\n      .filter(p
+        => !pIDFCs.includes(p.idfc));\r\n    \r\n    if (newPlayers.length > 0) {\r\n     
+        $.state.newPlayers = newPlayers;\r\n      $.log(newPlayers[0].idfc);\r\n\r\n     
+        const request = {\r\n        type: \"checkJoinEligibility\",\r\n        token:
+        token || \"\",\r\n        eID: expID || \"\",\r\n        idfcs: newPlayers.map(p
+        => p.idfc).join(\"|\")\r\n      };\r\n      $.callExternal(new ExternalEndpointId(callExternalEndpointID),
+        JSON.stringify(request), \"joinEligibilityChecked\");\r\n    }\r\n  }\r\n*/\r\n})\r\n\r\n$.onReceive((messageType,
+        arg, sender) => {\r\n    switch (messageType) {\r\n        case \"envInfoResponse\":\r\n           
+        $.state.participantsEnvInfo = [\r\n              ...$.state.participantsEnvInfo,\r\n             
+        {\r\n                idfc: sender.idfc,\r\n                envInfo: arg\r\n             
+        }\r\n            ]\r\n            if ($.state.participantsEnvInfo.length
+        >= pNum) {\r\n              let request = {\r\n                  type: \"uploadCustomData\",\r\n                 
+        data: { envInfo: $.state.participantsEnvInfo },\r\n                  token:
+        token || \"\",\r\n                  eID: expID || \"\",\r\n                 
+        pID: $.groupState.sessionID, // TODO: change 'pID' to 'sessionID' \r\n             
+        };\r\n              $.callExternal(new ExternalEndpointId(callExternalEndpointID),
+        JSON.stringify(request), \"customDataUploaded\");\r\n            }\r\n           
+        break;\r\n        default:\r\n            break;\r\n    }\r\n}, { item: true,
+        player: true });\r\n\r\nfunction HandleParticipantsEnough() {\r\n  $.log(\"Participants
+        are enough to start the experiment.\");\r\n  $.groupState.isParticipantsEnough
+        = true;\r\n    $.sendSignalCompat(\"this\", \"exp_playersAreEnough\");\r\n   
+        $.sendSignalCompat(\"this\", \"exp_StartStateTransition\");\r\n\r\n  const
+        conditionManager = $.worldItemReference(\"ConditionManager\");\r\n  if (conditionManager)
+        {\r\n    conditionManager.send(\"luida_participants_info\", {\r\n      participants:
+        $.groupState.participants,\r\n      sessionID: $.groupState.sessionID\r\n   
+        });\r\n  }\r\n}\r\n\r\n/*\r\n$.onExternalCallEnd((res, meta, err) =>\r\n{\r\n 
+        if (res == null) {\r\n    $.log(\"callExternal ERROR: \" + err);\r\n    return;\r\n 
+        }\r\n\r\n  if (meta === \"joinEligibilityChecked\") {\r\n    const parsedRes
+        = JSON.parse(res);\r\n    $.state.newPlayers.forEach(newPlayer => {\r\n     
+        if (parsedRes.ineligibleIdfcs.includes(newPlayer.idfc)) {\r\n        // TODO:
+        Show message about that this player is not eligible to join this experiment,
+        and teleport the player back to LUIDA bar world.\r\n      } else {\r\n       
+        newPlayer.setMoveSpeedRate(1);\r\n        $.groupState.participants = [ ...$.groupState.participants,
+        newPlayer ];\r\n        // TODO: Instead of enabling move, teleport the player
+        from the checking area to the task area.\r\n      }\r\n    });\r\n    \r\n   
+        $.state.newPlayers = [];\r\n    $.log(\"Only users who have not joined this
+        experiment before are allowed to proceed to the experiment.\");\r\n  }\r\n});\r\n*/\r\n"
       objectReference: {fileID: 0}
     - target: {fileID: 7807161544533224870, guid: d54fd1885b76d47d9bd9a3a2f0675afb,
         type: 3}

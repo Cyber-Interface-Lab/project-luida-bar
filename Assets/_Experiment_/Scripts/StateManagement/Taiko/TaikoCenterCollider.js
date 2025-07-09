@@ -3,17 +3,6 @@ const stateEnterActions = {
         { type: "exec", action: () => {
             $.setStateCompat('this', 'exp_showItem', true);
         } }
-    ],
-    3: [
-        { type: "exec", action: () => {
-            $.state.isInTask = true;
-            $.state.hits = 0;
-        } }
-    ],
-    5: [
-        { type: "exec", action: () => {
-            $.setStateCompat('this', 'exp_showItem', false);
-        } }
     ]
 };
 
@@ -21,10 +10,9 @@ const duringStateActions = {
 };
 
 const stateExitActions = {
-    3: [
+    2: [
         { type: "exec", action: () => {
-            $.state.isInTask = false;
-            SendDataToCollector("centerHits", $.state.hits);
+            $.setStateCompat('this', 'exp_showItem', false);
         } }
     ]
 };

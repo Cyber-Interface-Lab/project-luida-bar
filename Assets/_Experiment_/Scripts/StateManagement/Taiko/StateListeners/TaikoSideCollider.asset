@@ -26,38 +26,7 @@ MonoBehaviour:
       _variableKeys: []
       _variableValuesList: []
     duringStateActions: []
-    onStateExitedActions: []
-  - stateID: 3
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Customized Action
-        codeSnippet: 
-        variables: []
-      customAction: '$.state.isInTask = true;
-
-        $.state.hits = 0;'
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-    duringStateActions: []
     onStateExitedActions:
-    - predefinedActionTemplate:
-        actionType: Customized Action
-        codeSnippet: 
-        variables: []
-      customAction: '$.state.isInTask = false;
-
-        SendDataToCollector("sideHits",
-        $.state.hits);'
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-  - stateID: 5
-    onStateStartedActions:
     - predefinedActionTemplate:
         actionType: Hide item
         codeSnippet: $.setStateCompat('this', 'exp_showItem', false);
@@ -68,8 +37,6 @@ MonoBehaviour:
       conditionValue: 
       _variableKeys: []
       _variableValuesList: []
-    duringStateActions: []
-    onStateExitedActions: []
   otherImplementation: "function Start() {\n  $.state.hits = 0;\n  $.state.isInTask
     = false;\n}\n$.onCollide((collision) => {\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
     if ($.state.isInTask) $.state.hits += 1;\n});"

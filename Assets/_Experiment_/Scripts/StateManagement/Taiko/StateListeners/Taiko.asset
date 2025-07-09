@@ -25,10 +25,21 @@ MonoBehaviour:
       conditionValue: 
       _variableKeys: []
       _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Customized Action
+        codeSnippet: 
+        variables: []
+      customAction: 'PARTICIPANTS[0].setMoveSpeedRate(0.1);
+
+        PARTICIPANTS[0].setPosition(new
+        Vector3(0, 0, -2));'
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
     duringStateActions: []
-    onStateExitedActions: []
-  - stateID: 5
-    onStateStartedActions:
+    onStateExitedActions:
     - predefinedActionTemplate:
         actionType: Hide item
         codeSnippet: $.setStateCompat('this', 'exp_showItem', false);
@@ -39,6 +50,4 @@ MonoBehaviour:
       conditionValue: 
       _variableKeys: []
       _variableValuesList: []
-    duringStateActions: []
-    onStateExitedActions: []
   otherImplementation: 

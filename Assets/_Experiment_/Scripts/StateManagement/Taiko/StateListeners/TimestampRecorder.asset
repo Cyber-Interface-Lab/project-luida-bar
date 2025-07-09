@@ -12,60 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb8c4c8a0a4dc6418e2f4d59454f5e3, type: 3}
   m_Name: TimestampRecorder
   m_EditorClassIdentifier: 
-  stateListeners:
-  - stateID: 3
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Customized Action
-        codeSnippet: 
-        variables: []
-      customAction: $.state.startTime = Date.now();
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-    duringStateActions: []
-    onStateExitedActions:
-    - predefinedActionTemplate:
-        actionType: Customized Action
-        codeSnippet: 
-        variables: []
-      customAction: "$.state.endTime = Date.now();\nSendDataToCollector(\"timestamp\",
-        {\n  start: $.state.startTime,\n  end: $.state.endTime\n});"
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-  - stateID: 4
-    onStateStartedActions: []
-    duringStateActions: []
-    onStateExitedActions:
-    - predefinedActionTemplate:
-        actionType: Process and save collected data
-        codeSnippet: $.sendSignalCompat('this', 'exp_recordCustomData');
-        variables: []
-      customAction: 
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-  - stateID: 5
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Upload collected data
-        codeSnippet: $.sendSignalCompat('this', 'exp_uploadCustomData');
-        variables: []
-      customAction: 
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-    duringStateActions: []
-    onStateExitedActions: []
+  stateListeners: []
   otherImplementation: '// function Start() { }
 
     // function Update(deltaTime)

@@ -15,16 +15,16 @@ MonoBehaviour:
   States:
   - StateName: Start
     DestStateName: Intro
-    HasExitTime: 1
-    ExitTime: 5
+    HasExitTime: 0
+    ExitTime: 1
     IsRepeated: 0
     RepeatDestStateName: Start
     RepeatCount: 1
-    qID: 0
+    qID: 1
   - StateName: Intro
     DestStateName: Practice
     HasExitTime: 1
-    ExitTime: 5
+    ExitTime: 30
     IsRepeated: 0
     RepeatDestStateName: 
     RepeatCount: 1
@@ -32,33 +32,25 @@ MonoBehaviour:
   - StateName: Practice
     DestStateName: Trial - Start
     HasExitTime: 1
-    ExitTime: 10
+    ExitTime: 20
     IsRepeated: 0
     RepeatDestStateName: 
     RepeatCount: 1
     qID: 0
   - StateName: Trial - Start
     DestStateName: Trial - Rest
-    HasExitTime: 1
-    ExitTime: 15
+    HasExitTime: 0
+    ExitTime: 60
     IsRepeated: 0
     RepeatDestStateName: 
     RepeatCount: 1
     qID: 0
   - StateName: Trial - Rest
-    DestStateName: Outro
-    HasExitTime: 1
-    ExitTime: 10
-    IsRepeated: 0
-    RepeatDestStateName: Trial - Task
-    RepeatCount: 1
-    qID: 0
-  - StateName: Outro
     DestStateName: End
     HasExitTime: 0
     ExitTime: 0
     IsRepeated: 0
-    RepeatDestStateName: 
+    RepeatDestStateName: Trial - Task
     RepeatCount: 1
     qID: 0
   - StateName: End

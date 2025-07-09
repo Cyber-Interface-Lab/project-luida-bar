@@ -37,7 +37,7 @@ MonoBehaviour:
       _variableKeys:
       - text
       _variableValuesList:
-      - This experiment...
+      - "\u300A\u5B9F\u9A13\u8AAC\u660E\u300B\n\u672C\u5B9F\u9A13\u306E\u6240\u8981\u6642\u9593\u306F\u7D0430\u5206\u3067\u3059\u3002\n\u6700\u521D\u306B\u7D0415\u79D2\u9593\u3001\u592A\u9F13\u3092\u53E9\u304F\u7DF4\u7FD2\u3092\u884C\u3063\u3066\u3044\u305F\u3060\u304D\u307E\u3059\u3002\n\u305D\u306E\u5F8C\u3001\u5225\u306E\u30EF\u30FC\u30EB\u30C9\u306B\u79FB\u52D5\u3057\u3001\u30A2\u30D0\u30BF\u30FC\u304C\u5272\u308A\u5F53\u3066\u3089\u308C\u307E\u3059\u3002\n\u305D\u3053\u3067\u306F\u3001\u5468\u56F2\u306E\u53C2\u52A0\u8005\u3068\u3068\u3082\u306B\u592A\u9F13\u3092\u6F14\u594F\u3057\u3066\u3044\u305F\u3060\u304D\u307E\u3059\u3002\n\u6F14\u594F\u306F1\u56DE\u3042\u305F\u308A100\u79D2\u3067\u3001\u5404\u56DE\u306E\u9593\u306B30\u79D2\u9593\u306E\u4F11\u61A9\u3092\u631F\u307F\u307E\u3059\u3002\n\u3053\u308C\u3092\u8A086\u56DE\u7E70\u308A\u8FD4\u3057\u307E\u3059\u3002\u3059\u3079\u3066\u306E\u6F14\u594F\u304C\u7D42\u4E86\u3057\u305F\u3089\u3001\n\u30A2\u30F3\u30B1\u30FC\u30C8\u306B\u3054\u56DE\u7B54\u3044\u305F\u3060\u304D\u3001\u9000\u5BA4\u3057\u3066\u3044\u305F\u3060\u304D\u307E\u3059\u3002\n\uFF08\u307E\u3082\u306A\u304F\u7DF4\u7FD2\u306B\u5165\u308A\u307E\u3059...\uFF09"
     duringStateActions: []
     onStateExitedActions: []
   - stateID: 2
@@ -54,7 +54,7 @@ MonoBehaviour:
       _variableKeys:
       - text
       _variableValuesList:
-      - Try striking the Taiko freely for 15 seconds
+      - "\u300A\u7DF4\u7FD2\u6642\u9593\u300B\n\u592A\u9F13\u306E\u30D0\u30C1\u3092\u63B4\u3093\u3067\u3001\n\u76EE\u306E\u524D\u306B\u73FE\u308C\u305F\u592A\u9F13\u3092\n\u7DF4\u7FD2\u3068\u3057\u306615\u79D2\u9593\u53E9\u3044\u3066\u304F\u3060\u3055\u3044\u3002"
     duringStateActions: []
     onStateExitedActions: []
   - stateID: 3
@@ -71,65 +71,7 @@ MonoBehaviour:
       _variableKeys:
       - text
       _variableValuesList:
-      - Play the Taiko freely for 1 minute.
-    duringStateActions: []
-    onStateExitedActions: []
-  - stateID: 4
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Set text
-        codeSnippet: $.subNode('Text').setText(`{_text_}`);
-        variables:
-        - text
-      customAction: 
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys:
-      - text
-      _variableValuesList:
-      - Take a break for 30 seconds.
-    duringStateActions: []
-    onStateExitedActions: []
-  - stateID: 5
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Hide item
-        codeSnippet: $.setStateCompat('this', 'exp_showItem', false);
-        variables: []
-      customAction: 
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-    duringStateActions: []
-    onStateExitedActions: []
-  - stateID: 6
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Show item
-        codeSnippet: $.setStateCompat('this', 'exp_showItem', true);
-        variables: []
-      customAction: 
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-    - predefinedActionTemplate:
-        actionType: Set text
-        codeSnippet: $.subNode('Text').setText(`{_text_}`);
-        variables:
-        - text
-      customAction: 
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys:
-      - text
-      _variableValuesList:
-      - Thank you for the participation!
+      - "10\u79D2\u5F8C\u306B\u5225\u306E\u30EF\u30FC\u30EB\u30C9\u306B\n\u30C6\u30EC\u30DD\u30FC\u30C8\u3057\u307E\u3059..."
     duringStateActions: []
     onStateExitedActions: []
   otherImplementation: '// function Start() { }
