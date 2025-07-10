@@ -14,6 +14,16 @@ const stateEnterActions = {
             if (CONDITION['selfAvatar'] === 'suit') {
               $.setStateCompat('this', 'exp_showItem', true);
             }
+        } },
+        { type: "exec", action: () => {
+            if (CONDITION['selfAvatar'] === 'suit') {
+              $.log(CONDITION);
+              if (CONDITION['qAnswers'] && CONDITION['qAnswers']['1'] && CONDITION['qAnswers']['1'][0] === 2) {
+                $.subNode('FemaleAvatarPortal').setEnabled(true);
+              } else {
+                $.subNode('MaleAvatarPortal').setEnabled(true);
+              }
+            }
         } }
     ]
 };

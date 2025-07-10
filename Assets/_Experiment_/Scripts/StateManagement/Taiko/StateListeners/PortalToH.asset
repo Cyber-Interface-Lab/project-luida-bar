@@ -70,6 +70,18 @@ MonoBehaviour:
       conditionValue: happi
       _variableKeys: []
       _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Customized Action
+        codeSnippet: 
+        variables: []
+      customAction: "$.log(CONDITION);\nif (CONDITION['qAnswers'] && CONDITION['qAnswers']['1']
+        && CONDITION['qAnswers']['1'][0] === 2) {\n  $.subNode('FemaleAvatarPortal').setEnabled(true);\n}
+        else {\n  $.subNode('MaleAvatarPortal').setEnabled(true);\n}"
+      isConditional: 1
+      conditionVariable: selfAvatar
+      conditionValue: happi
+      _variableKeys: []
+      _variableValuesList: []
     duringStateActions: []
     onStateExitedActions:
     - predefinedActionTemplate:

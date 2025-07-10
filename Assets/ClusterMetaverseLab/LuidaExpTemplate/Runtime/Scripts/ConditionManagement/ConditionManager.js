@@ -6,7 +6,7 @@ $.onStart(() => {
 $.onUpdate(() => {
   if (
     $.state.trialID !== $.getStateCompat("global", "exp_trialID", "integer") &&
-      $.getStateCompat("global", "exp_trialID", "integer") >= 0
+    $.getStateCompat("global", "exp_trialID", "integer") >= 0
   ) {
     $.state.trialID = $.getStateCompat("global", "exp_trialID", "integer");
     updateCondition();
@@ -19,9 +19,21 @@ $.onReceive((messageType, arg, sender) => {
       $.groupState.participants = arg.participants;
       $.groupState.sessionID = arg.sessionID;
       break;
-    // case "exp_questionnaire_answer":
-    //     $.state.betweenSubjectsConditions = GetBetweenSubjectsCondition(arg);
-    //     break;
+    case "exp_questionnaire_answer":
+      let bsCond = { ...$.state.betweenSubjectsConditions };
+      let qAnswers = { ...bsCond["qAnswers"] };
+      qAnswers[arg.qID] = arg.answers;
+      bsCond["qAnswers"] = qAnswers;
+      $.state.betweenSubjectsConditions = bsCond;
+      $.log(
+        "ConditionManager receiving questionnaire answers: " +
+          JSON.stringify($.state.betweenSubjectsConditions)
+      );
+      updateCondition();
+      $.log(
+        "Update Conditions: " + JSON.stringify($.groupState.currentCondition)
+      );
+      break;
     default:
       break;
   }
@@ -37,18 +49,18 @@ function updateCondition() {
     for (let i = 0; i < $.state.withinSubjectsVariableNames.length; i++) {
       const varName = $.state.withinSubjectsVariableNames[i];
       const varValue =
-          within_subjects_variables[i].values[
-              $.state.withinSubjectsConditionIndicesByTrial[$.state.trialID][i]
-              ];
+        within_subjects_variables[i].values[
+          $.state.withinSubjectsConditionIndicesByTrial[$.state.trialID][i]
+        ];
       condition[varName] = varValue;
     }
     $.groupState.currentCondition = condition;
 
     // Check if this is the last trial (if true, stop repeating trials when next state transition is triggered)
     if (
-        $.state.trialCount > 0 &&
-        !$.state.isLast &&
-        $.state.trialID >= $.state.trialCount - 1
+      $.state.trialCount > 0 &&
+      !$.state.isLast &&
+      $.state.trialID >= $.state.trialCount - 1
     ) {
       $.state.isLast = true;
       $.sendSignalCompat("this", "exp_readyToLeaveTrials");

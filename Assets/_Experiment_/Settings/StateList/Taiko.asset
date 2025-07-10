@@ -24,7 +24,7 @@ MonoBehaviour:
   - StateName: Intro
     DestStateName: Practice
     HasExitTime: 1
-    ExitTime: 30
+    ExitTime: 5
     IsRepeated: 0
     RepeatDestStateName: 
     RepeatCount: 1
@@ -32,7 +32,7 @@ MonoBehaviour:
   - StateName: Practice
     DestStateName: Trial - Start
     HasExitTime: 1
-    ExitTime: 20
+    ExitTime: 5
     IsRepeated: 0
     RepeatDestStateName: 
     RepeatCount: 1
