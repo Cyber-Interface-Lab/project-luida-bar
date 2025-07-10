@@ -23,6 +23,9 @@ const stateExitActions = {
         { type: "exec", action: () => {
             $.state.isInTask = false;
             SendDataToCollector("sideHits", $.state.hits);
+        } },
+        { type: "exec", action: () => {
+            $.setStateCompat('this', 'exp_showItem', false);
         } }
     ]
 };

@@ -4,8 +4,7 @@ const stateEnterActions = {
             $.setStateCompat('this', 'exp_showItem', true);
         } },
         { type: "exec", action: () => {
-            $.state.isInTask = true;
-            $.state.hits = 0;
+            $.setStateCompat("this", "hits", 0);
         } }
     ],
     4: [
@@ -21,18 +20,13 @@ const duringStateActions = {
 const stateExitActions = {
     2: [
         { type: "exec", action: () => {
-            $.state.isInTask = false;
-            SendDataToCollector("sideHits", $.state.hits);
+            SendDataToCollector(
+              "sideHits",
+              $.getStateCompat("this", "hits", "integer")
+            );
+        } },
+        { type: "exec", action: () => {
+            $.setStateCompat('this', 'exp_showItem', false);
         } }
     ]
 };
-
-
-function Start() {
-  $.state.hits = 0;
-  $.state.isInTask = false;
-}
-$.onCollide((collision) => {
-  $.subNode('Collider').getUnityComponent('AudioSource').play();
-  if ($.state.isInTask) $.state.hits += 1;
-});

@@ -52,6 +52,16 @@ MonoBehaviour:
       conditionValue: 
       _variableKeys: []
       _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Hide item
+        codeSnippet: $.setStateCompat('this', 'exp_showItem', false);
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
   - stateID: 4
     onStateStartedActions:
     - predefinedActionTemplate:
