@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acb8c4c8a0a4dc6418e2f4d59454f5e3, type: 3}
-  m_Name: TaikoCenterCollider
+  m_Name: TaikoSideColliders
   m_EditorClassIdentifier: 
   stateListeners:
   - stateID: 2
@@ -29,7 +29,7 @@ MonoBehaviour:
         actionType: Customized Action
         codeSnippet: 
         variables: []
-      customAction: $.setStateCompat("this", "hits", 0);
+      customAction: $.setStateCompat('this', 'hits', 0);
       isConditional: 0
       conditionVariable: 
       conditionValue: 
@@ -41,8 +41,8 @@ MonoBehaviour:
         actionType: Customized Action
         codeSnippet: 
         variables: []
-      customAction: "SendDataToCollector(\n  \"centerHits\",\n  $.getStateCompat(\"this\",
-        \"hits\", \"integer\")\n);"
+      customAction: "SendDataToCollector(\n  'sideHits',\n  $.getStateCompat('this',
+        'hits', 'integer')\n)"
       isConditional: 0
       conditionVariable: 
       conditionValue: 
@@ -58,18 +58,4 @@ MonoBehaviour:
       conditionValue: 
       _variableKeys: []
       _variableValuesList: []
-  - stateID: 4
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Hide item
-        codeSnippet: $.setStateCompat('this', 'exp_showItem', false);
-        variables: []
-      customAction: 
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-    duringStateActions: []
-    onStateExitedActions: []
-  otherImplementation: 
+  otherImplementation: function Start() { $.setStateCompat('this', 'hits', 0); }
