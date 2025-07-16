@@ -21,15 +21,15 @@ $.onExternalCallEnd((res, meta, err) => {
     const lastQuestsCount = $.groupState.quests.length || 0;
     const filteredQuests = parsedRes.quests.filter(
       (quest) => quest.isTest === IS_TEST
-    );
+    ).reverse();
     const quests = [ ...$.groupState.quests ];
-    $.groupState.quests = [ ...quests, ...filteredQuests ];
+    $.groupState.quests = [ ...filteredQuests, ...quests ];
 
-    if (filteredQuests.length >= 5 && $.groupState.quests.length < numberPerPage) {
+    if (filteredQuests.length >= 30 && $.groupState.quests.length < numberPerPage) {
       $.state.sentRequestsCount += 1;
       requestQuestList($.state.sentRequestsCount);
     } else {
-      $.state.sentRequestsCount = 0;;
+      $.state.sentRequestsCount = 0;
     }
 
     $.state.allQuestsCount = $.groupState.quests.length;
