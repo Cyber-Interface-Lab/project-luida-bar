@@ -433,7 +433,7 @@ $.onExternalCallEnd((res, meta, err) => {
     if ($.groupState.qCompletedCount >= $.groupState.participants.length) {
       $.log("All participants have completed the questionnaire!");
       $.groupState.qCompletedCount = 0;
-      $.sendSignalCompat("this", "state_triggerTransition");
+      $.sendSignalCompat("this", "form_allPlayersCompleted"); // state_triggerTransition
       $.groupState.participants.forEach((p) => {
         p.send("setQuestionnaireUI", {
           n: "WaitingText",

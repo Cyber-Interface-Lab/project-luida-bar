@@ -227,24 +227,30 @@ MonoBehaviour:
     = [\r\n];\r\nconst between_subjects_variables = [\r\n];\r\n\r\n$.onStart(() =>
     {\r\n  initializeRandomBetweenSubjectsConditions();\r\n  reset();\r\n});\r\n\r\n$.onUpdate(()
     => {\r\n  if (\r\n    $.state.trialID !== $.getStateCompat(\"global\", \"exp_trialID\",
-    \"integer\") &&\r\n      $.getStateCompat(\"global\", \"exp_trialID\", \"integer\")
+    \"integer\") &&\r\n    $.getStateCompat(\"global\", \"exp_trialID\", \"integer\")
     >= 0\r\n  ) {\r\n    $.state.trialID = $.getStateCompat(\"global\", \"exp_trialID\",
     \"integer\");\r\n    updateCondition();\r\n  }\r\n});\r\n\r\n$.onReceive((messageType,
     arg, sender) => {\r\n  switch (messageType) {\r\n    case \"luida_participants_info\":\r\n     
     $.groupState.participants = arg.participants;\r\n      $.groupState.sessionID
-    = arg.sessionID;\r\n      break;\r\n    // case \"exp_questionnaire_answer\":\r\n   
-    //     $.state.betweenSubjectsConditions = GetBetweenSubjectsCondition(arg);\r\n   
-    //     break;\r\n    default:\r\n      break;\r\n  }\r\n});\r\n\r\nfunction updateCondition()
-    {\r\n  if ($.state.trialID >= $.state.trialCount) {\r\n    $.sendSignalCompat(\"this\",
+    = arg.sessionID;\r\n      break;\r\n    case \"exp_questionnaire_answer\":\r\n     
+    let bsCond = { ...$.state.betweenSubjectsConditions };\r\n      let qAnswers
+    = { ...bsCond[\"qAnswers\"] };\r\n      qAnswers[arg.qID] = arg.answers;\r\n     
+    bsCond[\"qAnswers\"] = qAnswers;\r\n      $.state.betweenSubjectsConditions =
+    bsCond;\r\n      $.log(\r\n        \"ConditionManager receiving questionnaire
+    answers: \" +\r\n          JSON.stringify($.state.betweenSubjectsConditions)\r\n     
+    );\r\n      updateCondition();\r\n      $.log(\r\n        \"Update Conditions:
+    \" + JSON.stringify($.groupState.currentCondition)\r\n      );\r\n      break;\r\n   
+    default:\r\n      break;\r\n  }\r\n});\r\n\r\nfunction updateCondition() {\r\n 
+    if ($.state.trialID >= $.state.trialCount) {\r\n    $.sendSignalCompat(\"this\",
     \"exp_resetTrials\");\r\n  } else if ($.state.trialID <= -1) {\r\n    reset();\r\n 
     } else {\r\n    let condition = { ...$.state.betweenSubjectsConditions };\r\n   
     for (let i = 0; i < $.state.withinSubjectsVariableNames.length; i++) {\r\n     
     const varName = $.state.withinSubjectsVariableNames[i];\r\n      const varValue
-    =\r\n          within_subjects_variables[i].values[\r\n              $.state.withinSubjectsConditionIndicesByTrial[$.state.trialID][i]\r\n             
+    =\r\n        within_subjects_variables[i].values[\r\n          $.state.withinSubjectsConditionIndicesByTrial[$.state.trialID][i]\r\n       
     ];\r\n      condition[varName] = varValue;\r\n    }\r\n    $.groupState.currentCondition
     = condition;\r\n\r\n    // Check if this is the last trial (if true, stop repeating
-    trials when next state transition is triggered)\r\n    if (\r\n        $.state.trialCount
-    > 0 &&\r\n        !$.state.isLast &&\r\n        $.state.trialID >= $.state.trialCount
+    trials when next state transition is triggered)\r\n    if (\r\n      $.state.trialCount
+    > 0 &&\r\n      !$.state.isLast &&\r\n      $.state.trialID >= $.state.trialCount
     - 1\r\n    ) {\r\n      $.state.isLast = true;\r\n      $.sendSignalCompat(\"this\",
     \"exp_readyToLeaveTrials\");\r\n    }\r\n  }\r\n}\r\n\r\nfunction reset() {\r\n 
     $.state.trialID = 0;\r\n  if (!$.state.betweenSubjectsConditions)\r\n    $.state.betweenSubjectsConditions
