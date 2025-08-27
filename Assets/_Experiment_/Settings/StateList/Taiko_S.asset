@@ -24,7 +24,7 @@ MonoBehaviour:
   - StateName: Prepare
     DestStateName: Trial - Start
     HasExitTime: 1
-    ExitTime: 20
+    ExitTime: 15
     IsRepeated: 0
     RepeatDestStateName: 
     RepeatCount: 1

@@ -193,6 +193,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2656686999155914180}
+  - {fileID: 5506118114075882160}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -225,8 +226,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceCodeAsset: {fileID: 0}
-  sourceCode: "expID = \"686b51b2436d1dcdefcea116\";\ntoken = \"d98822e9-add2-4e0b-bb40-c6e7c5bb9d82\";\ncallExternalEndpointID
-    = \"ea278de3-2d03-4beb-b160-a97181d39ef6\";\npNum = 1;\n\r\n$.onStart(() => {\r\n 
+  sourceCode: "expID = \"68ab2fc8e81279930237ac34\";\ntoken = \"d67c0d0d-f10c-4a94-9b34-bc4fce30ae8b\";\ncallExternalEndpointID
+    = \"6e648c10-2b08-47e2-a10d-9295908910e2\";\npNum = 1;\n\r\n$.onStart(() => {\r\n 
     $.groupState.isParticipantsEnough = false;\r\n  $.groupState.sessionID = Date.now()
     + \"_\" +  (Math.random() + 1).toString(36).substring(7);\r\n  $.groupState.participants
     = []; // array of PlayerHandle who are currently in the experiment\r\n  $.state.participantsEnvInfo
@@ -239,12 +240,10 @@ MonoBehaviour:
     .filter(p => !pIdfcs.includes(p.idfc));\r\n            if (newPlayers.length
     > 0) {\r\n                for (const newPlayer of newPlayers) {\r\n                   
     // TODO: Check if the player is eligible to join the experiment before adding
-    them to $.groupState.participants.\r\n                    $.groupState.participants
+    them to $.groupState.participants.\r\n                    // $.groupState.participants
     = [ ...$.groupState.participants, newPlayer ];\r\n                    $.setPlayerScript(newPlayer);\r\n                   
     newPlayer.send(\"initializeParticipant\", true);\r\n                }\r\n           
-    }\r\n            if (!$.groupState.isParticipantsEnough && $.groupState.participants.length
-    >= pNum) {\r\n                HandleParticipantsEnough();\r\n            }\r\n       
-    }\r\n    }\r\n/*\r\n  if ($.getStateCompat(\"this\", \"exp_checkJoinEligibility\",
+    }\r\n        }\r\n    }\r\n/*\r\n  if ($.getStateCompat(\"this\", \"exp_checkJoinEligibility\",
     \"boolean\")) {\r\n    $.setStateCompat(\"this\", \"exp_checkJoinEligibility\",
     false);\r\n\r\n    let pIdfcs = $.groupState.participants.map(p => p.idfc);\r\n   
     const newPlayers = $.getPlayersNear($.getPosition(), 1)\r\n      .filter(p =>
@@ -255,17 +254,24 @@ MonoBehaviour:
     => p.idfc).join(\"|\")\r\n      };\r\n      $.callExternal(new ExternalEndpointId(callExternalEndpointID),
     JSON.stringify(request), \"joinEligibilityChecked\");\r\n    }\r\n  }\r\n*/\r\n})\r\n\r\n$.onReceive((messageType,
     arg, sender) => {\r\n    switch (messageType) {\r\n        case \"envInfoResponse\":\r\n           
-    $.state.participantsEnvInfo = [\r\n              ...$.state.participantsEnvInfo,\r\n             
-    {\r\n                idfc: sender.idfc,\r\n                envInfo: arg\r\n             
-    }\r\n            ]\r\n            if ($.state.participantsEnvInfo.length >= pNum)
-    {\r\n              let request = {\r\n                  type: \"uploadCustomData\",\r\n                 
-    data: { envInfo: $.state.participantsEnvInfo },\r\n                  token: token
-    || \"\",\r\n                  eID: expID || \"\",\r\n                  pID: $.groupState.sessionID,
-    // TODO: change 'pID' to 'sessionID' \r\n              };\r\n              $.callExternal(new
-    ExternalEndpointId(callExternalEndpointID), JSON.stringify(request), \"customDataUploaded\");\r\n           
-    }\r\n            break;\r\n        default:\r\n            break;\r\n    }\r\n},
-    { item: true, player: true });\r\n\r\nfunction HandleParticipantsEnough() {\r\n 
-    $.log(\"Participants are enough to start the experiment.\");\r\n  $.groupState.isParticipantsEnough
+    if (arg.isVr) {\r\n                $.groupState.participants = [ ...$.groupState.participants,
+    sender ];\r\n                $.state.participantsEnvInfo = [\r\n                   
+    ...$.state.participantsEnvInfo,\r\n                    {\r\n                       
+    idfc: sender.idfc,\r\n                        envInfo: arg\r\n                   
+    }\r\n                ];\r\n                \r\n                if ($.state.participantsEnvInfo.length
+    >= pNum) {\r\n                    let request = {\r\n                       
+    type: \"uploadCustomData\",\r\n                        data: { envInfo: $.state.participantsEnvInfo
+    },\r\n                        token: token || \"\",\r\n                       
+    eID: expID || \"\",\r\n                        pID: $.groupState.sessionID, //
+    TODO: change 'pID' to 'sessionID' \r\n                    };\r\n                   
+    $.callExternal(new ExternalEndpointId(callExternalEndpointID), JSON.stringify(request),
+    \"customDataUploaded\");\r\n                }\r\n                \r\n               
+    if (!$.groupState.isParticipantsEnough && $.groupState.participants.length >=
+    pNum) {\r\n                    HandleParticipantsEnough();\r\n               
+    }\r\n            } else {\r\n                $.subNode(\"WorldGateToLuidaBar\").setEnabled(true);\r\n           
+    }\r\n            \r\n            break;\r\n        default:\r\n            break;\r\n   
+    }\r\n}, { item: true, player: true });\r\n\r\nfunction HandleParticipantsEnough()
+    {\r\n  $.log(\"Participants are enough to start the experiment.\");\r\n  $.groupState.isParticipantsEnough
     = true;\r\n    $.sendSignalCompat(\"this\", \"exp_playersAreEnough\");\r\n   
     $.sendSignalCompat(\"this\", \"exp_StartStateTransition\");\r\n\r\n  const conditionManager
     = $.worldItemReference(\"ConditionManager\");\r\n  if (conditionManager) {\r\n   
@@ -669,3 +675,88 @@ MonoBehaviour:
   playerLocalObjectReferences:
   - id: luida_questionnaire_ui
     targetObject: {fileID: 0}
+--- !u!1001 &5980918388433126844
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 100295540188533776}
+    m_Modifications:
+    - target: {fileID: 2263574305700755203, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_Name
+      value: WorldGateToLuidaBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755203, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7983046424833205505, guid: 5475fa3e27333b2419a0bb8086303137,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5475fa3e27333b2419a0bb8086303137, type: 3}
+--- !u!4 &5506118114075882160 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2263574305700755212, guid: 5475fa3e27333b2419a0bb8086303137,
+    type: 3}
+  m_PrefabInstance: {fileID: 5980918388433126844}
+  m_PrefabAsset: {fileID: 0}

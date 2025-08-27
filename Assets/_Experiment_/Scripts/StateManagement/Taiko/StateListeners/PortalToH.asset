@@ -38,9 +38,9 @@ MonoBehaviour:
         actionType: Customized Action
         codeSnippet: 
         variables: []
-      customAction: 'PARTICIPANTS[0].setMoveSpeedRate(0.1);
+      customAction: 'PARTICIPANTS[1].setMoveSpeedRate(0.1);
 
-        PARTICIPANTS[0].setPosition(new
+        PARTICIPANTS[1].setPosition(new
         Vector3(0, 0, -2));'
       isConditional: 1
       conditionVariable: selfAvatar

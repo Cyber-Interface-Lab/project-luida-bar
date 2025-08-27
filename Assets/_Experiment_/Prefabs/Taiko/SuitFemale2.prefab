@@ -495,6 +495,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: dummy_taiko_set
       objectReference: {fileID: 0}
+    - target: {fileID: 6946259524390863575, guid: 2c2e34fe7ae4d4a59966ec87e2e8136c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7829362738357623902, guid: 2c2e34fe7ae4d4a59966ec87e2e8136c,
         type: 3}
       propertyPath: m_IsActive

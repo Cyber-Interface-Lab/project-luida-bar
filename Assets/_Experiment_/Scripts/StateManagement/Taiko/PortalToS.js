@@ -5,8 +5,8 @@ const stateEnterActions = {
         } },
         { type: "exec", action: () => {
             if (CONDITION['selfAvatar'] === 'suit') {
-              PARTICIPANTS[0].setMoveSpeedRate(0.1);
-              PARTICIPANTS[0].setPosition(new Vector3(0, 0, -2));
+              PARTICIPANTS[1].setMoveSpeedRate(0.1);
+              PARTICIPANTS[1].setPosition(new Vector3(0, 0, -2));
             }
         } },
         { type: "sleep", value: 10 },

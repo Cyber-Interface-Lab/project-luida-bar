@@ -29,8 +29,10 @@ MonoBehaviour:
         actionType: Customized Action
         codeSnippet: 
         variables: []
-      customAction: "let n = parseInt(CONDITION['number']);\nfor (let i = 1; i <=
-        99; i++) {\n  $.subNode(\"other_\" + i)\n    .setEnabled(i < n);\n}"
+      customAction: "let n = parseInt(CONDITION['number']);\nconst q = new Quaternion(0,
+        0, 0, 0);\nfor (let i = 1; i <= 99; i++) {\n  $.subNode(\"other_\" + i)\n   
+        .setEnabled(i < n);\n  if ($.subNode(\"Avatar_\" + i)) {\n    $.subNode(\"Avatar_\"
+        + i).setRotation(q);\n  }\n}"
       isConditional: 0
       conditionVariable: 
       conditionValue: 

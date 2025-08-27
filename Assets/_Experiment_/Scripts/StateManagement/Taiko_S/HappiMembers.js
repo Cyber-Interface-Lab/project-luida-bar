@@ -7,9 +7,13 @@ const stateEnterActions = {
         } },
         { type: "exec", action: () => {
             let n = parseInt(CONDITION['number']);
+            const q = new Quaternion(0, 0, 0, 0);
             for (let i = 1; i <= 99; i++) {
               $.subNode("other_" + i)
                 .setEnabled(i < n);
+              if ($.subNode("Avatar_" + i)) {
+                $.subNode("Avatar_" + i).setRotation(q);
+              }
             }
         } }
     ]

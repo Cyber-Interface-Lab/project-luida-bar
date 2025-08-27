@@ -19,13 +19,10 @@ $.onUpdate((deltaTime) => {
             if (newPlayers.length > 0) {
                 for (const newPlayer of newPlayers) {
                     // TODO: Check if the player is eligible to join the experiment before adding them to $.groupState.participants.
-                    $.groupState.participants = [ ...$.groupState.participants, newPlayer ];
+                    // $.groupState.participants = [ ...$.groupState.participants, newPlayer ];
                     $.setPlayerScript(newPlayer);
                     newPlayer.send("initializeParticipant", true);
                 }
-            }
-            if (!$.groupState.isParticipantsEnough && $.groupState.participants.length >= pNum) {
-                HandleParticipantsEnough();
             }
         }
     }
@@ -56,23 +53,34 @@ $.onUpdate((deltaTime) => {
 $.onReceive((messageType, arg, sender) => {
     switch (messageType) {
         case "envInfoResponse":
-            $.state.participantsEnvInfo = [
-              ...$.state.participantsEnvInfo,
-              {
-                idfc: sender.idfc,
-                envInfo: arg
-              }
-            ]
-            if ($.state.participantsEnvInfo.length >= pNum) {
-              let request = {
-                  type: "uploadCustomData",
-                  data: { envInfo: $.state.participantsEnvInfo },
-                  token: token || "",
-                  eID: expID || "",
-                  pID: $.groupState.sessionID, // TODO: change 'pID' to 'sessionID' 
-              };
-              $.callExternal(new ExternalEndpointId(callExternalEndpointID), JSON.stringify(request), "customDataUploaded");
+            if (arg.isVr) {
+                $.groupState.participants = [ ...$.groupState.participants, sender ];
+                $.state.participantsEnvInfo = [
+                    ...$.state.participantsEnvInfo,
+                    {
+                        idfc: sender.idfc,
+                        envInfo: arg
+                    }
+                ];
+                
+                if ($.state.participantsEnvInfo.length >= pNum) {
+                    let request = {
+                        type: "uploadCustomData",
+                        data: { envInfo: $.state.participantsEnvInfo },
+                        token: token || "",
+                        eID: expID || "",
+                        pID: $.groupState.sessionID, // TODO: change 'pID' to 'sessionID' 
+                    };
+                    $.callExternal(new ExternalEndpointId(callExternalEndpointID), JSON.stringify(request), "customDataUploaded");
+                }
+                
+                if (!$.groupState.isParticipantsEnough && $.groupState.participants.length >= pNum) {
+                    HandleParticipantsEnough();
+                }
+            } else {
+                $.subNode("WorldGateToLuidaBar").setEnabled(true);
             }
+            
             break;
         default:
             break;

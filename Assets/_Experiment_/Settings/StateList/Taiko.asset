@@ -16,7 +16,7 @@ MonoBehaviour:
   - StateName: Start
     DestStateName: Intro
     HasExitTime: 0
-    ExitTime: 1
+    ExitTime: 0
     IsRepeated: 0
     RepeatDestStateName: Start
     RepeatCount: 1

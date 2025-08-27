@@ -1,4 +1,12 @@
 const stateEnterActions = {
+    3: [
+        { type: "exec", action: () => {
+            $.sendSignalCompat('this', 'exp_recordCustomData');
+        } },
+        { type: "exec", action: () => {
+            $.sendSignalCompat('this', 'exp_uploadCustomData');
+        } }
+    ]
 };
 
 const duringStateActions = {

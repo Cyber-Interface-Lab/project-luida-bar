@@ -12,7 +12,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acb8c4c8a0a4dc6418e2f4d59454f5e3, type: 3}
   m_Name: TimestampRecorder
   m_EditorClassIdentifier: 
-  stateListeners: []
+  stateListeners:
+  - stateID: 3
+    onStateStartedActions:
+    - predefinedActionTemplate:
+        actionType: Process and save collected data
+        codeSnippet: $.sendSignalCompat('this', 'exp_recordCustomData');
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Upload collected data
+        codeSnippet: $.sendSignalCompat('this', 'exp_uploadCustomData');
+        variables: []
+      customAction: 
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
+    duringStateActions: []
+    onStateExitedActions: []
   otherImplementation: '// function Start() { }
 
     // function Update(deltaTime)

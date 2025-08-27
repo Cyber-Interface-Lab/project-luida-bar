@@ -42,8 +42,8 @@ MonoBehaviour:
         actionType: Customized Action
         codeSnippet: 
         variables: []
-      customAction: "if (PARTICIPANTS) {\n  PARTICIPANTS[0].setMoveSpeedRate(0.1);\n 
-        PARTICIPANTS[0].setPosition(new Vector3(0, 0, -2));\n}"
+      customAction: "if (PARTICIPANTS) {\n  PARTICIPANTS[1].setMoveSpeedRate(0.1);\n 
+        PARTICIPANTS[1].setPosition(new Vector3(0, 0, -2));\n}"
       isConditional: 0
       conditionVariable: 
       conditionValue: 
@@ -70,8 +70,8 @@ MonoBehaviour:
         actionType: Customized Action
         codeSnippet: 
         variables: []
-      customAction: "if (PARTICIPANTS) {\n  PARTICIPANTS[0].setMoveSpeedRate(0.1);\n 
-        PARTICIPANTS[0].setPosition(new Vector3(0, 0, -2));\n}"
+      customAction: "if (PARTICIPANTS) {\n  PARTICIPANTS[1].setMoveSpeedRate(0.1);\n 
+        PARTICIPANTS[1].setPosition(new Vector3(0, 0, -2));\n}"
       isConditional: 0
       conditionVariable: 
       conditionValue: 
