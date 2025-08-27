@@ -6,4 +6,6 @@ return {
     selfAvatar: CONDITION['selfAvatar'],
     otherAvatar: CONDITION['otherAvatar'],
     number: CONDITION['number'],
+    userId: PARTICIPANTS[1].userId,
+    userDisplayName: PARTICIPANTS[1].userDisplayName,
 };
