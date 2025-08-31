@@ -156,17 +156,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sourceCodeAsset: {fileID: 0}
-  sourceCode: "const TOKEN = \"\";\r\nconst IS_TEST = false;\r\n\r\n$.onInteract((player)
-    => {\r\n    if (!$.groupState.quests) return;\r\n    const triggerQuestID = $.getStateCompat(\"this\",
-    \"triggerQuest\", \"integer\");\r\n    const quest = $.groupState.quests[triggerQuestID];\r\n   
-    if (!quest) return;\r\n\r\n    $.setStateCompat(\"owner\", \"DisplayQuestInfo\",
-    true);\r\n    const worldItemTemplateId = new WorldItemTemplateId(\"questInfoText\");\r\n   
-    const questInfoText = $.createItem(worldItemTemplateId, new Vector3(0, 1.65,
-    1.7), new Quaternion());\r\n    const eID = quest.eID;\r\n    questInfoText.send(\"onCreate\",
-    { player, eID, token: TOKEN, isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID
-    = { ...$.groupState.questIdByPlayerID };\r\n    questIdByPlayerID[player.id]
-    = ($.groupState.currentPage - 1) * 30 + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID
-    = questIdByPlayerID;\r\n})\r\n"
+  sourceCode: "const TOKEN = \"\";\r\nconst ENDPOINT_ID = \"\";\r\nconst IS_TEST
+    = false;\r\n\r\n$.onInteract((player) => {\r\n    if (!$.groupState.quests) return;\r\n   
+    const triggerQuestID = $.getStateCompat(\"this\", \"triggerQuest\", \"integer\");\r\n   
+    const quest = $.groupState.quests[triggerQuestID];\r\n    if (!quest) return;\r\n\r\n   
+    $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
+    = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText = $.createItem(worldItemTemplateId,
+    new Vector3(0, 1.65, 1.7), new Quaternion());\r\n    const eID = quest.eID;\r\n   
+    questInfoText.send(\"onCreate\", { player, eID, token: TOKEN, isTest: IS_TEST
+    });\r\n\r\n    let questIdByPlayerID = { ...$.groupState.questIdByPlayerID };\r\n   
+    questIdByPlayerID[player.id] = ($.groupState.currentPage - 1) * 30 + triggerQuestID
+    + 1;\r\n    $.groupState.questIdByPlayerID = questIdByPlayerID;\r\n})\r\n"
 --- !u!114 &1496863851192089993
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -46,7 +46,7 @@ function sendQuestInfoRequest(eID, token, isTest) {
         token: token,
         isTest: isTest
     };
-    $.callExternal(JSON.stringify(request), "getQuestInfo");
+    $.callExternal(new ExternalEndpointId(ENDPOINT_ID), JSON.stringify(request), "getQuestInfo");
 }
 
 function receiveText(quest, currentQuestID) {

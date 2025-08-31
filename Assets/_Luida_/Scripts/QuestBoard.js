@@ -40,9 +40,10 @@ $.onExternalCallEnd((res, meta, err) => {
     );
 
     for (let i = 0; i < Math.min(filteredQuests.length, numberPerPage); i++) {
+      $.log(JSON.stringify(filteredQuests[i]));
       const questTitle = $.subNode("Quest_" + (i + lastQuestsCount));
       if (questTitle) {
-        var titleStr = filteredQuests[i].title;
+        var titleStr = (!!filteredQuests[i].isAccessible ? "" : "[準備中]") + filteredQuests[i].title;
         if (titleStr.length > 16) {
           titleStr =
             titleStr.substring(0, 16) +
@@ -79,11 +80,12 @@ function requestQuestList(i = 0) {
   let request = {
     type: "questList",
     page: ($.groupState.currentPage - 1) * 3 + i + 1,
-    number: 5,
+    number: 30,
     token: TOKEN,
     isTest: IS_TEST
   };
-  $.callExternal(JSON.stringify(request), "getQuestList");
+  
+  $.callExternal(new ExternalEndpointId(ENDPOINT_ID), JSON.stringify(request), "getQuestList");
 }
 
 function toPrev() {

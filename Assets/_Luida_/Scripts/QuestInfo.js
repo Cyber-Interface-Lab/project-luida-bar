@@ -36,7 +36,7 @@ $.onExternalCallEnd((res, meta, err) =>
         const quest = parsedRes.quest;
 
         const title = insertLineBreaks(quest.title, 50);
-        $.subNode("Title").setText(title);
+        $.subNode("Title").setText((!!quest.isAccessible ? "" : "[準備中]") + title);
         const description = insertLineBreaks(quest.description, 70);
         $.subNode("Description").setText(description);
         const prerequisite = insertLineBreaks(quest.prerequisite, 70);
@@ -46,7 +46,8 @@ $.onExternalCallEnd((res, meta, err) =>
         $.setStateCompat("owner", "currentQuestID", ($.state.currentQuestBoardPage - 1) * numberPerPage + $.getStateCompat("owner", "triggerQuest", "integer")) + 1;
 
         // $.setStateCompat("this", "AllowJoinExp", +quest.playersCount === 0);
-        $.setStateCompat("this", "AllowJoinExp", true);
+        $.log(!!quest.isAccessible);
+        $.setStateCompat("this", "AllowJoinExp", !!quest.isAccessible);
         $.setStateCompat("owner", "triggerQuest", -1);
 
         $.state.isLoading = false;
@@ -77,7 +78,7 @@ function sendQuestInfoRequest () {
         token: TOKEN,
         isTest: IS_TEST
     };
-    $.callExternal(JSON.stringify(request), "getQuestInfo");
+    $.callExternal(new ExternalEndpointId(ENDPOINT_ID), JSON.stringify(request), "getQuestInfo");
 }
 
 function insertLineBreaks(str, maxLength = 70) {
