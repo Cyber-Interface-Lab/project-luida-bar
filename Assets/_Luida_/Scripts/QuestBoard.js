@@ -11,7 +11,7 @@ $.onStart(() => {
 
 $.onExternalCallEnd((res, meta, err) => {
   if (res == null) {
-    $.log("callExternal ERROR: " + err);
+    $.log(meta + " callExternal ERROR: " + err);
     return;
   }
 
@@ -23,6 +23,7 @@ $.onExternalCallEnd((res, meta, err) => {
       (quest) => quest.isTest === IS_TEST
     ).reverse();
     const quests = [ ...$.groupState.quests ];
+    $.log("getQuestList retrieved " + quests.length + " experiments");
     $.groupState.quests = [ ...filteredQuests, ...quests ];
 
     if (filteredQuests.length >= 30 && $.groupState.quests.length < numberPerPage) {
@@ -40,7 +41,7 @@ $.onExternalCallEnd((res, meta, err) => {
     );
 
     for (let i = 0; i < Math.min(filteredQuests.length, numberPerPage); i++) {
-      $.log(JSON.stringify(filteredQuests[i]));
+      $.log("Exp " + i + ": " + JSON.stringify(filteredQuests[i]));
       const questTitle = $.subNode("Quest_" + (i + lastQuestsCount));
       if (questTitle) {
         var titleStr = (!!filteredQuests[i].isAccessible ? "" : "[準備中]") + filteredQuests[i].title;
@@ -84,7 +85,7 @@ function requestQuestList(i = 0) {
     token: TOKEN,
     isTest: IS_TEST
   };
-  
+
   $.callExternal(new ExternalEndpointId(ENDPOINT_ID), JSON.stringify(request), "getQuestList");
 }
 

@@ -163,10 +163,10 @@ MonoBehaviour:
     $.setStateCompat(\"owner\", \"DisplayQuestInfo\", true);\r\n    const worldItemTemplateId
     = new WorldItemTemplateId(\"questInfoText\");\r\n    const questInfoText = $.createItem(worldItemTemplateId,
     new Vector3(0, 1.65, 1.7), new Quaternion());\r\n    const eID = quest.eID;\r\n   
-    questInfoText.send(\"onCreate\", { player, eID, token: TOKEN, isTest: IS_TEST
-    });\r\n\r\n    let questIdByPlayerID = { ...$.groupState.questIdByPlayerID };\r\n   
-    questIdByPlayerID[player.id] = ($.groupState.currentPage - 1) * 30 + triggerQuestID
-    + 1;\r\n    $.groupState.questIdByPlayerID = questIdByPlayerID;\r\n})\r\n"
+    questInfoText.send(\"onCreate\", { player, eID, token: TOKEN, endpointId: ENDPOINT_ID,
+    isTest: IS_TEST });\r\n\r\n    let questIdByPlayerID = { ...$.groupState.questIdByPlayerID
+    };\r\n    questIdByPlayerID[player.id] = ($.groupState.currentPage - 1) * 30
+    + triggerQuestID + 1;\r\n    $.groupState.questIdByPlayerID = questIdByPlayerID;\r\n})\r\n"
 --- !u!114 &1496863851192089993
 MonoBehaviour:
   m_ObjectHideFlags: 0

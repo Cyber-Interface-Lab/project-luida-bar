@@ -12,7 +12,7 @@ $.onReceive((messageType, arg, sender) => {
             $.setVisiblePlayers([arg.player]);
             $.requestOwner(arg.player);
             $.setStateCompat("this", "show", true);
-            sendQuestInfoRequest(arg.eID, arg.token, arg.isTest);
+            sendQuestInfoRequest(arg.eID, arg.token, arg.endpointId, arg.isTest);
             break;
         default:
             break;
@@ -34,7 +34,7 @@ $.onExternalCallEnd((res, meta, err) => {
     }
 });
 
-function sendQuestInfoRequest(eID, token, isTest) {
+function sendQuestInfoRequest(eID, token, endpointId, isTest) {
     $.subNode("Title").setText("Loading...");
     $.subNode("Description").setText("");
     $.subNode("Prerequisite").setText("");
@@ -46,7 +46,7 @@ function sendQuestInfoRequest(eID, token, isTest) {
         token: token,
         isTest: isTest
     };
-    $.callExternal(new ExternalEndpointId(ENDPOINT_ID), JSON.stringify(request), "getQuestInfo");
+    $.callExternal(new ExternalEndpointId(endpointId), JSON.stringify(request), "getQuestInfo");
 }
 
 function receiveText(quest, currentQuestID) {
