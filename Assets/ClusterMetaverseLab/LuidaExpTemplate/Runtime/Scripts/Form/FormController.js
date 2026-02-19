@@ -2,9 +2,18 @@ $.onStart(() => {
   reset();
   $.state.isParticipantAssigned = false;
   $.groupState.qCompletedCount = 0;
+  $.state.resetGeneration = $.groupState.resetGeneration || 0;
 });
 
 $.onUpdate((deltaTime) => {
+  // Reset all forms when a new reset generation is signaled (handles state re-entry)
+  if (($.groupState.resetGeneration || 0) > ($.state.resetGeneration || 0)) {
+    $.state.resetGeneration = $.groupState.resetGeneration;
+    reset();
+    $.state.isParticipantAssigned = false;
+    $.setStateCompat("this", "form_show_start_hint", true);
+  }
+
   if (!$.state.isParticipantAssigned && $.groupState.isParticipantsEnough) {
     let player = $.groupState.participants[($.getStateCompat("this", "pID", "integer") - 1) || 0];
     $.state.participant = player;
@@ -335,6 +344,7 @@ $.onExternalCallEnd((res, meta, err) => {
     if ($.groupState.qCompletedCount >= $.groupState.participants.length) {
       $.log("All participants have completed the questionnaire!");
       $.groupState.qCompletedCount = 0;
+      $.groupState.resetGeneration = ($.groupState.resetGeneration || 0) + 1; // Signal all forms to reset
       $.sendSignalCompat("this", "form_allPlayersCompleted"); // state_triggerTransition
       $.groupState.participants.forEach(p => {
         p.send("setQuestionnaireUI", {
@@ -342,7 +352,6 @@ $.onExternalCallEnd((res, meta, err) => {
           e: false
         });
       });
-      reset();
     }
   }
 });
