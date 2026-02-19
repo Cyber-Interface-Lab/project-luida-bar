@@ -8,11 +8,6 @@ const stateEnterActions = {
         { type: "exec", action: (deltaTime) => {
             $.state.isTracking = true;
         } }
-    ],
-    4: [
-        { type: "exec", action: (deltaTime) => {
-            sendSwingData();
-        } }
     ]
 };
 
@@ -23,40 +18,41 @@ const stateExitActions = {
     3: [
         { type: "exec", action: (deltaTime) => {
             $.state.isTracking = false;
+            sendSwingData();
         } }
     ]
 };
 
 
+// Velocity threshold for swing detection
+const VEL_Y_THRESHOLD = 0.1;       // m/s - Y velocity below this is "near zero"
+const SWING_MIN_SAMPLES = 3;       // minimum frames for valid swing
+
 function Start() {
   // Control flag - only calculate when true
   $.state.isTracking = false;
 
-  // Position/velocity/acceleration tracking
+  // Position/velocity tracking
   $.state.prevPos = null;
-  $.state.prevVel = null;
   $.state.currentVel = null;
-  $.state.prevAccelMag = null;
-  $.state.prevPrevAccelMag = null;
 
-  // Swing tracking
+  // Swing tracking (based on Y position/velocity direction)
   $.state.swingStartTime = null;
   $.state.swingDistance = 0;
   $.state.swingSpeedSum = 0;
   $.state.swingSampleCount = 0;
+  $.state.swingMaxSpeed = 0;  // Peak speed during current swing (used as collision speed)
   $.state.inSwing = false;
+$.state.wasMovingDown = false;  // Track if Y velocity was negative (moving down)
 
-  // Completed swings
+// Completed swings
   $.state.completedSwingSpeeds = [];
   $.state.swingCount = 0;
   $.state.averageSwingSpeed = 0;
 
-  // Collision data
-  $.state.collisionVelocity = null;
-  $.state.collisionSpeed = null;
-  $.state.collisionSpeeds = [];       // All collision speeds
-  $.state.collisionCount = 0;
-  $.state.averageCollisionSpeed = 0;  // Average across all collisions
+  // Peak speeds per swing (treated as collision speeds)
+  $.state.swingPeakSpeeds = [];       // Peak speed from each swing
+  $.state.averagePeakSpeed = 0;       // Average peak speed across all swings
 
   // Time tracking
   $.state.totalTime = 0;
@@ -67,171 +63,156 @@ function Update(deltaTime) {
   if (!$.state.isTracking) {
     // Reset tracking state when disabled to start fresh next time
     $.state.prevPos = null;
-    $.state.prevVel = null;
-    $.state.currentVel = null;
-    $.state.prevAccelMag = null;
-    $.state.prevPrevAccelMag = null;
+$.state.currentVel = null;
     return;
   }
 
   $.state.totalTime += deltaTime;
 
-  // Get current position
-  const currentPos = $.getPosition();
+// Get current position
+  const currentPos = $.getPosition().clone();
   if (!currentPos) return;
 
   // Calculate velocity (requires previous position)
-  if ($.state.prevPos !== null) {
+if ($.state.prevPos !== null) {
     const dx = currentPos.x - $.state.prevPos.x;
-    const dy = currentPos.y - $.state.prevPos.y;
+const dy = currentPos.y - $.state.prevPos.y;
     const dz = currentPos.z - $.state.prevPos.z;
 
-    const currentVel = new Vector3(
+const currentVel = new Vector3(
       dx / deltaTime,
       dy / deltaTime,
-      dz / deltaTime
+dz / deltaTime
     );
     const speed = Math.sqrt(dx * dx + dy * dy + dz * dz) / deltaTime;
 
-    // Calculate acceleration (requires previous velocity)
-    if ($.state.prevVel !== null) {
-      const dvx = currentVel.x - $.state.prevVel.x;
-      const dvy = currentVel.y - $.state.prevVel.y;
-      const dvz = currentVel.z - $.state.prevVel.z;
+    // Detect swing based on Y position (Y velocity direction)
+const velY = currentVel.y;
+    const isMovingDown = velY < -VEL_Y_THRESHOLD; // Negative Y = moving down
 
-      const accelMag = Math.sqrt(dvx * dvx + dvy * dvy + dvz * dvz) / deltaTime;
+    if ($.state.wasMovingDown && !isMovingDown) {
+      // Was moving down, now stopped or moving up: downward swing completed
+if ($.state.inSwing && $.state.swingSampleCount >= SWING_MIN_SAMPLES) {
+const swingAvgSpeed = $.state.swingSpeedSum / $.state.swingSampleCount;
+const swingSpeeds = $.state.completedSwingSpeeds;
+        swingSpeeds.push(swingAvgSpeed);
+$.state.completedSwingSpeeds = swingSpeeds;
 
-      // Detect local minimum acceleration
-      // A local minimum occurs when: prevPrevAccelMag > prevAccelMag < currentAccelMag
-      if ($.state.prevAccelMag !== null && $.state.prevPrevAccelMag !== null) {
-        const isLocalMin = $.state.prevPrevAccelMag > $.state.prevAccelMag &&
-                          $.state.prevAccelMag < accelMag;
+        // Record peak speed as collision speed for this swing
+        const peakSpeeds = $.state.swingPeakSpeeds;
+peakSpeeds.push($.state.swingMaxSpeed);
+        $.state.swingPeakSpeeds = peakSpeeds;
 
-        if (isLocalMin) {
-          // Found a local minimum - this is a swing endpoint
-          if ($.state.inSwing) {
-            // End current swing and store its average speed
-            if ($.state.swingSampleCount > 0) {
-              const swingAvgSpeed = $.state.swingSpeedSum / $.state.swingSampleCount;
-              $.state.completedSwingSpeeds.push(swingAvgSpeed);
-              $.state.swingCount += 1;
-
-              $.log("Swing #" + $.state.swingCount + " completed. Speed: " +
-                    swingAvgSpeed.toFixed(3) + " m/s");
-            }
-          }
-
-          // Start new swing
-          $.state.swingStartTime = $.state.totalTime;
-          $.state.swingDistance = 0;
-          $.state.swingSpeedSum = 0;
-          $.state.swingSampleCount = 0;
-          $.state.inSwing = true;
-        }
+$.state.swingCount += 1;
+        $.log("Downward swing #" + $.state.swingCount + " completed. Avg: " +
+              swingAvgSpeed.toFixed(3) + " m/s, Peak: " + $.state.swingMaxSpeed.toFixed(3) + " m/s");
       }
 
-      // Accumulate swing data
-      if ($.state.inSwing) {
-        const frameDist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-        $.state.swingDistance += frameDist;
-        $.state.swingSpeedSum += speed;
-        $.state.swingSampleCount += 1;
-      }
-
-      // Shift acceleration history
-      $.state.prevPrevAccelMag = $.state.prevAccelMag;
-      $.state.prevAccelMag = accelMag;
-    } else {
-      // First acceleration calculation
-      $.state.prevAccelMag = 0;
+      // Reset for next swing
+      $.state.swingStartTime = null;
+      $.state.swingDistance = 0;
+      $.state.swingSpeedSum = 0;
+      $.state.swingSampleCount = 0;
+$.state.swingMaxSpeed = 0;
+      $.state.inSwing = false;
     }
 
-    // Store current velocity for next frame and collision detection
+    if (!$.state.wasMovingDown && isMovingDown) {
+      // Started moving down: new downward swing starting
+$.state.inSwing = true;
+      $.state.swingStartTime = $.state.totalTime;
+}
+
+    $.state.wasMovingDown = isMovingDown;
+
+    // Accumulate swing data (only during downward movement)
+    if ($.state.inSwing) {
+      const frameDist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      $.state.swingDistance += frameDist;
+$.state.swingSpeedSum += speed;
+      $.state.swingSampleCount += 1;
+
+// Track peak speed during this swing
+      if (speed > $.state.swingMaxSpeed) {
+        $.state.swingMaxSpeed = speed;
+      }
+    }
+
+    // Store current velocity for collision detection
     $.state.currentVel = currentVel;
-    $.state.prevVel = currentVel.clone();
   }
 
-  // Store current position for next frame
+// Store current position for next frame
   $.state.prevPos = currentPos.clone();
 }
 
-$.onCollide((collision) => {
-  // Skip if not tracking
-  if (!$.state.isTracking) return;
-
-  // Capture velocity at collision
-  if ($.state.currentVel !== null) {
-    $.state.collisionVelocity = $.state.currentVel.clone();
-    $.state.collisionSpeed = Math.sqrt(
-      $.state.currentVel.x * $.state.currentVel.x +
-      $.state.currentVel.y * $.state.currentVel.y +
-      $.state.currentVel.z * $.state.currentVel.z
-    );
-
-    // Track collision speed
-    $.state.collisionSpeeds.push($.state.collisionSpeed);
-    $.state.collisionCount += 1;
-
-    $.log("Collision #" + $.state.collisionCount + "! Speed: " +
-          $.state.collisionSpeed.toFixed(3) + " m/s");
-  }
-});
-
 function sendSwingData() {
+  // Finalize any in-progress downward swing before calculating averages
+  if ($.state.inSwing && $.state.swingSampleCount >= SWING_MIN_SAMPLES) {
+    const swingAvgSpeed = $.state.swingSpeedSum / $.state.swingSampleCount;
+const swingSpeeds = $.state.completedSwingSpeeds;
+    swingSpeeds.push(swingAvgSpeed);
+$.state.completedSwingSpeeds = swingSpeeds;
+
+    // Record peak speed for this swing
+    const peakSpeeds = $.state.swingPeakSpeeds;
+    peakSpeeds.push($.state.swingMaxSpeed);
+$.state.swingPeakSpeeds = peakSpeeds;
+
+    $.state.swingCount += 1;
+  }
+$.state.inSwing = false;
+
   // Calculate average swing speed
   let avgSwingSpeed = 0;
   if ($.state.completedSwingSpeeds.length > 0) {
     let totalSwingSpeed = 0;
     for (let i = 0; i < $.state.completedSwingSpeeds.length; i++) {
-      totalSwingSpeed += $.state.completedSwingSpeeds[i];
+totalSwingSpeed += $.state.completedSwingSpeeds[i];
     }
     avgSwingSpeed = totalSwingSpeed / $.state.completedSwingSpeeds.length;
   }
   $.state.averageSwingSpeed = avgSwingSpeed;
 
-  // Calculate average collision speed
-  let avgCollisionSpeed = 0;
-  if ($.state.collisionSpeeds.length > 0) {
-    let totalCollisionSpeed = 0;
-    for (let i = 0; i < $.state.collisionSpeeds.length; i++) {
-      totalCollisionSpeed += $.state.collisionSpeeds[i];
+  // Calculate average peak speed (used as collision speed)
+let avgPeakSpeed = 0;
+  if ($.state.swingPeakSpeeds.length > 0) {
+    let totalPeakSpeed = 0;
+    for (let i = 0; i < $.state.swingPeakSpeeds.length; i++) {
+      totalPeakSpeed += $.state.swingPeakSpeeds[i];
     }
-    avgCollisionSpeed = totalCollisionSpeed / $.state.collisionSpeeds.length;
-  }
-  $.state.averageCollisionSpeed = avgCollisionSpeed;
+    avgPeakSpeed = totalPeakSpeed / $.state.swingPeakSpeeds.length;
+}
+  $.state.averagePeakSpeed = avgPeakSpeed;
 
-  // Send to DataCollector
+  // Send to DataCollector (peak speed is treated as collision speed)
   SendDataToCollector("rightSwingAvgSpeed", avgSwingSpeed);
-  SendDataToCollector("rightCollisionAvgSpeed", avgCollisionSpeed);
+  SendDataToCollector("rightCollisionAvgSpeed", avgPeakSpeed);
 
-  $.log("Data sent - rightSwingAvgSpeed: " + avgSwingSpeed.toFixed(3) +
-        " m/s, rightCollisionAvgSpeed: " + avgCollisionSpeed.toFixed(3) + " m/s");
+$.log("Data sent - rightSwingAvgSpeed: " + avgSwingSpeed.toFixed(3) +
+" m/s, rightCollisionAvgSpeed (peak): " + avgPeakSpeed.toFixed(3) + " m/s");
 
-  Reset();
+Reset();
 }
 
 function Reset() {
   $.state.prevPos = null;
-  $.state.prevVel = null;
   $.state.currentVel = null;
-  $.state.prevAccelMag = null;
-  $.state.prevPrevAccelMag = null;
 
   $.state.swingStartTime = null;
   $.state.swingDistance = 0;
   $.state.swingSpeedSum = 0;
   $.state.swingSampleCount = 0;
+  $.state.swingMaxSpeed = 0;
   $.state.inSwing = false;
+  $.state.wasMovingDown = false;
 
   $.state.completedSwingSpeeds = [];
   $.state.swingCount = 0;
   $.state.averageSwingSpeed = 0;
 
-  $.state.collisionVelocity = null;
-  $.state.collisionSpeed = null;
-  $.state.collisionSpeeds = [];
-  $.state.collisionCount = 0;
-  $.state.averageCollisionSpeed = 0;
+  $.state.swingPeakSpeeds = [];
+  $.state.averagePeakSpeed = 0;
 
   $.state.totalTime = 0;
 }

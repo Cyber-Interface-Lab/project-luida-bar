@@ -17,6 +17,9 @@ const stateExitActions = {
     2: [
         { type: "exec", action: (deltaTime) => {
             $.setStateCompat('this', 'exp_showItem', false);
+        } },
+        { type: "exec", action: (deltaTime) => {
+            PARTICIPANTS[1].setMoveSpeedRate(1);
         } }
     ]
 };

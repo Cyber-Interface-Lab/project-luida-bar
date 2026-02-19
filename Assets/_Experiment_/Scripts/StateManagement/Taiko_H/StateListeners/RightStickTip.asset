@@ -31,26 +31,16 @@ MonoBehaviour:
         actionType: Customized Action
         codeSnippet: 
         variables: []
-      customAction: $.state.isTracking = false;
+      customAction: '$.state.isTracking = false;
+
+        sendSwingData();
+
+'
       isConditional: 0
       conditionVariable: 
       conditionValue: 
       _variableKeys: []
       _variableValuesList: []
-  - stateID: 4
-    onStateStartedActions:
-    - predefinedActionTemplate:
-        actionType: Customized Action
-        codeSnippet: 
-        variables: []
-      customAction: sendSwingData();
-      isConditional: 0
-      conditionVariable: 
-      conditionValue: 
-      _variableKeys: []
-      _variableValuesList: []
-    duringStateActions: []
-    onStateExitedActions: []
   - stateID: 0
     onStateStartedActions:
     - predefinedActionTemplate:
@@ -65,81 +55,79 @@ MonoBehaviour:
       _variableValuesList: []
     duringStateActions: []
     onStateExitedActions: []
-  otherImplementation: "function Start() {\n  // Control flag - only calculate when
-    true\n  $.state.isTracking = false;\n\n  // Position/velocity/acceleration tracking\n 
-    $.state.prevPos = null;\n  $.state.prevVel = null;\n  $.state.currentVel = null;\n 
-    $.state.prevAccelMag = null;\n  $.state.prevPrevAccelMag = null;\n\n  // Swing
-    tracking\n  $.state.swingStartTime = null;\n  $.state.swingDistance = 0;\n  $.state.swingSpeedSum
-    = 0;\n  $.state.swingSampleCount = 0;\n  $.state.inSwing = false;\n\n  // Completed
-    swings\n  $.state.completedSwingSpeeds = [];\n  $.state.swingCount = 0;\n  $.state.averageSwingSpeed
-    = 0;\n\n  // Collision data\n  $.state.collisionVelocity = null;\n  $.state.collisionSpeed
-    = null;\n  $.state.collisionSpeeds = [];       // All collision speeds\n  $.state.collisionCount
-    = 0;\n  $.state.averageCollisionSpeed = 0;  // Average across all collisions\n\n 
-    // Time tracking\n  $.state.totalTime = 0;\n}\n\nfunction Update(deltaTime) {\n 
-    // Skip if not tracking\n  if (!$.state.isTracking) {\n    // Reset tracking
-    state when disabled to start fresh next time\n    $.state.prevPos = null;\n   
-    $.state.prevVel = null;\n    $.state.currentVel = null;\n    $.state.prevAccelMag
-    = null;\n    $.state.prevPrevAccelMag = null;\n    return;\n  }\n\n  $.state.totalTime
-    += deltaTime;\n\n  // Get current position\n  const currentPos = $.getPosition();\n 
-    if (!currentPos) return;\n\n  // Calculate velocity (requires previous position)\n 
-    if ($.state.prevPos !== null) {\n    const dx = currentPos.x - $.state.prevPos.x;\n   
-    const dy = currentPos.y - $.state.prevPos.y;\n    const dz = currentPos.z - $.state.prevPos.z;\n\n   
-    const currentVel = new Vector3(\n      dx / deltaTime,\n      dy / deltaTime,\n     
+  otherImplementation: "// Velocity threshold for swing detection\nconst VEL_Y_THRESHOLD
+    = 0.1;       // m/s - Y velocity below this is \"near zero\"\nconst SWING_MIN_SAMPLES
+    = 3;       // minimum frames for valid swing\n\nfunction Start() {\n  // Control
+    flag - only calculate when true\n  $.state.isTracking = false;\n\n  // Position/velocity tracking\n  $.state.prevPos
+    = null;\n  $.state.currentVel = null;\n\n  // Swing tracking (based on Y position/velocity
+    direction)\n  $.state.swingStartTime = null;\n  $.state.swingDistance = 0;\n  $.state.swingSpeedSum
+    = 0;\n  $.state.swingSampleCount = 0;\n  $.state.swingMaxSpeed = 0;  // Peak
+    speed during current swing (used as collision speed)\n  $.state.inSwing = false;\n
+    $.state.wasMovingDown = false;  // Track if Y velocity was negative (moving down)\n\n
+    // Completed swings\n  $.state.completedSwingSpeeds = [];\n  $.state.swingCount
+    = 0;\n  $.state.averageSwingSpeed = 0;\n\n  // Peak speeds per swing (treated
+    as collision speeds)\n  $.state.swingPeakSpeeds = [];       // Peak speed from
+    each swing\n  $.state.averagePeakSpeed = 0;       // Average peak speed across
+    all swings\n\n  // Time tracking\n  $.state.totalTime = 0;\n}\n\nfunction Update(deltaTime)
+    {\n  // Skip if not tracking\n  if (!$.state.isTracking) {\n    // Reset tracking
+    state when disabled to start fresh next time\n    $.state.prevPos = null;\n
+    $.state.currentVel = null;\n    return;\n  }\n\n  $.state.totalTime += deltaTime;\n\n
+    // Get current position\n  const currentPos = $.getPosition().clone();\n  if
+    (!currentPos) return;\n\n  // Calculate velocity (requires previous position)\n
+    if ($.state.prevPos !== null) {\n    const dx = currentPos.x - $.state.prevPos.x;\n
+    const dy = currentPos.y - $.state.prevPos.y;\n    const dz = currentPos.z - $.state.prevPos.z;\n\n
+    const currentVel = new Vector3(\n      dx / deltaTime,\n      dy / deltaTime,\n
     dz / deltaTime\n    );\n    const speed = Math.sqrt(dx * dx + dy * dy + dz *
-    dz) / deltaTime;\n\n    // Calculate acceleration (requires previous velocity)\n   
-    if ($.state.prevVel !== null) {\n      const dvx = currentVel.x - $.state.prevVel.x;\n     
-    const dvy = currentVel.y - $.state.prevVel.y;\n      const dvz = currentVel.z
-    - $.state.prevVel.z;\n\n      const accelMag = Math.sqrt(dvx * dvx + dvy * dvy
-    + dvz * dvz) / deltaTime;\n\n      // Detect local minimum acceleration\n     
-    // A local minimum occurs when: prevPrevAccelMag > prevAccelMag < currentAccelMag\n     
-    if ($.state.prevAccelMag !== null && $.state.prevPrevAccelMag !== null) {\n       
-    const isLocalMin = $.state.prevPrevAccelMag > $.state.prevAccelMag &&\n                         
-    $.state.prevAccelMag < accelMag;\n\n        if (isLocalMin) {\n          // Found
-    a local minimum - this is a swing endpoint\n          if ($.state.inSwing) {\n           
-    // End current swing and store its average speed\n            if ($.state.swingSampleCount
-    > 0) {\n              const swingAvgSpeed = $.state.swingSpeedSum / $.state.swingSampleCount;\n             
-    $.state.completedSwingSpeeds.push(swingAvgSpeed);\n              $.state.swingCount
-    += 1;\n\n              $.log(\"Swing #\" + $.state.swingCount + \" completed.
-    Speed: \" +\n                    swingAvgSpeed.toFixed(3) + \" m/s\");\n           
-    }\n          }\n\n          // Start new swing\n          $.state.swingStartTime
-    = $.state.totalTime;\n          $.state.swingDistance = 0;\n          $.state.swingSpeedSum
-    = 0;\n          $.state.swingSampleCount = 0;\n          $.state.inSwing = true;\n       
-    }\n      }\n\n      // Accumulate swing data\n      if ($.state.inSwing) {\n       
-    const frameDist = Math.sqrt(dx * dx + dy * dy + dz * dz);\n        $.state.swingDistance
-    += frameDist;\n        $.state.swingSpeedSum += speed;\n        $.state.swingSampleCount
-    += 1;\n      }\n\n      // Shift acceleration history\n      $.state.prevPrevAccelMag
-    = $.state.prevAccelMag;\n      $.state.prevAccelMag = accelMag;\n    } else {\n     
-    // First acceleration calculation\n      $.state.prevAccelMag = 0;\n    }\n\n   
-    // Store current velocity for next frame and collision detection\n    $.state.currentVel
-    = currentVel;\n    $.state.prevVel = currentVel.clone();\n  }\n\n  // Store current
-    position for next frame\n  $.state.prevPos = currentPos.clone();\n}\n\n$.onCollide((collision)
-    => {\n  // Skip if not tracking\n  if (!$.state.isTracking) return;\n\n  // Capture
-    velocity at collision\n  if ($.state.currentVel !== null) {\n    $.state.collisionVelocity
-    = $.state.currentVel.clone();\n    $.state.collisionSpeed = Math.sqrt(\n     
-    $.state.currentVel.x * $.state.currentVel.x +\n      $.state.currentVel.y * $.state.currentVel.y
-    +\n      $.state.currentVel.z * $.state.currentVel.z\n    );\n\n    // Track
-    collision speed\n    $.state.collisionSpeeds.push($.state.collisionSpeed);\n   
-    $.state.collisionCount += 1;\n\n    $.log(\"Collision #\" + $.state.collisionCount
-    + \"! Speed: \" +\n          $.state.collisionSpeed.toFixed(3) + \" m/s\");\n 
-    }\n});\n\nfunction sendSwingData() {\n  // Calculate average swing speed\n  let
-    avgSwingSpeed = 0;\n  if ($.state.completedSwingSpeeds.length > 0) {\n    let
-    totalSwingSpeed = 0;\n    for (let i = 0; i < $.state.completedSwingSpeeds.length;
-    i++) {\n      totalSwingSpeed += $.state.completedSwingSpeeds[i];\n    }\n   
-    avgSwingSpeed = totalSwingSpeed / $.state.completedSwingSpeeds.length;\n  }\n 
-    $.state.averageSwingSpeed = avgSwingSpeed;\n\n  // Calculate average collision
-    speed\n  let avgCollisionSpeed = 0;\n  if ($.state.collisionSpeeds.length > 0)
-    {\n    let totalCollisionSpeed = 0;\n    for (let i = 0; i < $.state.collisionSpeeds.length;
-    i++) {\n      totalCollisionSpeed += $.state.collisionSpeeds[i];\n    }\n   
-    avgCollisionSpeed = totalCollisionSpeed / $.state.collisionSpeeds.length;\n 
-    }\n  $.state.averageCollisionSpeed = avgCollisionSpeed;\n\n  // Send to DataCollector\n 
-    SendDataToCollector(\"rightSwingAvgSpeed\", avgSwingSpeed);\n  SendDataToCollector(\"rightCollisionAvgSpeed\",
-    avgCollisionSpeed);\n\n  $.log(\"Data sent - rightSwingAvgSpeed: \" + avgSwingSpeed.toFixed(3)
-    +\n        \" m/s, rightCollisionAvgSpeed: \" + avgCollisionSpeed.toFixed(3)
-    + \" m/s\");\n\n  Reset();\n}\n\nfunction Reset() {\n  $.state.prevPos = null;\n 
-    $.state.prevVel = null;\n  $.state.currentVel = null;\n  $.state.prevAccelMag
-    = null;\n  $.state.prevPrevAccelMag = null;\n\n  $.state.swingStartTime = null;\n 
-    $.state.swingDistance = 0;\n  $.state.swingSpeedSum = 0;\n  $.state.swingSampleCount
-    = 0;\n  $.state.inSwing = false;\n\n  $.state.completedSwingSpeeds = [];\n  $.state.swingCount
-    = 0;\n  $.state.averageSwingSpeed = 0;\n\n  $.state.collisionVelocity = null;\n 
-    $.state.collisionSpeed = null;\n  $.state.collisionSpeeds = [];\n  $.state.collisionCount
-    = 0;\n  $.state.averageCollisionSpeed = 0;\n\n  $.state.totalTime = 0;\n}\n"
+    dz) / deltaTime;\n\n    // Detect swing based on Y position (Y velocity direction)\n
+    const velY = currentVel.y;\n    const isMovingDown = velY < -VEL_Y_THRESHOLD;
+    // Negative Y = moving down\n\n    if ($.state.wasMovingDown && !isMovingDown)
+    {\n      // Was moving down, now stopped or moving up: downward swing completed\n
+    if ($.state.inSwing && $.state.swingSampleCount >= SWING_MIN_SAMPLES) {\n
+    const swingAvgSpeed = $.state.swingSpeedSum / $.state.swingSampleCount;\n
+    const swingSpeeds = $.state.completedSwingSpeeds;\n        swingSpeeds.push(swingAvgSpeed);\n
+    $.state.completedSwingSpeeds = swingSpeeds;\n\n        // Record peak speed as
+    collision speed for this swing\n        const peakSpeeds = $.state.swingPeakSpeeds;\n
+    peakSpeeds.push($.state.swingMaxSpeed);\n        $.state.swingPeakSpeeds = peakSpeeds;\n\n
+    $.state.swingCount += 1;\n        $.log(\"Downward swing #\" + $.state.swingCount
+    + \" completed. Avg: \" +\n              swingAvgSpeed.toFixed(3) + \" m/s, Peak:
+    \" + $.state.swingMaxSpeed.toFixed(3) + \" m/s\");\n      }\n\n      // Reset
+    for next swing\n      $.state.swingStartTime = null;\n      $.state.swingDistance
+    = 0;\n      $.state.swingSpeedSum = 0;\n      $.state.swingSampleCount = 0;\n
+    $.state.swingMaxSpeed = 0;\n      $.state.inSwing = false;\n    }\n\n    if (!$.state.wasMovingDown
+    && isMovingDown) {\n      // Started moving down: new downward swing starting\n
+    $.state.inSwing = true;\n      $.state.swingStartTime = $.state.totalTime;\n
+    }\n\n    $.state.wasMovingDown = isMovingDown;\n\n    // Accumulate swing data
+    (only during downward movement)\n    if ($.state.inSwing) {\n      const frameDist
+    = Math.sqrt(dx * dx + dy * dy + dz * dz);\n      $.state.swingDistance += frameDist;\n
+    $.state.swingSpeedSum += speed;\n      $.state.swingSampleCount += 1;\n\n
+    // Track peak speed during this swing\n      if (speed > $.state.swingMaxSpeed)
+    {\n        $.state.swingMaxSpeed = speed;\n      }\n    }\n\n    // Store current
+    velocity for collision detection\n    $.state.currentVel = currentVel;\n  }\n\n
+    // Store current position for next frame\n  $.state.prevPos = currentPos.clone();\n}\n\nfunction
+    sendSwingData() {\n  // Finalize any in-progress downward swing before calculating
+    averages\n  if ($.state.inSwing && $.state.swingSampleCount >= SWING_MIN_SAMPLES)
+    {\n    const swingAvgSpeed = $.state.swingSpeedSum / $.state.swingSampleCount;\n
+    const swingSpeeds = $.state.completedSwingSpeeds;\n    swingSpeeds.push(swingAvgSpeed);\n
+    $.state.completedSwingSpeeds = swingSpeeds;\n\n    // Record peak speed for this
+    swing\n    const peakSpeeds = $.state.swingPeakSpeeds;\n    peakSpeeds.push($.state.swingMaxSpeed);\n
+    $.state.swingPeakSpeeds = peakSpeeds;\n\n    $.state.swingCount += 1;\n  }\n
+    $.state.inSwing = false;\n\n  // Calculate average swing speed\n  let avgSwingSpeed
+    = 0;\n  if ($.state.completedSwingSpeeds.length > 0) {\n    let totalSwingSpeed
+    = 0;\n    for (let i = 0; i < $.state.completedSwingSpeeds.length; i++) {\n
+    totalSwingSpeed += $.state.completedSwingSpeeds[i];\n    }\n    avgSwingSpeed
+    = totalSwingSpeed / $.state.completedSwingSpeeds.length;\n  }\n  $.state.averageSwingSpeed
+    = avgSwingSpeed;\n\n  // Calculate average peak speed (used as collision speed)\n
+    let avgPeakSpeed = 0;\n  if ($.state.swingPeakSpeeds.length > 0) {\n    let totalPeakSpeed
+    = 0;\n    for (let i = 0; i < $.state.swingPeakSpeeds.length; i++) {\n      totalPeakSpeed
+    += $.state.swingPeakSpeeds[i];\n    }\n    avgPeakSpeed = totalPeakSpeed / $.state.swingPeakSpeeds.length;\n
+    }\n  $.state.averagePeakSpeed = avgPeakSpeed;\n\n  // Send to DataCollector (peak
+    speed is treated as collision speed)\n  SendDataToCollector(\"rightSwingAvgSpeed\",
+    avgSwingSpeed);\n  SendDataToCollector(\"rightCollisionAvgSpeed\", avgPeakSpeed);\n\n
+    $.log(\"Data sent - rightSwingAvgSpeed: \" + avgSwingSpeed.toFixed(3) +\n
+    \" m/s, rightCollisionAvgSpeed (peak): \" + avgPeakSpeed.toFixed(3) + \" m/s\");\n\n
+    Reset();\n}\n\nfunction Reset() {\n  $.state.prevPos = null;\n  $.state.currentVel
+    = null;\n\n  $.state.swingStartTime = null;\n  $.state.swingDistance = 0;\n  $.state.swingSpeedSum
+    = 0;\n  $.state.swingSampleCount = 0;\n  $.state.swingMaxSpeed = 0;\n  $.state.inSwing
+    = false;\n  $.state.wasMovingDown = false;\n\n  $.state.completedSwingSpeeds =
+    [];\n  $.state.swingCount = 0;\n  $.state.averageSwingSpeed = 0;\n\n  $.state.swingPeakSpeeds
+    = [];\n  $.state.averagePeakSpeed = 0;\n\n  $.state.totalTime = 0;\n}\n"

@@ -50,4 +50,14 @@ MonoBehaviour:
       conditionValue: 
       _variableKeys: []
       _variableValuesList: []
+    - predefinedActionTemplate:
+        actionType: Customized Action
+        codeSnippet: 
+        variables: []
+      customAction: PARTICIPANTS[1].setMoveSpeedRate(1);
+      isConditional: 0
+      conditionVariable: 
+      conditionValue: 
+      _variableKeys: []
+      _variableValuesList: []
   otherImplementation: 
