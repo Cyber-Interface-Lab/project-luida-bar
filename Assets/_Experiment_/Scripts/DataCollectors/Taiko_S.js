@@ -6,6 +6,10 @@ return {
     selfAvatar: CONDITION['selfAvatar'],
     otherAvatar: CONDITION['otherAvatar'],
     number: CONDITION['number'],
+    leftSwingAvgSpeed: COLLECTED_DATA['leftSwingAvgSpeed'],
+    rightSwingAvgSpeed: COLLECTED_DATA['rightSwingAvgSpeed'],
+    leftCollisionAvgSpeed: COLLECTED_DATA['leftCollisionAvgSpeed'],
+    rightCollisionAvgSpeed: COLLECTED_DATA['rightCollisionAvgSpeed'],
     userId: PARTICIPANTS[1].userId,
     userDisplayName: PARTICIPANTS[1].userDisplayName,
 };
