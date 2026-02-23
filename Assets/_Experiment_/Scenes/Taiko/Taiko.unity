@@ -1402,7 +1402,8 @@ PrefabInstance:
         = {\n    2: [\n        { type: \"exec\", action: (deltaTime) => {\n           
         $.setStateCompat('this', 'exp_showItem', false);\n        } }\n    ]\n};\n\n\nfunction
         Start() {\n  $.state.hits = 0;\n  $.state.isInTask = false;\n}\n$.onCollide((collision)
-        => {\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
+        => {\n  if (collision.handle !== null && collision.handle.type === \"player\")
+        return;\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
         if ($.state.isInTask) $.state.hits += 1;\n});"
       objectReference: {fileID: 0}
     - target: {fileID: 5660514857068071928, guid: de40e14777f5f4d3190981c4f4b1cddf,
@@ -1498,18 +1499,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 160556556}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &160556558 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5660514857068071928, guid: de40e14777f5f4d3190981c4f4b1cddf,
-    type: 3}
-  m_PrefabInstance: {fileID: 160556556}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102143771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3977a5e65e72f4db4b85ddba10d48dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &204492469
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3878,7 +3867,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4e83ed90c2a10f54f895b73fb66bb1ac,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 60
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e83ed90c2a10f54f895b73fb66bb1ac,
         type: 3}
@@ -4059,7 +4048,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.0005
-  m_Height: 0.003
+  m_Height: 0.0025
   m_Direction: 0
   m_Center: {x: -0.002, y: 0, z: 0}
 --- !u!4 &867790676 stripped
@@ -4348,7 +4337,8 @@ PrefabInstance:
         = {\n    2: [\n        { type: \"exec\", action: (deltaTime) => {\n           
         $.setStateCompat('this', 'exp_showItem', false);\n        } }\n    ]\n};\n\n\nfunction
         Start() {\n  $.state.hits = 0;\n  $.state.isInTask = false;\n}\n$.onCollide((collision)
-        => {\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
+        => {\n  if (collision.handle !== null && collision.handle.type === \"player\")
+        return;\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
         if ($.state.isInTask) $.state.hits += 1;\n});"
       objectReference: {fileID: 0}
     - target: {fileID: 5660514857068071928, guid: de40e14777f5f4d3190981c4f4b1cddf,
@@ -4444,18 +4434,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 877520634}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &877520636 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5660514857068071928, guid: de40e14777f5f4d3190981c4f4b1cddf,
-    type: 3}
-  m_PrefabInstance: {fileID: 877520634}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974782495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3977a5e65e72f4db4b85ddba10d48dd4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &930668817
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4964,25 +4942,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 2
---- !u!114 &974782510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974782495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443f29dbc1134b0a82080dfb53bac3f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 974782511}
-  globalGimmickKey:
-    key:
-      target: 0
-      key: play
-    item: {fileID: 877520636}
-  parameterType: 0
 --- !u!82 &974782511
 AudioSource:
   m_ObjectHideFlags: 0
@@ -5080,32 +5039,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &974782512
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 974782495}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba507dbcf46b94a9895daa4d46e12805, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 877520636}
-  collisionEventType: 0
-  collisionType: 1
-  triggers:
-  - target: 0
-    specifiedTargetItem: {fileID: 0}
-    key: play
-    type: 0
-    value:
-      boolValue: 0
-      floatValue: 0
-      integerValue: 0
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
 --- !u!1 &997367276
 GameObject:
   m_ObjectHideFlags: 0
@@ -7338,7 +7271,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.02
-  m_Height: 0.25
+  m_Height: 0.4
   m_Direction: 0
   m_Center: {x: 0.075, y: 0, z: 0}
 --- !u!4 &1370093972
@@ -9637,7 +9570,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 4e83ed90c2a10f54f895b73fb66bb1ac,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 60
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 4e83ed90c2a10f54f895b73fb66bb1ac,
         type: 3}
@@ -9808,7 +9741,7 @@ CapsuleCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.0005
-  m_Height: 0.003
+  m_Height: 0.0025
   m_Direction: 0
   m_Center: {x: -0.002, y: 0, z: 0}
 --- !u!54 &1739675037
@@ -17066,7 +16999,7 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.02
-  m_Height: 0.25
+  m_Height: 0.4
   m_Direction: 0
   m_Center: {x: 0.075, y: 0, z: 0}
 --- !u!4 &1968864745
@@ -17358,25 +17291,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 2
---- !u!114 &2102143787
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102143771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 443f29dbc1134b0a82080dfb53bac3f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 2102143788}
-  globalGimmickKey:
-    key:
-      target: 0
-      key: play
-    item: {fileID: 160556558}
-  parameterType: 0
 --- !u!82 &2102143788
 AudioSource:
   m_ObjectHideFlags: 0
@@ -17474,32 +17388,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &2102143789
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2102143771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba507dbcf46b94a9895daa4d46e12805, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  item: {fileID: 160556558}
-  collisionEventType: 0
-  collisionType: 1
-  triggers:
-  - target: 0
-    specifiedTargetItem: {fileID: 0}
-    key: play
-    type: 0
-    value:
-      boolValue: 0
-      floatValue: 0
-      integerValue: 0
-      vector2Value: {x: 0, y: 0}
-      vector3Value: {x: 0, y: 0, z: 0}
 --- !u!1 &2105703763
 GameObject:
   m_ObjectHideFlags: 0

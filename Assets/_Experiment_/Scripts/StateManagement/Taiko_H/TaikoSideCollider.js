@@ -36,6 +36,7 @@ function Start() {
   $.state.isInTask = false;
 }
 $.onCollide((collision) => {
+  if (collision.handle !== null && collision.handle.type === "player") return;
   $.subNode('Collider').getUnityComponent('AudioSource').play();
   if ($.state.isInTask) $.state.hits += 1;
 });

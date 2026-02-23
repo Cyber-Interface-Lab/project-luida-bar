@@ -38,5 +38,6 @@ MonoBehaviour:
       _variableKeys: []
       _variableValuesList: []
   otherImplementation: "function Start() {\n  $.state.hits = 0;\n  $.state.isInTask
-    = false;\n}\n$.onCollide((collision) => {\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
+    = false;\n}\n$.onCollide((collision) => {\n  if (collision.handle !== null &&
+    collision.handle.type === \"player\") return;\n  $.subNode('Collider').getUnityComponent('AudioSource').play();\n 
     if ($.state.isInTask) $.state.hits += 1;\n});"

@@ -11,7 +11,7 @@ const stateEnterActions = {
             3. バチを持って素振り`);
         } },
         { type: "exec", action: (deltaTime) => {
-            if (PARTICIPANTS) {
+            if (PARTICIPANTS && PARTICIPANTS[1]) {
               PARTICIPANTS[1].setMoveSpeedRate(0.1);
               PARTICIPANTS[1].setPosition(new Vector3(0, 0, -2));
             }
@@ -27,7 +27,7 @@ const stateEnterActions = {
             10秒後に始まります。`);
         } },
         { type: "exec", action: (deltaTime) => {
-            if (PARTICIPANTS) {
+            if (PARTICIPANTS && PARTICIPANTS[1]) {
               PARTICIPANTS[1].setMoveSpeedRate(0.1);
               PARTICIPANTS[1].setPosition(new Vector3(0, 0, -2));
             }
